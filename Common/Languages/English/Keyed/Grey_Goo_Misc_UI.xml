@@ -6,4 +6,6 @@
 
     <MSS_GreyGoo_EnableGoo>Enable Grey Goo</MSS_GreyGoo_EnableGoo>
     <MSS_GreyGoo_SettingsCategory>Grey Goo Flavour Pack</MSS_GreyGoo_SettingsCategory>
+
+    <MSS_GG_GooControllerSpawned>A new grey goo controller has formed!</MSS_GG_GooControllerSpawned>
 </LanguageData>

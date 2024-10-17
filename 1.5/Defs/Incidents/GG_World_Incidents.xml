@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <TaleDef>
+        <defName>MSS_GG_GooControllerSpawnTale</defName>
+        <label>grey goo controller formed</label>
+        <taleClass>Tale_SinglePawn</taleClass>
+        <type>Volatile</type>
+        <baseInterest>5</baseInterest>
+        <rulePack>
+            <rulesStrings>
+                <li>tale_noun->a scout from [PAWN_nameDef]'s [Community] spotting a grey goo controller forming</li>
+                <li>image->an eerie silence, [circumstance_phrase]</li>
+                <li>image->an unthinking mass, [circumstance_phrase]</li>
+                <li>circumstance_phrase->the air full of petrichor</li>
+                <li>circumstance_phrase->a sense of dread</li>
+                <li>desc_sentence->The faceless grey mass forms into an orderly structure.</li>
+            </rulesStrings>
+        </rulePack>
+    </TaleDef>
+
+    <IncidentDef>
+        <defName>MSS_GG_GooControllerSpawn</defName>
+        <label>grey goo controller formed</label>
+        <category>Misc</category>
+        <targetTags>
+            <li>World</li>
+        </targetTags>
+        <tale>MSS_GG_GooControllerSpawnTale</tale>
+        <workerClass>Grey_Goo.IncidentWorker_CreateGooController</workerClass>
+        <letterLabel>MSS_GG_GooControllerSpawned</letterLabel>
+        <letterDef>NegativeEvent</letterDef>
+        <baseChance>1.5</baseChance>
+        <minRefireDays>15</minRefireDays>
+    </IncidentDef>
+
+</Defs>

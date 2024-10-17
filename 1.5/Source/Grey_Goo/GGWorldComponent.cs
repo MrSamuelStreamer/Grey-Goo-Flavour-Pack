@@ -20,45 +20,44 @@ public class GGWorldComponent(World world) : WorldComponent(world)
 
     public void Setup()
     {
-        if(!GooEnabled){return;}
-
         for (int i = 0; i < Find.World.grid.tiles.Count; i++)
         {
             TileGooLevel[i] = 0;
         }
 
-        List<int> controllerLocations = new List<int>();
+        if(!GooEnabled){return;}
+    }
 
-        for (int i = 0; i < 100 && controllerLocations.Count < 3; i++)
+    public bool TrySpawnController(IncidentParms parms)
+    {
+        if(!GooEnabled) return false;
+        if(!CanCreateNewController()) return false;
+
+        int locationTile = -1;
+
+        for (int i = 0; i < 100; i++)
         {
             Tile tile = Find.World.grid.tiles.RandomElement();
-            int idx = Find.World.grid.tiles.IndexOf(tile);
-
-            if(controllerLocations.Contains(idx)) continue;
-
+            locationTile = Find.World.grid.tiles.IndexOf(tile);
             if(tile.WaterCovered) continue;
-            if (Find.World.worldObjects.AnyWorldObjectAt(idx))
-            {
-                continue;
-            }
+            if (Find.World.worldObjects.AnyWorldObjectAt(locationTile)) continue;
 
-            controllerLocations.Add(idx);
+            break;
         }
 
-        foreach (int tile in controllerLocations)
-        {
-            Settlement wo = (Settlement) WorldObjectMaker.MakeWorldObject(WorldObjectDefOf.Settlement);
-            Faction fac = Find.FactionManager.FirstFactionOfDef(Grey_GooDefOf.GG_GreyGoo);
-            wo.SetFaction(fac);
-            wo.Tile = tile;
-            wo.Name = SettlementNameGenerator.GenerateSettlementName(wo);
-            Find.WorldObjects.Add(wo);
+        Settlement wo = (Settlement) WorldObjectMaker.MakeWorldObject(WorldObjectDefOf.Settlement);
+        Faction fac = Find.FactionManager.FirstFactionOfDef(Grey_GooDefOf.GG_GreyGoo);
+        wo.SetFaction(fac);
+        wo.Tile = locationTile;
+        wo.Name = SettlementNameGenerator.GenerateSettlementName(wo);
+        Find.WorldObjects.Add(wo);
 
-            GreyGooController controller = new GreyGooController(wo);
-            controller.Setup();
+        GreyGooController controller = new GreyGooController(wo);
+        controller.Setup();
 
-            controllers.Add(controller);
-        }
+        controllers.Add(controller);
+
+        return true;
     }
 
     public override void WorldComponentTick()
@@ -136,5 +135,10 @@ public class GGWorldComponent(World world) : WorldComponent(world)
     public float GetTileGooLevelAt(int tile)
     {
         return TileGooLevel.TryGetValue(tile, out float value) ? value : 0f;
+    }
+
+    public bool CanCreateNewController()
+    {
+        return GooEnabled && controllers.Count < 3;
     }
 }
