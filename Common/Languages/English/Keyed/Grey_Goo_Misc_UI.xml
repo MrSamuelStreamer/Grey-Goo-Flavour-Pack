@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <GG_ActiveGreyGoo>Active Grey Goo Controller</GG_ActiveGreyGoo>
+    <GG_ControllerStartTitle>Grey Goo Controller Detected!</GG_ControllerStartTitle>
+    <GG_ControllerStartDesc>A grey goo controller was detected in {0}. It will facilitate the spread of grey goo across the planet as long as it's active.</GG_ControllerStartDesc>
+
+    <MSS_GreyGoo_EnableGoo>Enable Grey Goo</MSS_GreyGoo_EnableGoo>
+    <MSS_GreyGoo_SettingsCategory>Grey Goo Flavour Pack</MSS_GreyGoo_SettingsCategory>
+</LanguageData>

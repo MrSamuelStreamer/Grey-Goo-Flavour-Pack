@@ -1,0 +1,13 @@
+ManifestFileVersion: 0
+CRC: 787554273
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: shaders
+      Dependencies: {}
+    Info_1:
+      Name: zoom
+      Dependencies: {}
+    Info_2:
+      Name: liquidmetal
+      Dependencies: {}
