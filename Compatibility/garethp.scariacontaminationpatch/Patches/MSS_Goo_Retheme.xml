@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/HediffDef[defName="Taggerung_SCP_GeneMutation"]/comps</xpath>		<!-- Might want to target class directly if you don't rebalance -->
+		<value>
+			<comps>
+				<li Class="HediffCompProperties_TendDuration">
+				  <baseTendDurationHours>10</baseTendDurationHours>
+				  <severityPerDayTended>-0.43</severityPerDayTended>
+				</li>
+				<li Class="HediffCompProperties_Immunizable">
+				  <severityPerDayNotImmune>0.84</severityPerDayNotImmune>
+				  <immunityPerDaySick>0.4441</immunityPerDaySick>
+				  <severityPerDayImmune>-0.70</severityPerDayImmune>
+				  <immunityPerDayNotSick>-0.40</immunityPerDayNotSick>
+				</li>
+				<li Class="HediffCompProperties_Discoverable">
+				  <sendLetterWhenDiscovered>true</sendLetterWhenDiscovered>
+				</li>
+				<li MayRequire="Ludeon.RimWorld.Biotech" Class="ScariaContaminationPatch.Comps.HediffCompProperties_GeneGiver">
+				  <possibleGenes>
+					<li>Taggerung_SCP_ScariaImmunity</li>
+					<li MayRequire="sarg.alphagenes">AG_Foodless</li>
+					<li MayRequire="sarg.alphagenes">AG_Mood_Unfeeling</li>
+					<li MayRequire="sarg.alphagenes">AG_Regeneration</li>
+					<li MayRequire="vanillaracesexpanded.fungoid">VRE_GeneInfector</li>
+					<li MayRequire="redmattis.bigsmall.core">WoundHealing_VerySlow</li>
+					<li>PsychicAbility_Deaf</li>
+					<li>MoveSpeed_Slow</li>
+					<li MayRequire="sarg.alphagenes">AG_HeatSlowness</li>
+					<li>Neversleep</li>
+					<li MayRequire="sarg.alphagenes">AG_Painless</li>
+					<li MayRequire="redmattis.bigsmall.core">VU_Pallor</li>
+					<li MayRequire="sarg.alphagenes">AG_UnsettlingAppearance</li>
+					<li>Hair_BaldOnly</li>
+					<li MayRequire="redmattis.bigsmall.core">BS_BrokenTitanHead</li>
+					<li MayRequire="vanillaracesexpanded.fungoid">VRE_DeadVoice</li>
+					<li MayRequire="redmattis.bigsmall.core">BS_BrokenTitanBody</li>
+					<li>Skin_SlateGray</li>
+					<li MayRequire="redmattis.bigsmall.core">BS_Xenolocked</li>
+					<li>Learning_Fast</li>
+					<li MayRequire="vanillaracesexpanded.fungoid">VRE_NoSkillLoss</li>
+					<li MayRequire="redmattis.bigsmall.core">BS_DroneKind</li>
+					<li>AptitudeTerrible_Cooking</li>
+					<li>AptitudeTerrible_Animals</li>
+					<li>AptitudeTerrible_Artistic</li>
+					<li>AptitudeTerrible_Social</li>
+					<li MayRequire="redmattis.betterprerequisites">BS_FacialAnimDisabled</li>
+				  </possibleGenes>
+				</li>
+			  </comps>
+		</value>
+	</Operation>
+</Patch>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+<name>Grey Goo Flavour Pack</name>
+<author>Mr Samuel Streamer</author>
+	<packageId>MSS.Goo</packageId>
+	<supportedVersions>
+		<li>1.5</li>
+	</supportedVersions>
+	<description>All the unfun and not cool parts of the Grey Goo experience.</description>
+	<loadAfter>
+		<li>ludeon.rimworld.ideology</li>
+		<li>garethp.scariacontaminationpatch</li>
+		<li>ludeon.rimworld.anomaly</li>
+	</loadAfter>
+</ModMetaData>
