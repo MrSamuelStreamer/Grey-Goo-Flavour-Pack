@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <OutputType>Library</OutputType>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>Grey_Goo.BS</RootNamespace>
+    <AssemblyName>Grey_Goo-BS</AssemblyName>
+    <OutputPath>../../../Compatibility/RedMattis.BetterPrerequisites/1.5/Assemblies/</OutputPath>
+    <ZipFilePath>../../../$(AssemblyName).zip</ZipFilePath>
+    <ReleasePath>../../../Release</ReleasePath>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <SteamModsPath>$(RIMWORLD_STEAM_MODS_PATH)</SteamModsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>../../../../../RimWorldWin64_Data/Managed/Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>../../../../../RimWorldWin64_Data/Managed/UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>../../../../../RimWorldWin64_Data/Managed/UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="BetterPrerequisites">
+        <HintPath Condition="Exists('../../../../BigSmall_Framework')">../../../../BigSmall_Framework/1.5/Main/Assemblies/BetterPrerequisites.dll</HintPath>
+        <HintPath Condition="Exists('../../../../2925432336') and !Exists('../../../../BigSmall_Framework')">../../../../2925432336/1.5/Main/Assemblies/BetterPrerequisites.dll</HintPath>
+        <HintPath Condition="!Exists('../../../../BigSmall_Framework') and Exists('../../../../../../../workshop/content/294100/2925432336')">../../../../../../../workshop/content/294100/2925432336/1.5/Main/Assemblies/BetterPrerequisites.dll</HintPath>
+        <Private>False</Private>
+    </Reference>
+    <Reference Include="BigAndSmall">
+        <HintPath Condition="Exists('../../../../BigSmall_Framework')">../../../../BigSmall_Framework/1.5/Main/Assemblies/BigAndSmall.dll</HintPath>
+        <HintPath Condition="Exists('../../../../2925432336') and !Exists('../../../../BigSmall_Framework')">../../../../2925432336/1.5/Main/Assemblies/BigAndSmall.dll</HintPath>
+        <HintPath Condition="!Exists('../../../../BigSmall_Framework') and Exists('../../../../../../../workshop/content/294100/2925432336')">../../../../../../../workshop/content/294100/2925432336/1.5/Main/Assemblies/BigAndSmall.dll</HintPath>
+        <Private>False</Private>
+    </Reference>
+    <Reference Include="BSXeno.dll">
+        <HintPath Condition="Exists('../../../../BigSmall_Framework')">../../../../BigSmall_Framework/1.5/Main/Assemblies/BSXeno.dll</HintPath>
+        <HintPath Condition="Exists('../../../../2925432336') and !Exists('../../../../BigSmall_Framework')">../../../../2925432336/1.5/Main/Assemblies/BSXeno.dll</HintPath>
+        <HintPath Condition="!Exists('../../../../BigSmall_Framework') and Exists('../../../../../../../workshop/content/294100/2925432336')">../../../../../../../workshop/content/294100/2925432336/1.5/Main/Assemblies/BSXeno.dll</HintPath>
+        <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Grey_Goo/Grey_Goo.csproj" >
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Condition="Exists('../../../../../Data')" Include="../../../../../Data/**/*">
+      <Link>Attached/Rimworld/%(RecursiveDir)/%(FileName)%(Extension)</Link>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\Compatibility\RedMattis.BetterPrerequisites\1.5\Assemblies\Thirst_Flavour_Pack-BS.dll">
+      <Link>RedMattis.BetterPrerequisites\1.5\Assemblies\Thirst_Flavour_Pack-BS.dll</Link>
+    </Content>
+    <Content Include="..\..\..\Compatibility\RedMattis.BetterPrerequisites\1.5\Assemblies\Thirst_Flavour_Pack-BS.pdb">
+      <Link>RedMattis.BetterPrerequisites\1.5\Assemblies\Thirst_Flavour_Pack-BS.pdb</Link>
+    </Content>
+    <Content Include="..\..\..\Compatibility\RedMattis.BetterPrerequisites\1.5\Defs\HediffDefs\MSS_GG_Hediffs_Local_Misc.xml">
+      <Link>RedMattis.BetterPrerequisites\1.5\Defs\HediffDefs\MSS_GG_Hediffs_Local_Misc.xml</Link>
+    </Content>
+    <Content Include="..\..\..\Compatibility\RedMattis.BetterPrerequisites\1.5\Defs\JobDefs\MSS_GG_Jobs_Shamblers.xml">
+      <Link>RedMattis.BetterPrerequisites\1.5\Defs\JobDefs\MSS_GG_Jobs_Shamblers.xml</Link>
+    </Content>
+    <Content Include="..\..\..\Compatibility\RedMattis.BetterPrerequisites\1.5\Defs\PawnKinds\MSS_GG_GoreBeast.xml">
+      <Link>RedMattis.BetterPrerequisites\1.5\Defs\PawnKinds\MSS_GG_GoreBeast.xml</Link>
+    </Content>
+    <Content Include="..\..\..\Compatibility\RedMattis.BetterPrerequisites\1.5\Defs\ThinkTreeDefs\MSS_GG_Shamblers.xml">
+      <Link>RedMattis.BetterPrerequisites\1.5\Defs\ThinkTreeDefs\MSS_GG_Shamblers.xml</Link>
+    </Content>
+    <Content Include="..\..\..\Compatibility\RedMattis.BetterPrerequisites\1.5\Languages\English\Keyed\MSS_GG_BS.xml">
+      <Link>RedMattis.BetterPrerequisites\1.5\Languages\English\Keyed\MSS_GG_BS.xml</Link>
+    </Content>
+    <Content Include="..\..\..\Compatibility\RedMattis.BetterPrerequisites\1.5\Patches\MSS_GG_ShamblerSwarm.xml">
+      <Link>RedMattis.BetterPrerequisites\1.5\Patches\MSS_GG_ShamblerSwarm.xml</Link>
+    </Content>
+    <Content Include="..\..\..\Compatibility\RedMattis.BetterPrerequisites\1.5\Patches\MSS_GG_StatParts.xml">
+      <Link>RedMattis.BetterPrerequisites\1.5\Patches\MSS_GG_StatParts.xml</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+    <ItemGroup>
+    <PackageReference Include="Lib.Harmony" Version="2.*" ExcludeAssets="runtime"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'@(Reference->WithMetadataValue('Identity', 'Assembly-CSharp')->Metadata('HintPath')->Exists())' == ''">
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.5-*"/>
+  </ItemGroup>
+
+</Project>

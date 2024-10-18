@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Defs>
+
+    <HediffDef>
+        <defName>MSS_GG_MergedShambler</defName>
+        <hediffClass>Grey_Goo.BS.Shamblers.Hediff_MergedShade</hediffClass>
+        <label>Merged Shambler</label>
+        <labelNoun>Merged Shambler</labelNoun>
+        <description>MSS_GG_MergedShambler_Desc</description>
+        <tendable>false</tendable>
+        <initialSeverity>1</initialSeverity>
+
+    </HediffDef>
+</Defs>

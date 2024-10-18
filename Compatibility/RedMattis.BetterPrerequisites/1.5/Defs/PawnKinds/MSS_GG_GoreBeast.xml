@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Defs>
+
+    <ThingDef ParentName="BasePawn">
+        <defName>MSS_GG_ShamblerGorebeastRace</defName>
+        <label>gorebeast</label>
+        <description>A monstrous creature that resembles a massive, painfully swollen human with randomly reconfigured body parts. Near its top is a stretched face that watches its victim with dead eyes.\n\nHundreds of sharp keratin spines protrude from the gorehulk's skin. It can launch these spines to spear its victims at a distance. However, its awkward fleshy body is less effective at causing harm up close.\n\nIt's hard to know whether this is a human that was horribly distorted by the influence of the void or a poor imitation of humanity created from scratch by some evil intelligence.</description>
+        <hiddenWhileUndiscovered>true</hiddenWhileUndiscovered>
+        <statBases>
+            <ComfyTemperatureMin>-100</ComfyTemperatureMin>
+            <ComfyTemperatureMax>100</ComfyTemperatureMax>
+            <PsychicSensitivity>0</PsychicSensitivity>
+            <MinimumContainmentStrength>120</MinimumContainmentStrength>
+            <LeatherAmount>200</LeatherAmount>
+            <MeatAmount>700</MeatAmount>
+            <MoveSpeed>2</MoveSpeed>
+            <SM_BodySizeMultiplier>12</SM_BodySizeMultiplier>
+            <MeleeDamageFactor>12</MeleeDamageFactor>
+        </statBases>
+        <tradeability>None</tradeability>
+        <race>
+            <body>Gorehulk</body>
+            <thinkTreeMain>Gorehulk</thinkTreeMain>
+            <thinkTreeConstant>GorehulkConstant</thinkTreeConstant>
+            <overrideShouldHaveAbilityTracker>true</overrideShouldHaveAbilityTracker>
+            <alwaysViolent>true</alwaysViolent>
+            <baseBodySize>2</baseBodySize>
+            <baseHealthScale>1.25</baseHealthScale>
+            <intelligence>ToolUser</intelligence>
+            <needsRest>false</needsRest>
+            <bloodDef>Filth_DarkBlood</bloodDef>
+            <bleedRateFactor>0.5</bleedRateFactor>
+            <fleshType>EntityFlesh</fleshType>
+            <isImmuneToInfections>true</isImmuneToInfections>
+            <specificMeatDef>Meat_Twisted</specificMeatDef>
+            <leatherDef>Leather_Human</leatherDef>
+            <hasGenders>false</hasGenders>
+            <foodType>None</foodType>
+            <lifeExpectancy>25</lifeExpectancy>
+            <soundMeleeHitPawn>Pawn_Melee_SmallScratch_HitPawn</soundMeleeHitPawn>
+            <soundMeleeHitBuilding>Pawn_Melee_SmallScratch_HitBuilding</soundMeleeHitBuilding>
+            <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
+            <soundMeleeDodge>Pawn_MeleeDodge</soundMeleeDodge>
+            <disableIgniteVerb>true</disableIgniteVerb>
+            <trainability>None</trainability>
+            <canBecomeShambler>true</canBecomeShambler>
+            <lifeStageAges>
+                <li>
+                    <def>EntityFullyFormed</def>
+                    <soundCall>Pawn_Gorehulk_Call</soundCall>
+                    <soundWounded>Pawn_Gorehulk_Wounded</soundWounded>
+                    <soundAttack>Pawn_Gorehulk_Attack</soundAttack>
+                    <soundDeath>Pawn_Gorehulk_Death</soundDeath>
+                </li>
+            </lifeStageAges>
+            <hediffGiverSets>
+                <li>AnomalyEntity</li>
+            </hediffGiverSets>
+            <corpseHiddenWhileUndiscovered>true</corpseHiddenWhileUndiscovered>
+        </race>
+        <comps>
+            <li Class="CompProperties_HoldingPlatformTarget">
+                <baseEscapeIntervalMtbDays>40</baseEscapeIntervalMtbDays>
+            </li>
+            <li Class="CompProperties_AttachPoints">
+                <!-- This thing has alternateGraphics, and all of these points will need overrides in the PawnKindDef. -->
+                <points>
+                    <li>
+                        <offset>(-.4, 0, .4)</offset>
+                        <type>PlatformRestraint0</type>
+                    </li>
+                    <li>
+                        <offset>(.4, 0, .5)</offset>
+                        <type>PlatformRestraint1</type>
+                    </li>
+                    <li>
+                        <offset>(.3, 0, -.6)</offset>
+                        <type>PlatformRestraint2</type>
+                    </li>
+                    <li>
+                        <offset>(-.2, 0, -.7)</offset>
+                        <type>PlatformRestraint3</type>
+                    </li>
+                </points>
+            </li>
+            <li Class="CompProperties_ProducesBioferrite">
+                <bioferriteDensity>1.5</bioferriteDensity>
+            </li>
+            <li Class="CompProperties_Studiable">
+                <frequencyTicks>120000</frequencyTicks>
+                <knowledgeCategory>Basic</knowledgeCategory>
+                <minMonolithLevelForStudy>1</minMonolithLevelForStudy>
+                <anomalyKnowledge>2</anomalyKnowledge>
+                <requiresHoldingPlatform>true</requiresHoldingPlatform>
+            </li>
+        </comps>
+        <tools>
+            <li>
+                <label>left flesh club</label>
+                <labelNoLocation>flesh club</labelNoLocation>
+                <capacities>
+                    <li>Blunt</li>
+                </capacities>
+                <power>3</power>
+                <cooldownTime>1.5</cooldownTime>
+                <linkedBodyPartsGroup>LeftFleshClub</linkedBodyPartsGroup>
+                <alwaysTreatAsWeapon>true</alwaysTreatAsWeapon>
+            </li>
+            <li>
+                <label>right flesh club</label>
+                <labelNoLocation>flesh club</labelNoLocation>
+                <capacities>
+                    <li>Blunt</li>
+                </capacities>
+                <power>3</power>
+                <cooldownTime>1.5</cooldownTime>
+                <linkedBodyPartsGroup>RightFleshClub</linkedBodyPartsGroup>
+                <alwaysTreatAsWeapon>true</alwaysTreatAsWeapon>
+            </li>
+            <li>
+                <label>head</label>
+                <capacities>
+                    <li>Blunt</li>
+                </capacities>
+                <power>3</power>
+                <cooldownTime>2</cooldownTime>
+                <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+                <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+                <chanceFactor>0.1</chanceFactor>
+            </li>
+        </tools>
+    </ThingDef>
+
+    <PawnKindDef ParentName="Gorehulk">
+        <defName>MSS_GG_ShamblerGorebeast</defName>
+        <race>MSS_GG_ShamblerGorebeastRace</race>
+        <label>gorebeast</label> <!-- shambler is prepended in code -->
+        <mutant>Shambler</mutant>
+    </PawnKindDef>
+</Defs>

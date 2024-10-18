@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Defs>
+    <ThinkTreeDef>
+        <defName>MSS_GG_Shambler_Pre_Wander</defName>
+        <insertTag>Shambler_PreWander</insertTag>
+        <insertPriority>100</insertPriority>
+        <thinkRoot Class="ThinkNode_Priority">
+            <subNodes>
+                <li Class="ThinkNode_ConditionalCanCrawl">
+                    <subNodes>
+                        <li Class="Grey_Goo.BS.Shamblers.JobGiver_ShamblerMerge" />
+                    </subNodes>
+                </li>
+            </subNodes>
+        </thinkRoot>
+    </ThinkTreeDef>
+</Defs>

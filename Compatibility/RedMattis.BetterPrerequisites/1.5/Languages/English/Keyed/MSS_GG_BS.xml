@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <MSS_GG_BodySizeFactor>Merged Shamblers: {0}</MSS_GG_BodySizeFactor>
+    <MSS_GG_MeleeCooldownFactor>Merged Shamblers: {0}</MSS_GG_MeleeCooldownFactor>
+    <MSS_GG_MeleeDamageFactor>Merged Shamblers: {0}</MSS_GG_MeleeDamageFactor>
+    <MSS_GG_MoveSpeed>Merged Shamblers: {0}</MSS_GG_MoveSpeed>
+    <MSS_GG_ArmorRating_BluntFactor>Merged Shamblers: {0}</MSS_GG_ArmorRating_BluntFactor>
+    <MSS_GG_ArmorRating_HeatFactor>Merged Shamblers: {0}</MSS_GG_ArmorRating_HeatFactor>
+    <MSS_GG_ArmorRating_SharpFactor>Merged Shamblers: {0}</MSS_GG_ArmorRating_SharpFactor>
+
+    <MSS_GG_Settings_ChanceToMerge>Chance for shambler to merge: {0}%</MSS_GG_Settings_ChanceToMerge>
+    <MSS_GG_Settings_ShamblerMergeHediffSeverityToTransform>Shambler merge hediff severity to trigger transformation [{0}]</MSS_GG_Settings_ShamblerMergeHediffSeverityToTransform>
+
+    <MSS_GG_Shambler_Merge>{0} merged with {1} to form a more powerful shade!</MSS_GG_Shambler_Merge>
+    <MSS_GG_Shambler_Merging>{0} is merging with {1} to form a more powerful shade!</MSS_GG_Shambler_Merging>
+    <MSS_GG_Shambler_Merge_Gorebeast>{0} merged with {1} to form a Gorebeast Shade!</MSS_GG_Shambler_Merge_Gorebeast>
+
+    <MSS_GG_MergedShambler_Desc>This shambler has merged with {0} other shamblers.</MSS_GG_MergedShambler_Desc>
+</LanguageData>
