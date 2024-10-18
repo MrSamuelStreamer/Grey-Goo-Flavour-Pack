@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <Grey_Goo.GG_ShaderTypeDef>
+        <defName>GG_LiquidMetal</defName>
+        <shaderPath>Assets/Shaders/LiquidMetal.shader</shaderPath>
+    </Grey_Goo.GG_ShaderTypeDef>
+
+    <Grey_Goo.GG_ShaderTypeDef>
+        <defName>GG_LiquidMetalSimplex</defName>
+        <shaderPath>Assets/Shaders/LiquidMetalSimplex.shader</shaderPath>
+    </Grey_Goo.GG_ShaderTypeDef>
+</Defs>
