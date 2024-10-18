@@ -13,11 +13,15 @@ public class GG_ShaderTypeDef : ShaderTypeDef
     public override void PostLoad()
     {
         base.PostLoad();
+    }
 
-        LongEventHandler.ExecuteWhenFinished((Action) (() =>
+    public new Shader Shader
+    {
+        get
         {
-            Shader shader = GG_Shaders.LoadShader(shaderPath);
-            ShaderIntFI.Value.SetValue(this, shader);
-        }));
+            if (ShaderIntFI.Value.GetValue(this) == null)
+                ShaderIntFI.Value.SetValue(this, GG_Shaders.LoadShader(shaderPath));
+            return (Shader)ShaderIntFI.Value.GetValue(this);
+        }
     }
 }

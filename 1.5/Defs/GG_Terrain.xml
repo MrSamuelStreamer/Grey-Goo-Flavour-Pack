@@ -34,4 +34,39 @@
 
         <takeFootprints>True</takeFootprints>
     </Grey_Goo.GGTerrainDef>
+
+    <Grey_Goo.GGTerrainDef ParentName="NaturalTerrainBase">
+        <defName>GG_Goo_Inactive</defName>
+        <label>grey goo (inactive)</label>
+
+        <texturePath>World/GG_Goo_5</texturePath>
+        <texturePathFade>World/GG_Goo_1</texturePathFade>
+        <texturePathRough>World/GG_Goo_1</texturePathRough>
+        <texturePathWater>World/GG_Goo_1</texturePathWater>
+
+        <terrainShader>GG_LiquidMetalSimplex</terrainShader>
+
+        <renderPrecedence>340</renderPrecedence>
+        <pathCost>20</pathCost>
+
+        <statBases>
+            <Beauty>-100</Beauty>
+            <BeautyOutdoors>0</BeautyOutdoors>
+            <Cleanliness>100</Cleanliness>
+        </statBases>
+
+        <scatterType>Rocky</scatterType>
+        <affordances>
+            <li>Light</li>
+            <li>Medium</li>
+            <li>Heavy</li>
+            <li>GrowSoil</li>
+            <li>Diggable</li>
+        </affordances>
+
+
+        <fertility>0</fertility>
+
+        <takeFootprints>True</takeFootprints>
+    </Grey_Goo.GGTerrainDef>
 </Defs>

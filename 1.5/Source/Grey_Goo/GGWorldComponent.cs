@@ -120,7 +120,7 @@ public class GGWorldComponent(World world) : WorldComponent(world)
     {
         Scribe_Values.Look(ref HasAlreadyStarted, "HasAlreadyStarted");
         Scribe_Collections.Look(ref TileGooLevel, "pollutedTiles", LookMode.Value);
-        Scribe_Collections.Look(ref controllers, "controllers", LookMode.Value);
+        Scribe_Collections.Look(ref controllers, "controllers", LookMode.Deep);
     }
 
     public void GooifyTileAt(int tile, float level = 0.1f)

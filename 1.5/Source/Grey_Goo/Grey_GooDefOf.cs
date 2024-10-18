@@ -14,6 +14,7 @@ public static class Grey_GooDefOf
     public static GG_ShaderTypeDef GG_LiquidMetalSimplex;
 
     public static GGTerrainDef GG_Goo;
+    public static GGTerrainDef GG_Goo_Inactive;
 
     public static FactionDef GG_GreyGoo;
     static Grey_GooDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(Grey_GooDefOf));
