@@ -23,5 +23,6 @@
         <li>Ludeon.RimWorld.Biotech</li>
         <li>Ludeon.RimWorld.Anomaly</li>
         <li>garethp.scariacontaminationpatch</li>
+        <li>cf.anomalyupscaled</li>
     </loadAfter>
 </ModMetaData>

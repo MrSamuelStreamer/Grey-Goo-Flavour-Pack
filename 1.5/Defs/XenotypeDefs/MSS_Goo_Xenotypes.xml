@@ -94,6 +94,7 @@
       <li MayRequire="sarg.alphagenes">AG_CancerousFace</li>
       <li MayRequire="sarg.alphagenes">AG_CancerousBody</li>
       <li>Instability_Mild</li>
+      <li MayRequire="redmattis.betterprerequisites">BS_FacialAnimDisabled</li>
     </genes>
   </XenotypeDef>
 </Defs>

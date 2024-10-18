@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ScenarioDef>
+    <defName>MSS_Goo_Scenario</defName>
+    <label>Grey Goo!</label>
+    <description>Following a disasterous plague and an even more disasterous cure, a modifier swarm of airbourne Healer Mechanites were unleashed on the planet to fix the side effects of the plague. \n\nUnfortunately, Healer Mechanites are famous for targeting the wrong problem, and healing things slightly out of order, so it decided the ultimate cure for humanity was begin from scratch; break humanity down to its organic building blocks and begin with a fresh new world. Society has collapsed, unaltered humanity, mutants, and the Goo are at an all out war for survival.</description>
+    <scenario>
+      <summary>Three afflicted survivors try and survive against the incoming Grey Goo and cure their ailments.</summary>
+      <playerFaction>
+        <def>PlayerFaction</def>
+        <factionDef>PlayerColony</factionDef>
+      </playerFaction>
+      <parts>
+        <li Class="ScenPart_ConfigPage_ConfigureStartingPawns_Xenotypes">
+          <def>ConfigurePawnsXenotypes</def>
+          <pawnChoiceCount>6</pawnChoiceCount>
+          <customSummary>Start with three Afflicted.</customSummary>
+          <overrideKinds>
+            <li>
+              <xenotype>MSS_Goo_Mutant</xenotype>
+              <pawnKind>Tribesperson</pawnKind>
+            </li>
+          </overrideKinds>
+          <xenotypeCounts>
+            <li>
+              <xenotype>MSS_Goo_Mutant</xenotype>
+              <count>3</count>
+			        <requiredAtStart>true</requiredAtStart>
+            </li>
+          </xenotypeCounts>
+        </li>
+        <li Class="ScenPart_PlayerPawnsArriveMethod">
+          <def>PlayerPawnsArriveMethod</def>
+         <method>Standing</method>
+        </li>
+        <li Class="ScenPart_GameStartDialog">
+          <def>GameStartDialog</def>
+          <text>Following a disasterous plague and an even more disasterous cure, a modifier swarm of airbourne Healer Mechanites were unleashed on the planet to fix the side effects of the plague. \n\nUnfortunately, Healer Mechanites are famous for targeting the wrong problem, and healing things slightly out of order, so it decided the ultimate cure for humanity was begin from scratch; break humanity down to its organic building blocks and begin with a fresh new world. Society has collapsed, unaltered humanity, mutants, and the Goo are at an all out war for survival.</text>
+          <closeSound>GameStartSting</closeSound>
+        </li>
+        <li Class="ScenPart_ForcedHediff">
+          <def>ForcedHediff</def>
+          <chance>0.5</chance>
+          <context>PlayerStarter</context>
+          <hideOffMap>True</hideOffMap>
+          <hediff>Malnutrition</hediff>
+          <severityRange>0.1~0.3</severityRange>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MedicineIndustrial</thingDef>
+          <count>5</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>yy_ammo_industrial</thingDef>
+          <count>50</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>ComponentIndustrial</thingDef>
+          <count>2</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Gun_PumpShotgun</thingDef>
+        </li>
+        <li Class="ScenPart_ScatterThingsNearPlayerStart">
+          <def>ScatterThingsNearPlayerStart</def>
+          <thingDef>WoodLog</thingDef>
+          <count>50</count>
+          <allowRoofed>True</allowRoofed>
+        </li>
+        <li Class="ScenPart_ScatterThingsAnywhere">
+          <def>ScatterThingsAnywhere</def>
+          <thingDef>ShipChunk</thingDef>
+          <count>3</count>
+        </li>
+        <li Class="ScenPart_ScatterThingsAnywhere">
+          <def>ScatterThingsAnywhere</def>
+          <thingDef>MealSurvivalPack</thingDef>
+          <count>7</count>
+          <allowRoofed>True</allowRoofed>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>ModernTent</thingDef>
+          <stuff>Cloth</stuff>
+          <count>3</count>
+        </li>
+        <li Class="ScenPart_CreateIncident">
+          <def>CreateIncident</def>
+          <incident>WildManWandersIn</incident>
+          <intervalDays>3.0</intervalDays>    <!-- I think this is the days before it starts happening? -->
+          <minDays>1</minDays>
+          <maxDays>2</maxDays>
+          <repeat>True</repeat>
+        </li>
+      </parts>
+    </scenario>
+  </ScenarioDef>
+</Defs>
