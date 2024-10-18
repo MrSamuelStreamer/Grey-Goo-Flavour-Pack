@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/MutantDef[defName="Shambler"]/useCorpseGraphics</xpath>
+    <value>
+      <useCorpseGraphics>false</useCorpseGraphics>
+    </value>
+  </Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/MutantDef[defName="Shambler"]/isConsideredCorpse</xpath>
+    <value>
+      <isConsideredCorpse>false</isConsideredCorpse>
+    </value>
+  </Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/MutantDef[defName="Shambler"]/renderNodeProperties</xpath>
+  <value>
+      <li Class="PawnRenderNodeProperties_Overlay">
+        <debugLabel>Shambler wounds</debugLabel>
+        <workerClass>PawnRenderNodeWorker_OverlayShambler</workerClass>
+        <overlayLayer>Head</overlayLayer>
+        <baseLayer>61</baseLayer>
+        <pawnType>HumanlikeOnly</pawnType>
+        <parentTagDef>Head</parentTagDef>
+      </li>
+  </value>
+  </Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/MutantDef[defName="Shambler"]/renderNodeProperties</xpath>
+  <value>
+    <li>
+      <nodeClass>PawnRenderNode_AttachmentHead</nodeClass>
+      <workerClass>PawnRenderNodeWorker_FlipWhenCrawling</workerClass>
+      <texPath>Things/Pawn/Humanlike/HeadAttachments/Goo_Blob</texPath>
+      <parentTagDef>Head</parentTagDef>
+      <drawData>
+        <defaultData>
+          <layer>80</layer>
+        </defaultData>
+        <dataWest>
+          <layer>10</layer>
+        </dataWest>
+      </drawData>
+    </li>
+  </value>
+  </Operation>
+
+</Patch>

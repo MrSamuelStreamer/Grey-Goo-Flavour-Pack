@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/FleckDef[defName="Fleck_DeadlifeSmall"]/graphicData/color</xpath>
+    <value>
+      <color>(1, 1, 1, 64)</color>
+    </value>
+  </Operation>
+</Patch>

@@ -70,4 +70,31 @@
       <li MayRequire="vanillaracesexpanded.fungoid">VRE_GeneInfector</li>
     </genes>
   </XenotypeDef>
+  <XenotypeDef>
+    <defName>MSS_Goo_Mutant</defName>
+    <label>Mutant</label>
+    <description>Mutants are people that were once infected by a planet-spanning fungal infection and were administered a dangerous, untested cure. The fungal infection was eradicated but due to the potency of the cure and the extent of the transformation the fungal infection caused, these people wouldn't never truly return to their pre-infected state.</description>
+    <descriptionShort>People that were cured from their rampant fungal infection at great physical and mental cost.</descriptionShort>
+    <iconPath>UI/Icons/Xenotypes/Custom/VBE_CustomXenotypeIcon16</iconPath>
+    <inheritable>true</inheritable>
+    <genes>
+      <li MayRequire="redmattis.bigsmall.core">VU_UltraRapidAging</li>
+      <li MayRequire="sarg.alphagenes">AG_TwistedFlesh</li>
+      <li>RobustDigestion</li>
+      <li MayRequire="sarg.alphagenes">AG_SurvivalInstinct_High</li>
+      <li>Immunity_Weak</li>
+      <li>WoundHealing_Slow</li>
+      <li>Superclotting</li>
+      <li MayRequire="sarg.alphagenes">AG_LungRotImmunity</li>
+      <li>ToxResist_Partial</li>
+      <li MayRequire="redmattis.bigsmall.core">BS_Unpretentious</li>
+      <li>LowSleep</li>
+      <li>Sterile</li>
+      <li MayRequire="redmattis.bigsmall.core">BS_AlienApperanceStandards</li>
+      <li MayRequire="sarg.alphagenes">AG_CancerousFace</li>
+      <li MayRequire="sarg.alphagenes">AG_CancerousBody</li>
+      <li>Instability_Mild</li>
+      <li MayRequire="redmattis.betterprerequisites">BS_FacialAnimDisabled</li>
+    </genes>
+  </XenotypeDef>
 </Defs>
