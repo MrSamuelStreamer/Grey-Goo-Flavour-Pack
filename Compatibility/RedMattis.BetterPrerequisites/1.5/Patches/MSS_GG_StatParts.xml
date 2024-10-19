@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+    <Operation Class="PatchOperationConditional">
+        <xpath>Defs/StatDef[defName="SM_BodySizeMultiplier"]/parts</xpath>
+        <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/StatDef[defName="SM_BodySizeMultiplier"]</xpath>
+            <value>
+                <parts />
+            </value>
+        </nomatch>
+    </Operation>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/StatDef[defName="SM_BodySizeMultiplier"]/parts</xpath>
+        <value>
+            <li Class="Grey_Goo.BS.Shamblers.StatPart_BodyOffset" />
+        </value>
+    </Operation>
+
+
+    <Operation Class="PatchOperationConditional">
+        <xpath>Defs/StatDef[defName="MoveSpeed"]/parts</xpath>
+        <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/StatDef[defName="MoveSpeed"]</xpath>
+            <value>
+                <parts />
+            </value>
+        </nomatch>
+    </Operation>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/StatDef[defName="MoveSpeed"]/parts</xpath>
+        <value>
+            <li Class="Grey_Goo.BS.Shamblers.StatPart_MoveSpeed" />
+        </value>
+    </Operation>
+
+
+    <Operation Class="PatchOperationConditional">
+        <xpath>Defs/StatDef[defName="MeleeDamageFactor"]/parts</xpath>
+        <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/StatDef[defName="MeleeDamageFactor"]</xpath>
+            <value>
+                <parts />
+            </value>
+        </nomatch>
+    </Operation>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/StatDef[defName="MeleeDamageFactor"]/parts</xpath>
+        <value>
+            <li Class="Grey_Goo.BS.Shamblers.StatPart_MeleeDamageFactor" />
+        </value>
+    </Operation>
+</Patch>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+    <!-- seems to be necessary, as the Lord duty might be a bug? It will always end the think tree, meaning the "Insertion hook for modders" parts that Ludeon put in are never hit -->
+    <Operation Class="PatchOperationRemove">
+        <xpath>Defs/ThinkTreeDef[defName="Shambler"]/thinkRoot/subNodes/li[@Class="ThinkNode_Subtree" and ./treeDef[text()="LordDuty"]]</xpath>
+    </Operation>
+</Patch>
