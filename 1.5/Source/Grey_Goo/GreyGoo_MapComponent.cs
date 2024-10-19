@@ -5,6 +5,7 @@ using Grey_Goo.Buildings;
 using RimWorld;
 using UnityEngine;
 using Verse;
+using Random = UnityEngine.Random;
 
 namespace Grey_Goo;
 
@@ -47,11 +48,32 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         }
     }
 
+    public FloatRange DamageRange = new FloatRange(0f,4f );
+
     public override void MapComponentTick()
     {
         base.MapComponentTick();
 
         MapGooLevel = ggWorldComponent.GetTileGooLevelAt(map.Tile);
+
+
+        // If we miss it, we're fine
+        if (Find.TickManager.TicksGame % Grey_GooMod.settings.GooDamageTickFrequency == 0 && _gooIndices is not null)
+        {
+            foreach (int gooIndex in _gooIndices)
+            {
+                List<Pawn> pawns = map.thingGrid.ThingsAt(map.cellIndices.IndexToCell(gooIndex)).OfType<Pawn>().InRandomOrder().ToList();
+                if(pawns.Count == 0) continue;
+                foreach (Pawn pawn in pawns.Take(Random.Range(1, pawns.Count)))
+                {
+                    DamageInfo dinfo = new DamageInfo(
+                        Grey_GooDefOf.GG_Goo_Burn,
+                        DamageRange.RandomInRange,
+                        1f);
+                    pawn.TakeDamage(dinfo);
+                }
+            }
+        }
     }
 
     public List<IntVec3> _cellsOrderedByDistance;

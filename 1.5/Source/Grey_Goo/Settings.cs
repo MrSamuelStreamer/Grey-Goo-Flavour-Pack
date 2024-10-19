@@ -9,6 +9,7 @@ public class Settings : ModSettings
     public bool EnableGoo = false;
     public float GooSpreadIncrement = 0.0001f;
     public float GooSpreadScale = 0.01f;
+    public int GooDamageTickFrequency = 3200;
 
     public float ChanceToMerge = 0.015f;
     public int ShamblerMergeHediffSeverityToTransform = 10;
@@ -22,6 +23,11 @@ public class Settings : ModSettings
         options.Gap();
 
         GooSpreadScale = Widgets.HorizontalSlider(options.GetRect(40f), GooSpreadScale, 0f, 1f, label: "MSS_GreyGoo_GooSpreadScale".Translate(GooSpreadScale.ToString("0.000")));
+        options.Gap();
+
+        options.Label("MSS_GG_Settings_GooDamageTickFrequency".Translate(GooDamageTickFrequency));
+        options.IntAdjuster(ref GooDamageTickFrequency, 60);
+
         options.Gap();
 
         options.CheckboxLabeled("MSS_GreyGoo_EnableGoo".Translate(), ref EnableGoo);
@@ -46,6 +52,7 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref EnableGoo, "EnableGoo", false);
         Scribe_Values.Look(ref GooSpreadIncrement, "GooSpreadIncrement", 0.001f);
         Scribe_Values.Look(ref GooSpreadScale, "GooSpreadScale", 1f);
+        Scribe_Values.Look(ref GooDamageTickFrequency, "GooDamageTickFrequency", 3200);
         Scribe_Values.Look(ref ChanceToMerge, "ChanceToMerge", 0.015f);
         Scribe_Values.Look(ref ShamblerMergeHediffSeverityToTransform, "ShamblerMergeHediffSeverityToTransform", 10);
     }

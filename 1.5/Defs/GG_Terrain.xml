@@ -1,5 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
+    <DamageDef ParentName="Flame">
+        <defName>GG_Goo_Burn</defName>
+        <label>goo burn</label>
+        <workerClass>DamageWorker_AddInjury</workerClass>
+        <deathMessage>{0} has been consumed by goo.</deathMessage>
+        <hediff>GG_Goo_Burn</hediff>
+        <minDamageToFragment>1</minDamageToFragment>
+        <explosionColorCenter>(0.26, 0.51, 0.97)</explosionColorCenter>
+        <explosionColorEdge>(0.26, 0.51, 0.97)</explosionColorEdge>
+        <scaleDamageToBuildingsBasedOnFlammability>false</scaleDamageToBuildingsBasedOnFlammability>
+    </DamageDef>
+
+    <HediffDef ParentName="BurnBase">
+        <defName>GG_Goo_Burn</defName>
+        <label>goo burn</label>
+        <labelNoun>a goo burn</labelNoun>
+        <description>A goo burn.</description>
+        <comps>
+            <li Class="HediffCompProperties_GetsPermanent">
+                <permanentLabel>goo burn scar</permanentLabel>
+            </li>
+        </comps>
+        <injuryProps>
+            <destroyedLabel>Burned off</destroyedLabel>
+            <destroyedOutLabel>Burned out</destroyedOutLabel>
+        </injuryProps>
+    </HediffDef>
+
     <Grey_Goo.GGTerrainDef ParentName="NaturalTerrainBase">
         <defName>GG_Goo</defName>
         <label>grey goo</label>
