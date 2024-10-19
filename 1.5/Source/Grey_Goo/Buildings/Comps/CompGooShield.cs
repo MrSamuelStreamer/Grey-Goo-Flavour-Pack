@@ -26,6 +26,10 @@ public class CompGooShield : ThingComp, IMapCellProtector
 
     public bool HaveMap = false;
 
+    public CompPowerTrader PowerTrader => parent.GetComp<CompPowerTrader>();
+
+    public bool IsPowered => PowerTrader?.PowerOn ?? true;
+
     private static Material ShieldDotMat
     {
         get => MaterialPool.MatFrom("Things/Mote/ShieldDownDot", ShaderDatabase.MoteGlow);
@@ -40,7 +44,7 @@ public class CompGooShield : ThingComp, IMapCellProtector
     {
         get
         {
-            if (stunner.Stunned || shutDown || currentHitPoints == 0 || !this.parent.Spawned || this.parent is Pawn pawn && (pawn.IsCharging() || pawn.IsSelfShutdown()))
+            if (!IsPowered || stunner.Stunned || shutDown || currentHitPoints == 0 || !this.parent.Spawned || this.parent is Pawn pawn && (pawn.IsCharging() || pawn.IsSelfShutdown()))
                 return false;
             CompCanBeDormant comp = parent.GetComp<CompCanBeDormant>();
             return comp == null || comp.Awake;
