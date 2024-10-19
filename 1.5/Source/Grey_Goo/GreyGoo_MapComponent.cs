@@ -40,6 +40,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         get => mapGooLevel;
         set
         {
+            if(Mathf.Approximately(mapGooLevel, value)) return;
             NearestControllerDirection = ggWorldComponent.GetDirection8WayToNearestController(map.Tile);
             mapGooLevel = value;
             UpdateGoo();
@@ -68,6 +69,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
         if (expectedCoverage > gooIndices.Count)
         {
+            // add goo
             IEnumerable<IntVec3> cellsToTransform = cellsOrderedByDistance.Where(c => map.terrainGrid.TerrainAt(c) != Grey_GooDefOf.GG_Goo && !ProtectedTilesSet.Contains(c)).Take(expectedCoverage-gooIndices.Count);
 
             foreach (IntVec3 cell in cellsToTransform)
@@ -77,18 +79,32 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
             }
         }else if (expectedCoverage < gooIndices.Count)
         {
-            //TODO: remove goo
+            // remove goo
+            List<IntVec3> reversed = cellsOrderedByDistance;
+            reversed.Reverse();
+
+            IEnumerable<IntVec3> cellsToTransform = reversed.Where(c => map.terrainGrid.TerrainAt(c) == Grey_GooDefOf.GG_Goo).Take(gooIndices.Count-expectedCoverage);
+
+            foreach (IntVec3 cell in cellsToTransform)
+            {
+                map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo_Inactive);
+                gooIndices.Remove(map.cellIndices.CellToIndex(cell));
+            }
         }
 
-        // foreach (IntVec3 cell in AllMapCells)
-        // {
-        //     if (map.terrainGrid.TerrainAt(cell) == Grey_GooDefOf.GG_Goo && ProtectedTiles.Contains(cell))
-        //     {
-        //         //TODO: Ensure goo cell in protected tiles are "deactivated"
-        //     }
-        //     // TODO: check if a tile is unprotected goo, and not in protected tiles, and convert back to active goo
-        //
-        // }
+        foreach (IntVec3 cell in AllMapCells)
+        {
+            if (map.terrainGrid.TerrainAt(cell) == Grey_GooDefOf.GG_Goo && ProtectedTiles.Contains(cell))
+            {
+                // Ensure goo cell in protected tiles are "deactivated"
+                map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo_Inactive);
+            }
+            else if (map.terrainGrid.TerrainAt(cell) == Grey_GooDefOf.GG_Goo_Inactive && !ProtectedTiles.Contains(cell))
+            {
+                // check if a tile is unprotected goo, and not in protected tiles, and convert back to active goo
+                map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo);
+            }
+        }
     }
 
 

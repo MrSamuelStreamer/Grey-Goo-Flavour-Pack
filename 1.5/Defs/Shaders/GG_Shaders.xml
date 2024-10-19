@@ -9,4 +9,9 @@
         <defName>GG_LiquidMetalSimplex</defName>
         <shaderPath>Assets/Shaders/LiquidMetalSimplex.shader</shaderPath>
     </Grey_Goo.GG_ShaderTypeDef>
+
+    <Grey_Goo.GG_ShaderTypeDef>
+        <defName>GG_LiquidMetalInactive</defName>
+        <shaderPath>Assets/Shaders/LiquidMetalCracked.shader</shaderPath>
+    </Grey_Goo.GG_ShaderTypeDef>
 </Defs>

@@ -6,6 +6,10 @@
 
     <MSS_GreyGoo_EnableGoo>Enable Grey Goo</MSS_GreyGoo_EnableGoo>
     <MSS_GreyGoo_SettingsCategory>Grey Goo Flavour Pack</MSS_GreyGoo_SettingsCategory>
+    <MSS_GreyGoo_GooSpreadScale>Scale the number of new tiles to spread to every LongTick [{0}]</MSS_GreyGoo_GooSpreadScale>
+    <MSS_GreyGoo_GooSpreadIncrement>Grey Goo spread speed increment - how much goo to apply to a tile each tick [{0}]</MSS_GreyGoo_GooSpreadIncrement>
 
     <MSS_GG_GooControllerSpawned>A new grey goo controller has formed!</MSS_GG_GooControllerSpawned>
+
+    <MSS_GG_TileInspectString>Goo conversion level: {0}%</MSS_GG_TileInspectString>
 </LanguageData>

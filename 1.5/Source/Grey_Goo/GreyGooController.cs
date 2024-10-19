@@ -77,14 +77,21 @@ public class GreyGooController: IExposable
             return;
         }
 
-        for (int i = 0; i < NextTileToGooify; i++)
+        for (int i = 0; i < Math.Min(tilesOrderedByDistance.Count, NextTileToGooify); i++)
         {
-            ggWorldComponent.GooifyTileAt(tilesOrderedByDistance[i], 0.01f);
+            ggWorldComponent.GooifyTileAt(tilesOrderedByDistance[i], Grey_GooMod.settings.GooSpreadIncrement);
         }
     }
 
     public void LongTick()
     {
-        NextTileToGooify++;
+        if(NextTileToGooify >= tilesOrderedByDistance.Count) return;
+
+        int tileIdx = tilesOrderedByDistance[NextTileToGooify];
+        float distance = Find.World.grid.ApproxDistanceInTiles(tileIdx, Find.World.grid.tiles.IndexOf(tile));
+        float hexCircumference = Mathf.FloorToInt(distance * 6);
+        float scaled = Math.Max(1, hexCircumference) * Grey_GooMod.settings.GooSpreadScale;
+
+        NextTileToGooify += Math.Min(Mathf.CeilToInt(scaled), tilesOrderedByDistance.Count);
     }
 }
