@@ -48,7 +48,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         }
     }
 
-    public FloatRange DamageRange = new FloatRange(0f,4f );
+    public FloatRange DamageRange = new FloatRange(0f,4f);
 
     public override void MapComponentTick()
     {
@@ -62,15 +62,15 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         {
             foreach (int gooIndex in _gooIndices)
             {
-                List<Pawn> pawns = map.thingGrid.ThingsAt(map.cellIndices.IndexToCell(gooIndex)).OfType<Pawn>().InRandomOrder().ToList();
-                if(pawns.Count == 0) continue;
-                foreach (Pawn pawn in pawns.Take(Random.Range(1, pawns.Count)))
+                List<Thing> things = map.thingGrid.ThingsAt(map.cellIndices.IndexToCell(gooIndex)).InRandomOrder().ToList();
+                // randomly damage between 1/4 and all things
+                foreach (Thing thing in things.Take(Random.Range(Mathf.CeilToInt(things.Count / 4f),things.Count)))
                 {
                     DamageInfo dinfo = new DamageInfo(
                         Grey_GooDefOf.GG_Goo_Burn,
                         DamageRange.RandomInRange,
                         1f);
-                    pawn.TakeDamage(dinfo);
+                    thing.TakeDamage(dinfo);
                 }
             }
         }
