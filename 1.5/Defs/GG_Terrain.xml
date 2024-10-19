@@ -4,7 +4,7 @@
         <defName>GG_Goo</defName>
         <label>grey goo</label>
 
-        <texturePath>World/GG_Goo_20</texturePath>
+        <texturePath>World/GG_Goo_6</texturePath>
         <texturePathFade>World/GG_Goo_5</texturePathFade>
         <texturePathRough>World/GG_Goo_5</texturePathRough>
         <texturePathWater>World/GG_Goo_5</texturePathWater>
@@ -12,7 +12,7 @@
         <terrainShader>GG_LiquidMetalSimplex</terrainShader>
 
         <renderPrecedence>340</renderPrecedence>
-        <pathCost>20</pathCost>
+        <pathCost>120</pathCost>
 
         <statBases>
             <Beauty>-100</Beauty>
@@ -35,16 +35,12 @@
         <takeFootprints>True</takeFootprints>
     </Grey_Goo.GGTerrainDef>
 
-    <Grey_Goo.GGTerrainDef ParentName="NaturalTerrainBase">
+    <TerrainDef ParentName="NaturalTerrainBase">
         <defName>GG_Goo_Inactive</defName>
         <label>grey goo (inactive)</label>
 
-        <texturePath>World/GG_Goo_5</texturePath>
-        <texturePathFade>World/GG_Goo_1</texturePathFade>
-        <texturePathRough>World/GG_Goo_1</texturePathRough>
-        <texturePathWater>World/GG_Goo_1</texturePathWater>
-
-        <terrainShader>GG_LiquidMetalSimplex</terrainShader>
+        <texturePath>World/GG_Goo_Deactivated</texturePath>
+        <edgeType>FadeRough</edgeType>
 
         <renderPrecedence>340</renderPrecedence>
         <pathCost>20</pathCost>
@@ -64,9 +60,8 @@
             <li>Diggable</li>
         </affordances>
 
-
         <fertility>0</fertility>
 
         <takeFootprints>True</takeFootprints>
-    </Grey_Goo.GGTerrainDef>
+    </TerrainDef>
 </Defs>
