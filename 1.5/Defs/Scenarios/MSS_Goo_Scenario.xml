@@ -51,7 +51,7 @@
           <thingDef>MedicineIndustrial</thingDef>
           <count>5</count>
         </li>
-        <li Class="ScenPart_StartingThing_Defined">
+        <li MayRequire="mlie.yayoscombat3" Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
           <thingDef>yy_ammo_industrial</thingDef>
           <count>50</count>
@@ -82,7 +82,7 @@
           <count>7</count>
           <allowRoofed>True</allowRoofed>
         </li>
-        <li Class="ScenPart_StartingThing_Defined">
+        <li MayRequire="aoba.tent" Class="ScenPart_StartingThing_Defined">
           <def>StartingThing_Defined</def>
           <thingDef>ModernTent</thingDef>
           <stuff>Cloth</stuff>
@@ -94,6 +94,22 @@
           <intervalDays>3.0</intervalDays>    <!-- I think this is the days before it starts happening? -->
           <minDays>1</minDays>
           <maxDays>2</maxDays>
+          <repeat>True</repeat>
+        </li>
+        <li Class="ScenPart_CreateIncident">
+          <def>CreateIncident</def>
+          <incident>GiveQuest_Random</incident>
+          <intervalDays>3.0</intervalDays>
+          <minDays>1</minDays>
+          <maxDays>4</maxDays>
+          <repeat>True</repeat>
+        </li>
+        <li Class="ScenPart_CreateIncident">
+          <def>CreateIncident</def>
+          <incident>GiveQuest_WorkSite</incident>
+          <intervalDays>15.0</intervalDays>
+          <minDays>1</minDays>
+          <maxDays>5</maxDays>
           <repeat>True</repeat>
         </li>
       </parts>

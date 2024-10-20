@@ -44,10 +44,8 @@
     <iconPath>UI/Icons/Xenotypes/Custom/VBE_CustomXenotypeIcon31</iconPath>
     <inheritable>false</inheritable>
     <genes>
-      <li MayRequire="redmattis.bigsmall.core">BS_FeedingFrenzy</li>
       <li MayRequire="sarg.alphagenes">AG_WaterBlood</li>
       <li MayRequire="sarg.alphagenes">AG_PukeWater</li>
-      <li MayRequire="garethp.scariacontaminationpatch">Taggerung_SCP_ScariaUnstoppableHunger</li>
       <li MayRequire="garethp.scariacontaminationpatch">Taggerung_SCP_ScariaCarrier</li>
       <li>Mood_Depressive</li>
       <li MayRequire="redmattis.bigsmall.core">BS_NoEquip</li>
@@ -61,7 +59,6 @@
       <li MayRequire="vanillaracesexpanded.fungoid">VRE_DeadVoice</li>
       <li MayRequire="sarg.alphagenes">AG_GauntBody</li>
       <li>Skin_LightGray</li>
-      <li MayRequire="redmattis.bigsmall.core">BS_Xenolocked</li>
       <li MayRequire="sarg.alphagenes">AG_NearBlindness</li>
       <li>Unstoppable</li>
       <li MayRequire="redmattis.bigsmall.core">BS_Learning_None</li>

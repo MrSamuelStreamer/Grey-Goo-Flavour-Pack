@@ -4,4 +4,7 @@
     <Taggerung_SCP_GeneMutation.label>Grey Mechanite Infection</Taggerung_SCP_GeneMutation.label>
     <Taggerung_SCP_GeneMutation.labelNoun>Grey Mechanites</Taggerung_SCP_GeneMutation.labelNoun>
     <Taggerung_SCP_GeneMutation.description>This person has been infected by the grey goo and is now transforming into a host for the mechanites to either consume or possess as a host for further transmission of the mechanites.</Taggerung_SCP_GeneMutation.description>
+    <Scaria.label>Grey Mechanite Propagation</Scaria.label>
+    <Scaria.description>This person has been infected by the Grey Goo and is in the process of being broken down into their constituent matter to fuel the mechanites within, causing random berserk rages. Anyone attacked by the infected individual will also become infected by the mechanites within. In 5 days the infected person will die.</Scaria.description>
+    <Scaria.descriptionShort>A mechanite infection which causes berserk rages. If not treated, the mechanites will spread, consuming the brain and killing the host about five days after infection.</Scaria.descriptionShort>
 </LanguageData>

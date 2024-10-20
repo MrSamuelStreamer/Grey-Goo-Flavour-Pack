@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <ShamblerSwarm.label>Grey Corpses</ShamblerSwarm.label>
+    <ShamblerSwarmAnimals.label>Animal Grey Corpses</ShamblerSwarmAnimals.label>
+    <SmallShamblerSwarm.label>Grey Corpse Swarm</SmallShamblerSwarm.label>
+    <SmallShamblerSwarm.letterLabel>Grey Corpses Approach</SmallShamblerSwarm.letterLabel>
+    <SmallShamblerSwarm.letterLabel>A small group of {0} grey corpses are approaching. They will finish being broken down by the Grey Goo mechanites within a day.\n\nIf you can capture one, you can study it for forbidden knowledge. Otherwise, they might not notice you if you leave them alone.</SmallShamblerSwarm.letterLabel>
+    <ShamblerAssault.label>Shade Horde</ShamblerAssault.label>
+</LanguageData>

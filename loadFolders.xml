@@ -8,5 +8,6 @@
 		<li IfModActive="Ludeon.RimWorld.Royalty">Compatibility/Ludeon.RimWorld.Royalty</li>
 		<li IfModActive="Ludeon.RimWorld.Anomaly">Compatibility/Ludeon.RimWorld.Anomaly</li>
         <li IfModActive="RedMattis.BetterPrerequisites">Compatibility/redmattis.betterprerequisites/1.5</li>
+		<li IfModActive="ushanka.biologicalwarfare">Compatibility/ushanka.biologicalwarfare</li>
 	</v1.5>
 </loadFolders>
