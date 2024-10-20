@@ -14,4 +14,8 @@
     <MSS_GG_GooControllerSpawned>A new grey goo controller has formed!</MSS_GG_GooControllerSpawned>
 
     <MSS_GG_TileInspectString>Goo conversion level: {0}%</MSS_GG_TileInspectString>
+
+    <MSS_GG_Settings_TicksToSpreadGooUpdateOver>Ticks to spread the goo update over {0}</MSS_GG_Settings_TicksToSpreadGooUpdateOver>
+    <MSS_GreyGoo_ChanceToSpreadGooToCell>Chance to spread goo to new cell {0}</MSS_GreyGoo_ChanceToSpreadGooToCell>
+    <MSS_GreyGoo_ChanceForGooToDamage>Chance for goo to damage thing {0}</MSS_GreyGoo_ChanceForGooToDamage>
 </LanguageData>

@@ -10,6 +10,9 @@ public class Settings : ModSettings
     public float GooSpreadIncrement = 0.0001f;
     public float GooSpreadScale = 0.01f;
     public int GooDamageTickFrequency = 3200;
+    public int TicksToSpreadGooUpdateOver = 300;
+    public float ChanceToSpreadGooToCell = 0.01f;
+    public float ChanceForGooToDamage = 0.01f;
 
     public float ChanceToMerge = 0.015f;
     public int ShamblerMergeHediffSeverityToTransform = 10;
@@ -25,12 +28,20 @@ public class Settings : ModSettings
         GooSpreadScale = Widgets.HorizontalSlider(options.GetRect(40f), GooSpreadScale, 0f, 1f, label: "MSS_GreyGoo_GooSpreadScale".Translate(GooSpreadScale.ToString("0.000")));
         options.Gap();
 
-        options.Label("MSS_GG_Settings_GooDamageTickFrequency".Translate(GooDamageTickFrequency));
-        options.IntAdjuster(ref GooDamageTickFrequency, 60);
+        options.Label("MSS_GG_Settings_TicksToSpreadGooUpdateOver".Translate(TicksToSpreadGooUpdateOver));
+        options.IntAdjuster(ref TicksToSpreadGooUpdateOver, 1);
 
         options.Gap();
 
-        options.CheckboxLabeled("MSS_GreyGoo_EnableGoo".Translate(), ref EnableGoo);
+        ChanceToSpreadGooToCell = Widgets.HorizontalSlider(options.GetRect(40f), ChanceToSpreadGooToCell, 0f, 0.25f, label: "MSS_GreyGoo_ChanceToSpreadGooToCell".Translate(ChanceToSpreadGooToCell.ToString("0.000")));
+        options.Gap();
+
+        ChanceForGooToDamage = Widgets.HorizontalSlider(options.GetRect(40f), ChanceForGooToDamage, 0f, 0.1f, label: "MSS_GreyGoo_ChanceForGooToDamage".Translate(ChanceForGooToDamage.ToString("0.000")));
+        options.Gap();
+
+        options.Label("MSS_GG_Settings_GooDamageTickFrequency".Translate(GooDamageTickFrequency));
+        options.IntAdjuster(ref GooDamageTickFrequency, 60);
+
         options.Gap();
 
         options.CheckboxLabeled("MSS_GreyGoo_EnableGoo".Translate(), ref EnableGoo);
@@ -52,6 +63,9 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref EnableGoo, "EnableGoo", false);
         Scribe_Values.Look(ref GooSpreadIncrement, "GooSpreadIncrement", 0.001f);
         Scribe_Values.Look(ref GooSpreadScale, "GooSpreadScale", 1f);
+        Scribe_Values.Look(ref TicksToSpreadGooUpdateOver, "TicksToSpreadGooUpdateOver", 300);
+        Scribe_Values.Look(ref ChanceToSpreadGooToCell, "ChanceToSpreadGooToCell", 0.01f);
+        Scribe_Values.Look(ref ChanceForGooToDamage, "ChanceForGooToDamage", 0.01f);
         Scribe_Values.Look(ref GooDamageTickFrequency, "GooDamageTickFrequency", 3200);
         Scribe_Values.Look(ref ChanceToMerge, "ChanceToMerge", 0.015f);
         Scribe_Values.Look(ref ShamblerMergeHediffSeverityToTransform, "ShamblerMergeHediffSeverityToTransform", 10);

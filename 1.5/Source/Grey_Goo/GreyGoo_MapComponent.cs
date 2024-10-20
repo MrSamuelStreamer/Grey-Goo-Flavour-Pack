@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Grey_Goo.Buildings;
 using RimWorld;
 using UnityEngine;
 using Verse;
+using Random = UnityEngine.Random;
 
 namespace Grey_Goo;
 
@@ -14,23 +18,24 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
     // keep this a list and allow duplicates to make it easier to handle removing overlapping protected tiles.
     public List<IntVec3> ProtectedCells = new List<IntVec3>();
     public HashSet<IntVec3> ProtectedCellsSet => ProtectedCells.ToHashSet();
-    public int TicksToReprocessCells = 600;
 
-    public int TicksToUpdateGoo = 60;
+    public List<IntVec3> GooedTiles = new List<IntVec3>();
+    public List<IntVec3> ActiveGooTiles = new List<IntVec3>();
+
+    private List<IntVec3> _allMapCells;
+    public List<IntVec3> AllMapCells => _allMapCells ??= Enumerable.Range(0, map.cellIndices.NumGridCells).Select(idx => map.cellIndices.IndexToCell(idx)).ToList();
+
+    public int TicksToReprocessCells = 600;
+    public int TicksToUpdateGoo => Grey_GooMod.settings.GooDamageTickFrequency;
+
+    public float ChanceToSpreadGoo => Grey_GooMod.settings.ChanceToSpreadGooToCell;
+    public float ChanceToApplyDamage = Grey_GooMod.settings.ChanceForGooToDamage;
 
     public GGWorldComponent ggWorldComponent => Find.World.GetComponent<GGWorldComponent>();
 
     public float mapGooLevel = 0f;
 
-    public IntVec3 _OriginPos = IntVec3.Invalid;
-
-    public IntVec3 OriginPos
-    {
-        get
-        {
-            if (_OriginPos == IntVec3.Invalid)
-            {
-                _OriginPos = NearestControllerDirection switch
+    public IntVec3 OriginPos => NearestControllerDirection switch
                 {
                     // TODO: Might have directions flipped, as getting incorrect origins
                     Direction8Way.North => new IntVec3(map.Size.x / 2, 0, 0),
@@ -43,11 +48,6 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
                     Direction8Way.NorthWest => new IntVec3(0, 0, 0),
                     _ => IntVec3.Invalid
                 };
-            }
-
-            return _OriginPos;
-        }
-    }
 
     public float MapGooLevel
     {
@@ -57,6 +57,12 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
             if(Mathf.Approximately(mapGooLevel, value)) return;
             NearestControllerDirection = ggWorldComponent.GetDirection8WayToNearestController(map.Tile);
             mapGooLevel = value;
+            if (!GooedTiles.Any() && !Mathf.Approximately(mapGooLevel, 0))
+            {
+                map.terrainGrid.SetTerrain(OriginPos, Grey_GooDefOf.GG_Goo);
+                GooedTiles.Add(OriginPos);
+                ActiveGooTiles.Add(OriginPos);
+            }
         }
     }
 
@@ -68,98 +74,94 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
         MapGooLevel = ggWorldComponent.GetTileGooLevelAt(map.Tile);
 
-        // If we miss it, we're fine
-        if (Find.TickManager.TicksGame % 60 == 0)
+        // Only evaluate 1/TicksToUpdateGoo of the cells each time
+        int cellsToTake = Mathf.CeilToInt(ActiveGooTiles.Count/(float)TicksToUpdateGoo);
+        List<IntVec3> tilesToCheck = ActiveGooTiles.Where(c=>c.InBounds(map)).InRandomOrder().Take(cellsToTake).ToList();
+
+        // Thread safety?
+        ConcurrentQueue<Thing> thingsToDamage = new ConcurrentQueue<Thing>();
+
+        GenThreading.ParallelForEach(tilesToCheck, cell =>
         {
-            UpdateGoo();
-        }
+            // Skip if there's a building here
+            if(map.thingGrid.ThingsAt(cell).Any(t=>t is Building)) return;
 
-        // If we miss it, we're fine
-        if (Find.TickManager.TicksGame % Grey_GooMod.settings.GooDamageTickFrequency == 0 && AllGooCells is not null)
-        {
+            // skip if protected
+            if(ProtectedCells.Contains(cell)) return;
 
-            List<Thing> toDamage = new List<Thing>();
+            // get neighbours that are valid and exclude tiles we already know about
+            IEnumerable<IntVec3> neighboursAndSelf = GenAdj.CardinalDirectionsAndInside.Select(d => cell + d).Where(c => c.InBounds(map)).Except(tilesToCheck).ToList();
 
-            GenThreading.ParallelForEach(AllGooCells.ToList(), (cell) =>
+            // all our neighbours are gooed, skip!
+            if (!neighboursAndSelf.Any())
             {
-                List<Thing> things = map.thingGrid.ThingsAt(cell).InRandomOrder().ToList();
-                // randomly damage between 1/4 and all things
-                toDamage.AddRange(things);
-            });
-
-            foreach (Thing thing in toDamage) //.Take(Random.Range(Mathf.CeilToInt(things.Count / 4f),things.Count)))
-            {
-                if (thing is null) continue;
-                DamageInfo dinfo = new DamageInfo(
-                    Grey_GooDefOf.GG_Goo_Burn,
-                    DamageRange.RandomInRange,
-                    1f);
-                thing.TakeDamage(dinfo);
+                ActiveGooTiles.Remove(cell);
+                return;
             }
+
+            // build a list of neighbours and things
+            var neighboursWithThings = neighboursAndSelf.Select(c => new { Cell = c, ThingsAt = map.thingGrid.ThingsAt(c) }).ToList();
+
+            // check neighbours can be gooed (e.g. no building on cell)
+            List<IntVec3> candidates = neighboursWithThings.Where(ct => !ct.ThingsAt.Any(t => t is not Building)).Select(ct => ct.Cell).ToList();
+            foreach (IntVec3 nCell in candidates.InRandomOrder().Take(Mathf.Max(1, Mathf.CeilToInt(candidates.Count * ChanceToSpreadGoo))))
+            {
+                // if gooed, add to GooedTiles
+                map.terrainGrid.SetTerrain(nCell, Grey_GooDefOf.GG_Goo);
+                ActiveGooTiles.Add(nCell);
+            }
+
+            // check things on self and all neighbours to apply damage to
+            foreach (Thing thing in neighboursWithThings.SelectMany(ct => ct.ThingsAt))
+                thingsToDamage.Enqueue(thing);
+        });
+
+        // apply damage - outside a thread, as some things do main-thread only in `TakeDamage`
+        foreach (Thing thing in thingsToDamage.Where(_ => Random.value < ChanceToApplyDamage))
+        {
+            if (thing is null) return; //shouldn't be needed, but got occasional null ref
+            DamageInfo dinfo = new DamageInfo(
+                Grey_GooDefOf.GG_Goo_Burn,
+                DamageRange.RandomInRange,
+                1f);
+            thing.TakeDamage(dinfo);
         }
 
+        // recheck cells
         // spread the update over `TicksToReprocessCells` ticks
-        int chunkIdx = Find.TickManager.TicksGame % TicksToReprocessCells;
+        int tilesToProcess = Mathf.CeilToInt(map.cellIndices.NumGridCells / (float)TicksToReprocessCells);
 
-        List<IntVec3> CellsToCheck = [];
-        for (
-            int idx = chunkIdx;
-            idx < map.cellIndices.NumGridCells - TicksToReprocessCells;
-            idx += TicksToReprocessCells
-        )
+        GenThreading.ParallelForEach(AllMapCells.InRandomOrder().Take(tilesToProcess).ToList(), (cell) =>
         {
-            CellsToCheck.Add(map.cellIndices.IndexToCell(idx));
-        }
+            //re-evaluate if tile is active
+            // get neighbours
+            IEnumerable<IntVec3> neighbours = GenAdj.AdjacentCellsAround.Select(d => cell + d);
 
-        GenThreading.ParallelForEach(CellsToCheck, (cell) =>
-        {
+            // check neighbours are valid
+            neighbours = neighbours.Where(c => c.InBounds(map)).ToList();
+
+            // all our neighbours are gooed, remove from active!
+            if (neighbours.All(nCell => map.terrainGrid.TerrainAt(nCell) != Grey_GooDefOf.GG_Goo) && ActiveGooTiles.Contains(cell))
+            {
+                ActiveGooTiles.Remove(cell);
+            }
+            // we should be active, add
+            else if (neighbours.Any(nCell => map.terrainGrid.TerrainAt(nCell) == Grey_GooDefOf.GG_Goo) && !ActiveGooTiles.Contains(cell))
+            {
+                ActiveGooTiles.Add(cell);
+            }
+
+            // Ensure goo cell in protected tiles are "deactivated"
             if (map.terrainGrid.TerrainAt(cell) == Grey_GooDefOf.GG_Goo && ProtectedCellsSet.Contains(cell))
             {
-                // Ensure goo cell in protected tiles are "deactivated"
                 map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo_Inactive);
             }
+            // check if a tile is inactive goo, and not in protected tiles, and convert back to active goo
             else if (map.terrainGrid.TerrainAt(cell) == Grey_GooDefOf.GG_Goo_Inactive && !ProtectedCellsSet.Contains(cell))
             {
-                // check if a tile is inactive goo, and not in protected tiles, and convert back to active goo
                 map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo);
             }
         });
-    }
-
-    public List<IntVec3> _cellsOrderedByDistance;
-    private List<IntVec3> _allMapCells;
-    private HashSet<IntVec3> _allGooCells;
-
-    public List<IntVec3> cellsOrderedByDistance => _cellsOrderedByDistance ??= Enumerable.Range(0, map.cellIndices.NumGridCells).Select(idx => map.cellIndices.IndexToCell(idx))
-        .Select(cell => (cell, cell.DistanceTo(OriginPos))).OrderBy(c => c.Item2).Select(t => t.Item1).ToList();
-    public List<IntVec3> AllMapCells => _allMapCells ??= Enumerable.Range(0, map.cellIndices.NumGridCells).Select(idx => map.cellIndices.IndexToCell(idx)).ToList();
-    public HashSet<IntVec3> AllGooCells => _allGooCells ??= AllMapCells.Where(cell => map.terrainGrid.TerrainAt(cell) == Grey_GooDefOf.GG_Goo).ToHashSet();
-
-
-    public void UpdateGoo()
-    {
-        int expectedCoverage = Mathf.CeilToInt(map.terrainGrid.topGrid.Length * MapGooLevel);
-
-        if (expectedCoverage > AllGooCells.Count)
-        {
-            // add goo
-            int cellsToTake = Mathf.Min(expectedCoverage - AllGooCells.Count, cellsOrderedByDistance.Count - AllGooCells.Count);
-
-            // Only update some of the cells this tick
-            if (cellsToTake > 1)
-            {
-                cellsToTake = Mathf.CeilToInt(cellsToTake / (float)TicksToUpdateGoo);
-            }
-
-            List<IntVec3> cellsToGoo = cellsOrderedByDistance.Except(AllGooCells).Except(ProtectedCellsSet).Take(cellsToTake).ToList();
-
-            foreach (IntVec3 cell in cellsToGoo)
-            {
-                map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo);
-            }
-
-            AllGooCells.AddRange(cellsToGoo);
-        }
     }
 
     public void NotifyTilesProtected(IMapCellProtector mapCellProtector)
@@ -172,7 +174,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
             map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo_Inactive);
         }
 
-        AllGooCells.RemoveWhere(c=>newlyProtectedCells.Contains(c));
+        GooedTiles.RemoveWhere(c=>newlyProtectedCells.Contains(c));
     }
 
     public void NotifyTilesUnprotected(IMapCellProtector mapCellProtector)
@@ -186,7 +188,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         {
             // check if a tile is unprotected goo, and not in protected tiles, and convert back to active goo
             map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo);
-            AllGooCells.Add(cell);
+            GooedTiles.Add(cell);
         }
 
     }
