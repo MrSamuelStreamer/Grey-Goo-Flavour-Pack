@@ -67,7 +67,7 @@ public class CompGooShield : ThingComp, IMapCellProtector
         if (parent.Map != null)
         {
             GreyGoo_MapComponent comp = parent.Map.GetComponent<GreyGoo_MapComponent>();
-            comp?.NotifyTilesProtected(this);
+            comp?.NotifyCellsProtected(this);
             HaveMap = true;
         }
     }
@@ -78,7 +78,7 @@ public class CompGooShield : ThingComp, IMapCellProtector
     {
         base.PostDestroy(mode, previousMap);
         GreyGoo_MapComponent comp = previousMap.GetComponent<GreyGoo_MapComponent>();
-        comp?.NotifyTilesUnprotected(this);
+        comp?.NotifyCellsUnprotected(this);
     }
 
 
@@ -87,7 +87,7 @@ public class CompGooShield : ThingComp, IMapCellProtector
         if (!HaveMap && parent.Map != null)
         {
             GreyGoo_MapComponent comp = parent.Map.GetComponent<GreyGoo_MapComponent>();
-            comp?.NotifyTilesProtected(this);
+            comp?.NotifyCellsProtected(this);
             HaveMap = true;
         }
 

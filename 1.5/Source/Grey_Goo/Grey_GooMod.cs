@@ -34,7 +34,7 @@ public class Grey_GooMod : Mod
 
     public override string SettingsCategory()
     {
-        return "MSS_GreyGoo_SettingsCategory".Translate();
+        return "MSS_GG_SettingsCategory".Translate();
     }
 
     public AssetBundle MainBundle

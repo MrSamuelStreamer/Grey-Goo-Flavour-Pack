@@ -4,18 +4,16 @@
     <GG_ControllerStartTitle>Grey Goo Controller Detected!</GG_ControllerStartTitle>
     <GG_ControllerStartDesc>A grey goo controller was detected in {0}. It will facilitate the spread of grey goo across the planet as long as it's active.</GG_ControllerStartDesc>
 
-    <MSS_GreyGoo_EnableGoo>Enable Grey Goo</MSS_GreyGoo_EnableGoo>
-    <MSS_GreyGoo_SettingsCategory>Grey Goo Flavour Pack</MSS_GreyGoo_SettingsCategory>
-    <MSS_GreyGoo_GooSpreadScale>Scale the number of new tiles to spread to every LongTick [{0}]</MSS_GreyGoo_GooSpreadScale>
-    <MSS_GreyGoo_GooSpreadIncrement>Grey Goo spread speed increment - how much goo to apply to a tile each tick [{0}]</MSS_GreyGoo_GooSpreadIncrement>
-
-    <MSS_GG_Settings_GooDamageTickFrequency>Frequency (in ticks) to evaluate damage from goo</MSS_GG_Settings_GooDamageTickFrequency>
+    <MSS_GG_SettingsCategory>Grey Goo Flavour Pack</MSS_GG_SettingsCategory>
+    <MSS_GG_Setting_EnableGoo>Enable Grey Goo</MSS_GG_Setting_EnableGoo>
+    <MSS_GG_Setting_GooSpreadScale>Scale the number of new tiles to spread to every LongTick [{0}]</MSS_GG_Setting_GooSpreadScale>
+    <MSS_GG_Setting_GooSpreadIncrement>Grey Goo spread speed increment - how much goo to apply to a tile each tick [{0}]</MSS_GG_Setting_GooSpreadIncrement>
+    <MSS_GG_Setting_GooDamageRange>Grey Goo Damage range {0}</MSS_GG_Setting_GooDamageRange>
+    <MSS_GG_Setting_ChanceToSpreadGooToCell>Chance to spread goo to new cell {0}</MSS_GG_Setting_ChanceToSpreadGooToCell>
+    <MSS_GG_Setting_ChanceForGooToDamage>Chance for goo to damage thing {0}</MSS_GG_Setting_ChanceForGooToDamage>
+    <MSS_GG_Setting_GooRecheckTickFrequency>Number of ticks to spread the full goo recheck over {0}</MSS_GG_Setting_GooRecheckTickFrequency>
+    <MSS_GG_Setting_TicksToSpreadGooUpdateOver>Ticks to spread the goo update over {0}</MSS_GG_Setting_TicksToSpreadGooUpdateOver>
 
     <MSS_GG_GooControllerSpawned>A new grey goo controller has formed!</MSS_GG_GooControllerSpawned>
-
     <MSS_GG_TileInspectString>Goo conversion level: {0}%</MSS_GG_TileInspectString>
-
-    <MSS_GG_Settings_TicksToSpreadGooUpdateOver>Ticks to spread the goo update over {0}</MSS_GG_Settings_TicksToSpreadGooUpdateOver>
-    <MSS_GreyGoo_ChanceToSpreadGooToCell>Chance to spread goo to new cell {0}</MSS_GreyGoo_ChanceToSpreadGooToCell>
-    <MSS_GreyGoo_ChanceForGooToDamage>Chance for goo to damage thing {0}</MSS_GreyGoo_ChanceForGooToDamage>
 </LanguageData>
