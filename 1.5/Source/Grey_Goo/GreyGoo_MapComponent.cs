@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Grey_Goo.Buildings;
 using RimWorld;
@@ -32,7 +30,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
     public ConcurrentDictionary<IntVec3, CellInfo> AllMapCells =>
         _allMapCells ??= new ConcurrentDictionary<IntVec3, CellInfo>(
             Enumerable.Range(0, map.cellIndices.NumGridCells)
-                .ToDictionary(x => map.cellIndices.IndexToCell(x), x => new CellInfo()));
+                .ToDictionary(x => map.cellIndices.IndexToCell(x), _ => new CellInfo()));
 
     public int TicksToUpdateGoo => Grey_GooMod.settings.TicksToSpreadGooUpdateOver;
     public int NextGooUpdateTick = Grey_GooMod.settings.TicksToSpreadGooUpdateOver;
@@ -53,7 +51,6 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
     public IntVec3 OriginPos => ggWorldComponent.GetDirection8WayToNearestController(map.Tile) switch
                 {
-                    // TODO: Might have directions flipped, as getting incorrect origins
                     Direction8Way.North => new IntVec3(map.Size.x / 2, 0, 0),
                     Direction8Way.NorthEast => new IntVec3(map.Size.x, 0, 0),
                     Direction8Way.East => new IntVec3(map.Size.x, 0, map.Size.z / 2),
@@ -128,14 +125,14 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
             }
 
             // check things on self and all neighbours to apply damage to
-            foreach (Thing thing in neighboursWithThings.SelectMany(ct => ct.ThingsAt).OfType<Thing>())
+            foreach (Thing thing in neighboursWithThings.SelectMany(ct => ct.ThingsAt))
             {
                 ThingsToDamage.Enqueue(thing);
             }
         }
 
         // check all gooed cells for things to damage
-        IEnumerable<Thing> gooedCellsThings = GooedCells.Select(kv=>kv.Key).Select(c => new { Cell = c, ThingsAt = map.thingGrid.ThingsAt(c) }).SelectMany(ct => ct.ThingsAt).OfType<Thing>();
+        IEnumerable<Thing> gooedCellsThings = GooedCells.Select(kv=>kv.Key).Select(c => new { Cell = c, ThingsAt = map.thingGrid.ThingsAt(c) }).SelectMany(ct => ct.ThingsAt);
 
         foreach (Thing thing in gooedCellsThings)
         {
