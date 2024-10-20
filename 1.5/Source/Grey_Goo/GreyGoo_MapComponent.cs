@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Grey_Goo.Buildings;
 using RimWorld;
 using UnityEngine;
@@ -19,17 +20,21 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
     public List<IntVec3> ProtectedCells = new List<IntVec3>();
     public HashSet<IntVec3> ProtectedCellsSet => ProtectedCells.ToHashSet();
 
-    public List<IntVec3> GooedTiles = new List<IntVec3>();
-    public List<IntVec3> ActiveGooTiles = new List<IntVec3>();
+    public HashSet<IntVec3> GooedTiles = new HashSet<IntVec3>();
+    public HashSet<IntVec3> ActiveGooTiles = new HashSet<IntVec3>();
 
     private List<IntVec3> _allMapCells;
     public List<IntVec3> AllMapCells => _allMapCells ??= Enumerable.Range(0, map.cellIndices.NumGridCells).Select(idx => map.cellIndices.IndexToCell(idx)).ToList();
 
     public int TicksToReprocessCells = 600;
+    public int NextGooTick = TicksToReprocessCells;
     public int TicksToUpdateGoo => Grey_GooMod.settings.GooDamageTickFrequency;
 
     public float ChanceToSpreadGoo => Grey_GooMod.settings.ChanceToSpreadGooToCell;
     public float ChanceToApplyDamage = Grey_GooMod.settings.ChanceForGooToDamage;
+
+    private ConcurrentQueue<Thing> thingsToDamage = new ConcurrentQueue<Thing>();
+    private Task CurrentGooCycleTask;
 
     public GGWorldComponent ggWorldComponent => Find.World.GetComponent<GGWorldComponent>();
 
@@ -68,20 +73,13 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
     public FloatRange DamageRange = new FloatRange(0f,4f);
 
-    public override void MapComponentTick()
+    public void DoGooCycle()
     {
-        base.MapComponentTick();
+        IEnumerable<IntVec3> tilesToCheck = ActiveGooTiles.Where(c => c.InBounds(map)).InRandomOrder().ToList();
+        List<IntVec3> tilesToDeactivate = new List<IntVec3>();
+        List<IntVec3> tilesToActivate = new List<IntVec3>();
 
-        MapGooLevel = ggWorldComponent.GetTileGooLevelAt(map.Tile);
-
-        // Only evaluate 1/TicksToUpdateGoo of the cells each time
-        int cellsToTake = Mathf.CeilToInt(ActiveGooTiles.Count/(float)TicksToUpdateGoo);
-        List<IntVec3> tilesToCheck = ActiveGooTiles.Where(c=>c.InBounds(map)).InRandomOrder().Take(cellsToTake).ToList();
-
-        // Thread safety?
-        ConcurrentQueue<Thing> thingsToDamage = new ConcurrentQueue<Thing>();
-
-        GenThreading.ParallelForEach(tilesToCheck, cell =>
+        foreach (IntVec3 cell in tilesToCheck)
         {
             // Skip if there's a building here
             if(map.thingGrid.ThingsAt(cell).Any(t=>t is Building)) return;
@@ -95,8 +93,8 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
             // all our neighbours are gooed, skip!
             if (!neighboursAndSelf.Any())
             {
-                ActiveGooTiles.Remove(cell);
-                return;
+                tilesToDeactivate.Add(cell);
+                continue;
             }
 
             // build a list of neighbours and things
@@ -108,13 +106,25 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
             {
                 // if gooed, add to GooedTiles
                 map.terrainGrid.SetTerrain(nCell, Grey_GooDefOf.GG_Goo);
-                ActiveGooTiles.Add(nCell);
+                tilesToActivate.Add(nCell);
             }
 
             // check things on self and all neighbours to apply damage to
             foreach (Thing thing in neighboursWithThings.SelectMany(ct => ct.ThingsAt))
                 thingsToDamage.Enqueue(thing);
-        });
+        }
+
+        GooedTiles = GooedTiles.Except(tilesToDeactivate).Union(tilesToActivate).ToHashSet();
+    }
+
+    public override void MapComponentTick()
+    {
+        base.MapComponentTick();
+
+        MapGooLevel = ggWorldComponent.GetTileGooLevelAt(map.Tile);
+
+        if ((CurrentGooCycleTask is null || CurrentGooCycleTask.IsCompleted) && NextGooTick <= Find.TickManager.TicksGame)
+            CurrentGooCycleTask = Task.Run(DoGooCycle);
 
         // apply damage - outside a thread, as some things do main-thread only in `TakeDamage`
         foreach (Thing thing in thingsToDamage.Where(_ => Random.value < ChanceToApplyDamage))
