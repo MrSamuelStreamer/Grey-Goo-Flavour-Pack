@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <Shambler.label>Grey Corpse</Shambler.label>
+    <Shambler.description>This person is in the final hours of the Grey Goo infection, and will soon disintergrate from the grey mechanites repurposing their matter. They are held together only by remaining connective tissues and possess no brain activity, so unlike stable Grey Drones and Infected persons in earlier stages of Grey Goo propagation, they cannot be cured. Occasionally Grey Corpses are utilised in large groups to attack hold-out human settlements.</Shambler.description>
+    <ShamblerCorpse.label>Grey Mush</ShamblerCorpse.label>
+    <ShamblerCorpse.description>These are the remains of a human being that has had all useful organic matter broken down by the Grey Goo mechanites.</ShamblerCorpse.description>
+</LanguageData>

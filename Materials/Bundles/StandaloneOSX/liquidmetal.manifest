@@ -1,24 +1,30 @@
 ManifestFileVersion: 0
-CRC: 386017484
+CRC: 3787485622
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: de5c54577e3e87e34521f7571abe2dd5
+    Hash: 09b840bc39a9f4419e4c494042fdd056
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 10a6a558690295dadb3dd990eda0821a
+    Hash: cea17de082da1dfd38b5ed053fc34ca1
 HashAppended: 0
 ClassTypes:
 - Class: 21
   Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
 - Class: 48
+  Script: {instanceID: 0}
+- Class: 128
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/Fonts/OptimusPrincepsSemiBold.ttf
 - Assets/Shaders/LiquidMetal.shader
 - Assets/Shaders/LiquidMetalSimplex.shader
 - Assets/Shaders/Unlit_LiquidMetalSimplex.mat
 - Assets/Shaders/LiquidMetalCracked.shader
 - Assets/Shaders/Unlit_LiquidMetalCracked.mat
+- Assets/Fonts/OptimusPrinceps.ttf
 - Assets/Shaders/LiquidMetal.mat
 Dependencies: []

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="SimpleResearchBench"]/comps</xpath>
+		<value>
+			<comps Inherit="False">
+				<li Class="CompProperties_ReportWorkSpeed">
+				  <workSpeedStat>ResearchSpeedFactor</workSpeedStat>
+				  <displayReasons>false</displayReasons>
+				</li>
+				<li Class="CompProperties_AffectedByFacilities">
+					<linkableFacilities>
+					  <li>MSS_Goo_Scarab_Database</li>
+					</linkableFacilities>
+				</li>
+			</comps>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ResearchProjectDef[defName="MicroelectronicsBasics"]</xpath>
+		<value>
+			<requiredResearchFacilities>
+				<li>MSS_Goo_Scarab_Database</li>
+			</requiredResearchFacilities>
+		</value>
+	</Operation>
+</Patch>
