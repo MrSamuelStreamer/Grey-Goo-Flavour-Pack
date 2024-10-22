@@ -58,7 +58,7 @@ public class GreyGooController: IExposable
 
         if (wo is Settlement settlement)
         {
-            settlement.Name = $"{settlement.Name} GG_ActiveGreyGoo".Translate().Colorize(Color.red);
+            settlement.Name = $"GG_ActiveGreyGoo".Translate().Colorize(Color.red);
         }
 
         ggWorldComponent.GooifyTileAt(TileIdx, 1f);

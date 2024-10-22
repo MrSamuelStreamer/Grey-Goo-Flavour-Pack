@@ -21,7 +21,8 @@
     <techLevel>Animal</techLevel>
     <permanentEnemyToEveryoneExcept />
     <hostileToFactionlessHumanlikes>true</hostileToFactionlessHumanlikes>
-    <settlementTexturePath>World/WorldObjects/DefaultSettlement</settlementTexturePath>
+    <factionIconPath>World/GG_Faction</factionIconPath>
+    <settlementTexturePath>World/GG_Faction</settlementTexturePath>
     <allowedArrivalTemperatureRange>-100~100</allowedArrivalTemperatureRange>
     <maxConfigurableAtWorldCreation>1</maxConfigurableAtWorldCreation>
     <configurationListOrderPriority>1000</configurationListOrderPriority>
