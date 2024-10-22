@@ -49,7 +49,7 @@ public class GGWorldComponent(World world) : WorldComponent(world)
         Faction fac = Find.FactionManager.FirstFactionOfDef(Grey_GooDefOf.GG_GreyGoo);
         wo.SetFaction(fac);
         wo.Tile = locationTile;
-        wo.Name = SettlementNameGenerator.GenerateSettlementName(wo);
+        wo.Name = $"GG_ActiveGreyGoo".Translate().Colorize(Color.red);
         Find.WorldObjects.Add(wo);
 
         GreyGooController controller = new GreyGooController(wo);
