@@ -41,16 +41,39 @@ public class BossBar_MapComponent(Map map) : MapComponent(map)
 
         foreach (Pawn pawn in bossBarPawns)
         {
-            float healthAsFloat = pawn.health.summaryHealth.SummaryHealthPercent;
-            Rect healthRect = new Rect(barStartX, barStartY, Mathf.CeilToInt(barWidth*healthAsFloat), barHeight);
-            Rect barRect = new Rect(barStartX, barStartY, barWidth, barHeight);
-            Rect nameRect = new Rect(barStartX, barStartY-40, barWidth, barHeight);
+            List<Hediff> hediffs = pawn.health.hediffSet.hediffs.Where(h=>h.def == Grey_GooDefOf.MSS_GG_BossBar).ToList();
 
-            GUI.DrawTexture(healthRect, BossBar_BarTex, ScaleMode.StretchToFill);
-            GUI.DrawTexture(barRect, BossBarTex, ScaleMode.StretchToFill);
-            GUI.Label(nameRect, $"<color=#ffffff>{pawn.Name.ToStringFull}</color>" , fontStyle);
+            List<Hediff> partHediffs = hediffs.Where(h => h.Part != null).ToList();
 
-            barStartY -= 80;
+            List<Hediff> nonPartHediffs = hediffs.Except(partHediffs).ToList();
+
+            // foreach (Hediff partHediff in partHediffs)
+            // {
+            //     float healthAsFloat = pawn.health.RestorePart();
+            //     Rect healthRect = new Rect(barStartX, barStartY, Mathf.CeilToInt(barWidth*healthAsFloat), barHeight);
+            //     Rect barRect = new Rect(barStartX, barStartY, barWidth, barHeight);
+            //     Rect nameRect = new Rect(barStartX, barStartY-40, barWidth, barHeight);
+            //
+            //     GUI.DrawTexture(healthRect, BossBar_BarTex, ScaleMode.StretchToFill);
+            //     GUI.DrawTexture(barRect, BossBarTex, ScaleMode.StretchToFill);
+            //     GUI.Label(nameRect, $"<color=#ffffff>{pawn.Name.ToStringFull}</color>" , fontStyle);
+            //
+            //     barStartY -= 80;
+            // }
+
+            if (nonPartHediffs.Any())
+            {
+                float healthAsFloat = pawn.health.summaryHealth.SummaryHealthPercent;
+                Rect healthRect = new Rect(barStartX, barStartY, Mathf.CeilToInt(barWidth*healthAsFloat), barHeight);
+                Rect barRect = new Rect(barStartX, barStartY, barWidth, barHeight);
+                Rect nameRect = new Rect(barStartX, barStartY-40, barWidth, barHeight);
+
+                GUI.DrawTexture(healthRect, BossBar_BarTex, ScaleMode.StretchToFill);
+                GUI.DrawTexture(barRect, BossBarTex, ScaleMode.StretchToFill);
+                GUI.Label(nameRect, $"<color=#ffffff>{pawn.Name.ToStringFull}</color>" , fontStyle);
+
+                barStartY -= 80;
+            }
         }
     }
 }
