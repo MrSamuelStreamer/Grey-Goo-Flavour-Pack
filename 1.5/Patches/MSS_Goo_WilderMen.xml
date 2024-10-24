@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/IncidentDef[defName="WildManWandersIn"]/targetTags</xpath>
+		<value>
+			<targetTags>
+				<li>Map_PlayerHome</li>
+				<li>Map_TempIncident</li>
+				<li>Map_Misc</li>
+				<li>Map_RaidBeacon</li>
+			  </targetTags>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/IncidentDef[defName="WildManWandersIn"]/populationEffect</xpath>
+	</Operation>
+</Patch>
