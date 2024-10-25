@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/Enlist.FactionEnlistOptionsDef/salaryIsEnabled</xpath>
+		<value>
+			<salaryIsEnabled>false</salaryIsEnabled>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/Enlist.FactionEnlistOptionsDef/dropPodServiceIsEnabled</xpath>
+		<value>
+			<salaryIsEnabled>false</salaryIsEnabled>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/Enlist.FactionEnlistOptionsDef/reinforcementsAreEnabled</xpath>
+		<value>
+			<salaryIsEnabled>false</salaryIsEnabled>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/Enlist.FactionEnlistOptionsDef/provisionOptions</xpath>
+		<value>
+			<provisionOptions>
+				<li>
+					<provisionsLabelKey>RH.RangerProvisionsLabel</provisionsLabelKey>
+					<provisionsDescKey>RH.RangerProvisionsDesc</provisionsDescKey>
+					<provisionsButtonIconTexPath>Things/UI/Enlisted/Provisions</provisionsButtonIconTexPath>
+					<provisions>
+						<li>
+							<thing>RH2_Ration_RangerRations</thing>
+							<amountRange>5</amountRange>
+						</li>
+						<li>
+							<thing>MedicineIndustrial</thing>
+							<amountRange>1</amountRange>
+						</li>
+					</provisions>
+					<provisionsRestockInDays>2.00</provisionsRestockInDays>
+				</li>
+				
+				<li>
+					<provisionsLabelKey>RH.RangerProvisionsLabelRangerIssue</provisionsLabelKey>
+					<provisionsDescKey>RH.RangerProvisionsDescRangerIssue</provisionsDescKey>
+					<provisionsButtonIconTexPath>Things/UI/Enlisted/Ranger_Issue</provisionsButtonIconTexPath>
+					<provisions>
+						<li>
+							<thing>yy_ammo_industrial</thing>
+							<amountRange>50</amountRange>
+						</li>										
+						<li>
+							<thing>RNGun_Revolver_ColtWalker</thing>
+							<amountRange>1</amountRange>
+						</li>
+						<li>
+							<thing>RHApparel_Duster_Ranger</thing>
+							<stuff>Leather_Heavy</stuff>
+							<amountRange>1</amountRange>
+						</li>					
+					</provisions>
+					<provisionsRestockInDays>30.00</provisionsRestockInDays>
+				</li>
+			</provisionOptions>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/Enlist.FactionEnlistOptionsDef/missionsQuestCost</xpath>
+		<value>
+			<missionsQuestCost>500</missionsQuestCost>
+		</value>
+	</Operation>
+</Patch>

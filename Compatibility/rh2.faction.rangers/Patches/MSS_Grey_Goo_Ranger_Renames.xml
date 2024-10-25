@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<RH.RangerProvisionsLabel>Provisions</RH.RangerProvisionsLabel>
+	<RH.RangerProvisionsDesc>Provisions will give your caravan inventory the following every 12 hours:\n\n- ×5 Ranger rations\n- ×1 Medicine</RH.RangerProvisionsDesc>
+
+	<RH.RangerProvisionsLabelRangerIssue>Ranger Issue</RH.RangerProvisionsLabelRangerIssue>
+	<RH.RangerProvisionsDescRangerIssue>Ranger Issue will give your caravan inventory the following every 30 days:\n\n- ×1 Colt Walker\n- ×1 Duster (Ranger) \n- x50 Industrial Ammo</RH.RangerProvisionsDescRangerIssue>	
+</LanguageData>
