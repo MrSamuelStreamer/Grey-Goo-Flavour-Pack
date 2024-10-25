@@ -254,6 +254,10 @@
       <Link>Grey-Goo-Flavour-Pack\1.5\Defs\Incidents\GG_World_Incidents.xml</Link>
     </ReleaseFiles>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="HarmonyPatches\IncidentWorker_ShamblerSwarmAnimals_Patch.cs" />
+    <Compile Remove="HarmonyPatches\IncidentWorker_ShamblerSwarmSmall_Patch.cs" />
+  </ItemGroup>
   <Target Name="PostBuild" AfterTargets="Build" Condition=" '$(Configuration)' == 'Release' ">
     <RemoveDir Condition="Exists('../../../Release')" Directories="../../../Release" />
     <Delete Condition="Exists('../../../$(AssemblyName).zip')" Files="../../../$(AssemblyName).zip" />
