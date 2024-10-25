@@ -95,7 +95,6 @@
             <li MayRequire="sarg.alphagenes">AG_CancerousBody</li>
             <li>Instability_Mild</li>
             <li MayRequire="redmattis.betterprerequisites">BS_FacialAnimDisabled</li>
-            <li>MSS_GG_GooSpreader</li>
         </genes>
     </XenotypeDef>
 </Defs>

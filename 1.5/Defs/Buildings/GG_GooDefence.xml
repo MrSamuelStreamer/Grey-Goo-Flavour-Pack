@@ -64,7 +64,6 @@
                 <gooEnemyXenotypes>
                     <li>MSS_Goo_Drone</li>
                     <li>MSS_Goo_Infected</li>
-                    <li>MSS_Goo_Mutant</li>
                 </gooEnemyXenotypes>
             </li>
             <li Class="CompProperties_DestroyAfterDelay">
@@ -136,7 +135,6 @@
                 <gooEnemyXenotypes>
                     <li>MSS_Goo_Drone</li>
                     <li>MSS_Goo_Infected</li>
-                    <li>MSS_Goo_Mutant</li>
                 </gooEnemyXenotypes>
             </li>
             <li Class="CompProperties_Power">
