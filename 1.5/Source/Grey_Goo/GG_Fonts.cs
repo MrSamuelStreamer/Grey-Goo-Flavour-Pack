@@ -20,20 +20,20 @@ public static class GG_Fonts
         lookupFonts ??= new Dictionary<string, Font>();
         if (!lookupFonts.ContainsKey(fontName))
         {
-            Log.Message($"lookupFonts: {lookupFonts.ToList().Count}");
+            ModLog.Debug($"lookupFonts: {lookupFonts.ToList().Count}");
             lookupFonts[fontName] = GG_Shaders.AssetBundle.LoadAsset<Font>(fontName);
         }
 
         Font font = lookupFonts[fontName];
         if (font == null)
         {
-            Log.Warning($"Could not load font: {fontName}");
+            ModLog.Warn($"Could not load font: {fontName}");
             return (UnityEngine.Font) Resources.Load("Fonts/Arial_medium");
         }
 
         if (font != null)
         {
-            Log.Message($"Loaded font: {lookupFonts.Count}");
+            ModLog.Debug($"Loaded font: {lookupFonts.Count}");
         }
 
         return font;

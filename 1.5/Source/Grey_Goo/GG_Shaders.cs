@@ -26,7 +26,7 @@ public static class GG_Shaders
             }
 
             bundleInt = Grey_GooMod.mod.MainBundle;
-            Log.Message($"bundleInt: {bundleInt.name}");
+            ModLog.Debug($"bundleInt: {bundleInt.name}");
 
             return bundleInt;
         }
@@ -37,20 +37,20 @@ public static class GG_Shaders
         lookupShaders ??= new Dictionary<string, Shader>();
         if (!lookupShaders.ContainsKey(shaderName))
         {
-            Log.Message($"lookupShaders: {lookupShaders.ToList().Count}");
+            ModLog.Debug($"lookupShaders: {lookupShaders.ToList().Count}");
             lookupShaders[shaderName] = AssetBundle.LoadAsset<Shader>(shaderName);
         }
 
         Shader shader = lookupShaders[shaderName];
         if (shader == null)
         {
-            Log.Warning($"Could not load shader: {shaderName}");
+            ModLog.Warn($"Could not load shader: {shaderName}");
             return ShaderDatabase.DefaultShader;
         }
 
         if (shader != null)
         {
-            Log.Message($"Loaded shaders: {lookupShaders.Count}");
+            ModLog.Debug($"Loaded shaders: {lookupShaders.Count}");
         }
 
         return shader;
