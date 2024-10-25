@@ -17,6 +17,7 @@ public static class Grey_GooDefOf
     public static TerrainDef GG_Goo_Inactive;
 
     public static DamageDef GG_Goo_Burn;
+    public static DamageDef GG_Goo_GooShieldBurn;
 
     public static FactionDef GG_GreyGoo;
 

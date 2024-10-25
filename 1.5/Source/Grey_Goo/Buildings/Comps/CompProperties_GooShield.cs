@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace Grey_Goo.Buildings.Comps;
@@ -14,6 +16,9 @@ public class CompProperties_GooShield : CompProperties
     public float minIdleAlpha = -1.7f;
     public Color color = Color.white;
     public SoundDef activeSound;
+
+    public List<HediffDef> gooInfectedHediffs;
+    public List<XenotypeDef> gooEnemyXenotypes;
 
     public CompProperties_GooShield()
     {

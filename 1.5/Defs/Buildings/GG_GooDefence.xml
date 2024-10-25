@@ -28,6 +28,7 @@
             <MarketValue>1000</MarketValue>
             <MaxHitPoints>250</MaxHitPoints>
             <Flammability>0.5</Flammability>
+            <Mass>3</Mass>
         </statBases>
         <tickerType>Normal</tickerType>
         <killedLeavings />
@@ -44,6 +45,9 @@
             <isEdifice>false</isEdifice>
             <destroyEffecter>Broadshield_Burnout</destroyEffecter>
         </building>
+        <thingCategories>
+            <li>BuildingsSecurity</li>
+        </thingCategories>
         <comps>
             <li Class="Grey_Goo.Buildings.Comps.CompProperties_GooShield">
                 <radius>4.9</radius>
@@ -54,6 +58,14 @@
                 <minIdleAlpha>0.05</minIdleAlpha>
                 <color>(0.2, 0.2, 1)</color>
                 <activeSound>Broadshield_Ambience</activeSound>
+                <gooInfectedHediffs>
+                    <li>Taggerung_SCP_GeneMutation</li>
+                </gooInfectedHediffs>
+                <gooEnemyXenotypes>
+                    <li>MSS_Goo_Drone</li>
+                    <li>MSS_Goo_Infected</li>
+                    <li>MSS_Goo_Mutant</li>
+                </gooEnemyXenotypes>
             </li>
             <li Class="CompProperties_DestroyAfterDelay">
                 <delayTicks>18000</delayTicks>
@@ -84,10 +96,14 @@
             <graphicClass>Graphic_Single</graphicClass>
             <drawSize>3</drawSize>
         </graphicData>
+        <thingCategories>
+            <li>BuildingsSecurity</li>
+        </thingCategories>
         <statBases>
             <MarketValue>4000</MarketValue>
             <MaxHitPoints>250</MaxHitPoints>
             <Flammability>0.5</Flammability>
+            <Mass>25</Mass>
         </statBases>
         <tickerType>Normal</tickerType>
         <killedLeavings />
@@ -114,6 +130,14 @@
                 <minIdleAlpha>0.05</minIdleAlpha>
                 <color>(0.2, 0.2, 1)</color>
                 <activeSound>Broadshield_Ambience</activeSound>
+                <gooInfectedHediffs>
+                    <li>Taggerung_SCP_GeneMutation</li>
+                </gooInfectedHediffs>
+                <gooEnemyXenotypes>
+                    <li>MSS_Goo_Drone</li>
+                    <li>MSS_Goo_Infected</li>
+                    <li>MSS_Goo_Mutant</li>
+                </gooEnemyXenotypes>
             </li>
             <li Class="CompProperties_Power">
                 <compClass>CompPowerTrader</compClass>
@@ -128,4 +152,31 @@
         </thingSetMakerTags>
     </ThingDef>
 
+    <DamageDef ParentName="Flame">
+        <defName>GG_Goo_GooShieldBurn</defName>
+        <label>goo shield burn</label>
+        <workerClass>DamageWorker_AddInjury</workerClass>
+        <deathMessage>{0} has had their goo shut down.</deathMessage>
+        <hediff>GG_Goo_GooShieldBurnHediff</hediff>
+        <minDamageToFragment>1</minDamageToFragment>
+        <explosionColorCenter>(0.26, 0.51, 0.97)</explosionColorCenter>
+        <explosionColorEdge>(0.26, 0.51, 0.97)</explosionColorEdge>
+        <scaleDamageToBuildingsBasedOnFlammability>false</scaleDamageToBuildingsBasedOnFlammability>
+    </DamageDef>
+
+    <HediffDef ParentName="BurnBase">
+        <defName>GG_Goo_GooShieldBurnHediff</defName>
+        <label>goo shield burn</label>
+        <labelNoun>a goo shield burn</labelNoun>
+        <description>A goo shield burn.</description>
+        <comps>
+            <li Class="HediffCompProperties_GetsPermanent">
+                <permanentLabel>goo shield burn scar</permanentLabel>
+            </li>
+        </comps>
+        <injuryProps>
+            <destroyedLabel>Burned off</destroyedLabel>
+            <destroyedOutLabel>Burned out</destroyedOutLabel>
+        </injuryProps>
+    </HediffDef>
 </Defs>

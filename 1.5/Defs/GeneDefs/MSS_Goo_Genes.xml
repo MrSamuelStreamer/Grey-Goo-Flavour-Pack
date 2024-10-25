@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <GeneDef>
+        <defName>MSS_GG_GooSpreader</defName>
+        <label>grey goo spreader</label>
+        <description>Carriers of this gene have a chance to infest the ground they die on with grey goo.</description>
+        <geneClass>Grey_Goo.GooSpreaderGene</geneClass>
+        <iconPath>UI/MSS_GG_GooSpreaderGene</iconPath>
+        <displayCategory>Violence</displayCategory>
+        <marketValueFactor>1.5</marketValueFactor>
+        <symbolPack>
+            <wholeNameSymbols>
+                <li><symbol>spreader</symbol></li>
+            </wholeNameSymbols>
+        </symbolPack>
+        <modExtensions>
+            <li Class="Grey_Goo.GooSpreaderGeneModExtension">
+                <chanceToSpreadGoo>0.1</chanceToSpreadGoo>
+            </li>
+        </modExtensions>
+    </GeneDef>
+</Defs>

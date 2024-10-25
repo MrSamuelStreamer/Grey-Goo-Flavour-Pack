@@ -106,6 +106,52 @@ public class CompGooShield : ThingComp, IMapCellProtector
                 return;
             sustainer.End();
         }
+
+        if(Find.TickManager.TicksGame % 3600 == 0) TickLong();
+    }
+
+    /// <summary>
+    /// Executes long-tick logic for the Goo Shield component, applying relevant hediffs and damage effects to entities within its radius.
+    /// </summary>
+    /// <remarks>
+    /// The method performs two main operations:
+    /// 1. It identifies and heals pawns within the shield's radius that have specific infected hediffs defined by <see cref="Props.gooInfectedHediffs"/>.
+    /// 2. It identifies and damages pawns within the shield's radius that have specific enemy xenotypes defined by <see cref="Props.gooEnemyXenotypes"/>.
+    /// </remarks>
+    /// <seealso cref="CompGooShield"/>
+    public void TickLong()
+    {
+        if(Props.gooInfectedHediffs.NullOrEmpty()) return;
+
+        IEnumerable<IntVec3> protectedCells = CellsInRadius(this.parent.Map);
+
+        List<Pawn> pawns = protectedCells.SelectMany(c=>c.GetThingList(this.parent.Map)).OfType<Pawn>().ToList();
+
+        IEnumerable<Pawn> pawnsWithRelevantXenotypeToDamage = pawns.Where(p=>p.genes != null && Props.gooEnemyXenotypes.Contains(p.genes.Xenotype)).ToList();
+
+        foreach (Pawn p in pawnsWithRelevantXenotypeToDamage)
+        {
+            DamageInfo dinfo = new DamageInfo(
+                Grey_GooDefOf.GG_Goo_GooShieldBurn,
+                Grey_GooMod.settings.GooDamageRange.RandomInRange,
+                1f);
+
+            p.TakeDamage(dinfo);
+        }
+
+        // heal up a random pawn 10% of the time
+        if(Random.value > 0.1) return;
+        Pawn pawn = pawns
+            .Except(pawnsWithRelevantXenotypeToDamage) // Don't heal enemies
+            .Where(p=>p.health.hediffSet.hediffs.Any(hediff=>Props.gooInfectedHediffs.Contains(hediff.def))).RandomElement();
+
+        Hediff hediff = pawn.health.hediffSet.hediffs.Where(hediff => hediff.pawn.health.HasHediffsNeedingTend() && Props.gooInfectedHediffs.Contains(hediff.def) && hediff.TendableNow()).RandomElement();
+        if(hediff == null) return;
+        float baseTendQuality = TendUtility.CalculateBaseTendQuality(null, pawn, null);
+        hediff.Tended(baseTendQuality, 0.7f, 0);
+        pawn.records.Increment(RecordDefOf.TimesTendedTo);
+
+        QuestUtility.SendQuestTargetSignals(pawn.questTags, "PlayerTended", pawn.Named("SUBJECT"));
     }
 
     public override void PostDrawExtraSelectionOverlays()
