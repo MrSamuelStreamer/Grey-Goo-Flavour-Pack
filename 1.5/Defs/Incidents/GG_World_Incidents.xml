@@ -35,11 +35,11 @@
 
     <IncidentDef ParentName="EntitySwarmBase">
         <defName>MSS_GG_ShamblerSwarm</defName>
-        <label>shambler swarm</label>
+        <label>shambler arrival</label> <!-- just to avoid it having the same name as the two other incidents -->
         <workerClass>Grey_Goo.IncidentWorker_GooShamblerSwarm</workerClass>
         <baseChance>2</baseChance>
-        <earliestDay>2</earliestDay>
-        <minRefireDays>0.1</minRefireDays>
+        <earliestDay>3</earliestDay>
+        <minRefireDays>15.0</minRefireDays>    <!-- control spawn rate via scenario, then they can balance if they want -->
         <minAnomalyThreatLevel>0</minAnomalyThreatLevel>
         <hidden>true</hidden>
     </IncidentDef>
