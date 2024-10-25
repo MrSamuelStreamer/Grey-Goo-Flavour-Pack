@@ -6,14 +6,24 @@
 
     <MSS_GG_SettingsCategory>Grey Goo Flavour Pack</MSS_GG_SettingsCategory>
     <MSS_GG_Setting_EnableGoo>Enable Grey Goo</MSS_GG_Setting_EnableGoo>
-    <MSS_GG_Setting_GooSpreadScale>Scale the number of new tiles to spread to every LongTick [{0}]</MSS_GG_Setting_GooSpreadScale>
-    <MSS_GG_Setting_GooSpreadIncrement>Grey Goo spread speed increment - how much goo to apply to a tile each tick [{0}]</MSS_GG_Setting_GooSpreadIncrement>
+    <MSS_GG_Setting_GooSpreadChance>% Chance to spread goo to a new world tile [{0}%]</MSS_GG_Setting_GooSpreadChance>
+    <MSS_GG_Setting_GooSpreadIncrement>World Map Goo % increment per tick [{0}%]</MSS_GG_Setting_GooSpreadIncrement>
     <MSS_GG_Setting_GooDamageRange>Grey Goo Damage range {0}</MSS_GG_Setting_GooDamageRange>
     <MSS_GG_Setting_ChanceToSpreadGooToCell>Chance to spread goo to new cell {0}</MSS_GG_Setting_ChanceToSpreadGooToCell>
     <MSS_GG_Setting_ChanceForGooToDamage>Chance for goo to damage thing {0}</MSS_GG_Setting_ChanceForGooToDamage>
-    <MSS_GG_Setting_GooRecheckTickFrequency>Number of ticks to spread the full goo recheck over {0}</MSS_GG_Setting_GooRecheckTickFrequency>
-    <MSS_GG_Setting_TicksToSpreadGooUpdateOver>Ticks to spread the goo update over {0}</MSS_GG_Setting_TicksToSpreadGooUpdateOver>
+    <MSS_GG_Setting_ChanceForGooToDamagePercent>Chance for goo to damage thing per tick {0}%</MSS_GG_Setting_ChanceForGooToDamagePercent>
+    <MSS_GG_Setting_MapGooReevaluateFrequency>Number of ticks to spread the map goo reevaluation over {0}</MSS_GG_Setting_MapGooReevaluateFrequency>
+    <MSS_GG_Setting_MapGooUpdateFrequency>Ticks to spread the goo update over {0}</MSS_GG_Setting_MapGooUpdateFrequency>
 
     <MSS_GG_GooControllerSpawned>A new grey goo controller has formed!</MSS_GG_GooControllerSpawned>
     <MSS_GG_TileInspectString>Goo conversion level: {0}%</MSS_GG_TileInspectString>
+
+    <MSS_GG_IncreaseGooOnePercent>Goo Spead +1%</MSS_GG_IncreaseGooOnePercent>
+    <MSS_GG_IncreaseGooTenPercent>Goo Spead +10%</MSS_GG_IncreaseGooTenPercent>
+    <MSS_GG_MaxGoo>Goo Spead +100%</MSS_GG_MaxGoo>
+    <MSS_GG_DecreaseGooOnePercent>Goo Spead -1%</MSS_GG_DecreaseGooOnePercent>
+    <MSS_GG_DecreaseGooTenPercent>Goo Spead -10%</MSS_GG_DecreaseGooTenPercent>
+    <MSS_GG_MinGoo>Goo Spead -100%</MSS_GG_MinGoo>
+
+    <MSS_GG_CreateControllerHere>Create Goo Controller here</MSS_GG_CreateControllerHere>
 </LanguageData>

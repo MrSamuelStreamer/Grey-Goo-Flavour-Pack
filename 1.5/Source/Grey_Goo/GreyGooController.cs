@@ -5,6 +5,7 @@ using RimWorld;
 using RimWorld.Planet;
 using UnityEngine;
 using Verse;
+using Random = UnityEngine.Random;
 
 namespace Grey_Goo;
 
@@ -79,7 +80,7 @@ public class GreyGooController: IExposable
 
         for (int i = 0; i < Math.Min(tilesOrderedByDistance.Count, NextTileToGooify); i++)
         {
-            ggWorldComponent.GooifyTileAt(tilesOrderedByDistance[i], Grey_GooMod.settings.GooSpreadIncrement);
+            ggWorldComponent.GooifyTileAt(tilesOrderedByDistance[i], Grey_GooMod.settings.WorldMapGooIncrementPercentPerTick / 100);
         }
     }
 
@@ -87,11 +88,7 @@ public class GreyGooController: IExposable
     {
         if(NextTileToGooify >= tilesOrderedByDistance.Count) return;
 
-        int tileIdx = tilesOrderedByDistance[NextTileToGooify];
-        float distance = Find.World.grid.ApproxDistanceInTiles(tileIdx, Find.World.grid.tiles.IndexOf(tile));
-        float hexCircumference = Mathf.FloorToInt(distance * 6);
-        float scaled = Math.Max(1, hexCircumference) * Grey_GooMod.settings.GooSpreadScale;
-
-        NextTileToGooify += Math.Min(Mathf.CeilToInt(scaled), tilesOrderedByDistance.Count);
+        if (Random.value > (Grey_GooMod.settings.GooSpreadChance / 100))
+            NextTileToGooify++;
     }
 }

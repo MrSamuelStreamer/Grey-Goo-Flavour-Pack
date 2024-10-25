@@ -20,6 +20,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
     {
         public bool IsGooed = false;
         public bool IsActive = false;
+        public TerrainDef Terrain = null;
 
         public CellInfo()
         {
@@ -32,22 +33,20 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
             Enumerable.Range(0, map.cellIndices.NumGridCells)
                 .ToDictionary(x => map.cellIndices.IndexToCell(x), _ => new CellInfo()));
 
-    public int TicksToUpdateGoo => Grey_GooMod.settings.TicksToSpreadGooUpdateOver;
-    public int NextGooUpdateTick = Grey_GooMod.settings.TicksToSpreadGooUpdateOver;
+    public int TicksToUpdateGoo => Grey_GooMod.settings.MapGooUpdateFrequency;
+    public int NextGooUpdateTick = Grey_GooMod.settings.MapGooUpdateFrequency;
     private Task CurrentGooUpdateTask;
     public ConcurrentQueue<Thing> ThingsToDamage = new ConcurrentQueue<Thing>();
     public ConcurrentQueue<IntVec3> CellsToChange = new ConcurrentQueue<IntVec3>();
 
-    public int TicksToRecheckGoo => Grey_GooMod.settings.GooRecheckTickFrequency;
-    public int NextGooRecheckTick = Grey_GooMod.settings.GooRecheckTickFrequency;
+    public int TicksToRecheckGoo => Grey_GooMod.settings.MapGooReevaluateFrequency;
+    public int NextGooRecheckTick = Grey_GooMod.settings.MapGooReevaluateFrequency;
     private Task CurrentGooRecheckTask;
 
     public float ChanceToSpreadGoo => Grey_GooMod.settings.ChanceToSpreadGooToCell;
-    public float ChanceToApplyDamage = Grey_GooMod.settings.ChanceForGooToDamage;
+    public float ChanceToApplyDamage = Grey_GooMod.settings.ChanceForGooToDamagePercent;
 
     public GGWorldComponent ggWorldComponent => Find.World.GetComponent<GGWorldComponent>();
-
-    public float mapGooLevel = 0f;
 
     public IntVec3 OriginPos => ggWorldComponent.GetDirection8WayToNearestController(map.Tile) switch
                 {
@@ -61,23 +60,6 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
                     Direction8Way.NorthWest => new IntVec3(0, 0, 0),
                     _ => IntVec3.Invalid
                 };
-
-    public float MapGooLevel
-    {
-        get
-        {
-            float level = ggWorldComponent.GetTileGooLevelAt(map.Tile);
-
-            if(!AllMapCells.Any(kv=>kv.Value.IsGooed) && !Mathf.Approximately(level, 0))
-            {
-                map.terrainGrid.SetTerrain(OriginPos, Grey_GooDefOf.GG_Goo);
-                CellInfo info = AllMapCells[OriginPos];
-                AllMapCells.TryUpdate(OriginPos, new CellInfo{IsGooed = true, IsActive = true}, info);
-            }
-
-            return level;
-        }
-    }
 
     public FloatRange DamageRange = new FloatRange(0f,4f);
 
@@ -112,14 +94,16 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
                 .Select(c => new { Cell = c, ThingsAt = map.thingGrid.ThingsAt(c) }).ToList();
 
             // check neighbours can be gooed (e.g. no building on cell)
+            // order by fertility to favour fertile tiles
             List<IntVec3> candidates = neighboursWithThings
                 .Where(c=>!AllMapCells[c.Cell].IsGooed)
                 .Where(ct => !ct.ThingsAt.Any(t => t is Building))
                 .Select(ct => ct.Cell)
+                .OrderByDescending(c=>map.fertilityGrid.FertilityAt(c))
                 .ToList();
 
             // if gooed, add to GooedCells
-            foreach (IntVec3 nCell in candidates.TakeRandom(Mathf.Max(1, Mathf.CeilToInt(candidates.Count * ChanceToSpreadGoo))))
+            foreach (IntVec3 nCell in candidates.Take(Mathf.Max(1, Mathf.CeilToInt(candidates.Count * ChanceToSpreadGoo))))
             {
                 CellsToChange.Enqueue(nCell);
             }
@@ -148,6 +132,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         foreach ((IntVec3 cell, CellInfo cellInfo) in AllMapCells)
         {
             CellInfo newCellInfo = new CellInfo();
+            newCellInfo.Terrain = map.terrainGrid.TerrainAt(cell);
 
             //re-evaluate if tile is active
             // get neighbours
@@ -156,20 +141,20 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
             // check neighbours are valid
             neighbours = neighbours.Where(c => c.InBounds(map)).ToList();
 
-            if (map.terrainGrid.TerrainAt(cell) == Grey_GooDefOf.GG_Goo)
+            if (newCellInfo.Terrain == Grey_GooDefOf.GG_Goo)
             {
                 newCellInfo.IsGooed = true;
                 newCellInfo.IsActive = true;
             }
 
             // all our neighbours are gooed, remove from active!
-            if (map.terrainGrid.TerrainAt(cell) == Grey_GooDefOf.GG_Goo &&
+            if (newCellInfo.Terrain == Grey_GooDefOf.GG_Goo &&
                 neighbours.All(nCell => map.terrainGrid.TerrainAt(nCell) == Grey_GooDefOf.GG_Goo))
             {
                 newCellInfo.IsActive = false;
             }
             // we should be active, add
-            else if (map.terrainGrid.TerrainAt(cell) == Grey_GooDefOf.GG_Goo &&
+            else if (newCellInfo.Terrain == Grey_GooDefOf.GG_Goo &&
                      neighbours.Any(nCell => map.terrainGrid.TerrainAt(nCell) != Grey_GooDefOf.GG_Goo) &&
                      !map.thingGrid.ThingsAt(cell).Any(t => t is Building)
             )
@@ -178,16 +163,18 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
             }
 
             // Ensure goo cell in protected tiles are "deactivated"
-            if (map.terrainGrid.TerrainAt(cell) == Grey_GooDefOf.GG_Goo && ProtectedCellsSet.Contains(cell))
+            if (newCellInfo.Terrain == Grey_GooDefOf.GG_Goo && ProtectedCellsSet.Contains(cell))
             {
                 map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo_Inactive);
+                newCellInfo.Terrain = Grey_GooDefOf.GG_Goo_Inactive;
                 newCellInfo.IsGooed = false;
                 newCellInfo.IsActive = false;
             }
             // check if a tile is inactive goo, and not in protected tiles, and convert back to active goo
-            else if (map.terrainGrid.TerrainAt(cell) == Grey_GooDefOf.GG_Goo_Inactive && !ProtectedCellsSet.Contains(cell))
+            else if (newCellInfo.Terrain == Grey_GooDefOf.GG_Goo_Inactive && !ProtectedCellsSet.Contains(cell))
             {
                 map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo);
+                newCellInfo.Terrain = Grey_GooDefOf.GG_Goo;
                 newCellInfo.IsGooed = true;
                 newCellInfo.IsActive = true;
             }
@@ -199,6 +186,15 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
     public override void MapComponentTick()
     {
         base.MapComponentTick();
+
+        float level = ggWorldComponent.GetTileGooLevelAt(map.Tile);
+
+        if(!AllMapCells.Any(kv=>kv.Value.IsGooed) && !Mathf.Approximately(level, 0))
+        {
+            map.terrainGrid.SetTerrain(OriginPos, Grey_GooDefOf.GG_Goo);
+            CellInfo info = AllMapCells[OriginPos];
+            AllMapCells.TryUpdate(OriginPos, new CellInfo{IsGooed = true, IsActive = true}, info);
+        }
 
         if ((CurrentGooUpdateTask is null || CurrentGooUpdateTask.IsCompleted) && Find.TickManager.TicksGame >= NextGooUpdateTick && ThingsToDamage.IsEmpty && CellsToChange.IsEmpty)
             CurrentGooUpdateTask = Task.Run(UpdateGoo);
@@ -215,8 +211,9 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
                 break;
             }
 
-            if (thing is { Destroyed: false } && Random.value > ChanceToApplyDamage/TicksToUpdateGoo)
+            if (thing is { Destroyed: false } && Random.value > (ChanceToApplyDamage/100))
             {
+                if(thing is Pawn && Random.value > 0.1) continue; // 10% chance to damage people
                 DamageInfo dinfo = new DamageInfo(
                     Grey_GooDefOf.GG_Goo_Burn,
                     Grey_GooMod.settings.GooDamageRange.RandomInRange,
@@ -225,17 +222,27 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
             }
         }
 
-        for (int i = 0; i < 5; i++)
+        maxToProcess = Mathf.Max(10, CellsToChange.Count / 10);
+
+
+        for (int i = 0; i < maxToProcess; i++)
         {
             if (!CellsToChange.TryDequeue(out IntVec3 cell) || cell == IntVec3.Invalid)
             {
                 break;
             }
 
-            CellInfo info = AllMapCells[cell];
-            map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo);
-            CellInfo newCI = new CellInfo() { IsGooed = true, IsActive = true };
-            AllMapCells.TryUpdate(cell, newCI, info);
+            float fertility = map.fertilityGrid.FertilityAt(cell);
+
+            float spreadChance = 0.01f + Mathf.Max(0, (fertility - 0.5f)/100f); // can still spread on infertile terrain
+
+            if(Random.value < spreadChance){
+                CellInfo info = AllMapCells[cell];
+                map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo);
+                CellInfo newCI = new CellInfo { IsGooed = true, IsActive = true, Terrain = Grey_GooDefOf.GG_Goo };
+                AllMapCells.TryUpdate(cell, newCI, info);
+
+            }
         }
     }
 

@@ -20,36 +20,35 @@ public class GGWorldComponent(World world) : WorldComponent(world)
 
     public void Setup()
     {
-        for (int i = 0; i < Find.World.grid.tiles.Count; i++)
+        foreach (int idx in Enumerable.Range(0, Find.World.grid.tiles.Count - 1).Except(TileGooLevel.Keys))
         {
-            TileGooLevel[i] = 0;
+            TileGooLevel[idx] = 0;
         }
-
-        if(!GooEnabled){return;}
     }
 
-    public bool TrySpawnController(IncidentParms parms)
+    public bool TrySpawnController(IncidentParms parms, int locationTile = -1, bool isDebug = false)
     {
         if(!GooEnabled) return false;
-        if(!CanCreateNewController()) return false;
+        if(!CanCreateNewController(isDebug)) return false;
 
-        int locationTile = -1;
-
-        for (int i = 0; i < 100; i++)
+        if (locationTile < 0)
         {
-            Tile tile = Find.World.grid.tiles.RandomElement();
-            locationTile = Find.World.grid.tiles.IndexOf(tile);
-            if(tile.WaterCovered) continue;
-            if (Find.World.worldObjects.AnyWorldObjectAt(locationTile)) continue;
+            for (int i = 0; i < 100; i++)
+            {
+                Tile tile = Find.World.grid.tiles.RandomElement();
+                locationTile = Find.World.grid.tiles.IndexOf(tile);
+                if (tile.WaterCovered) continue;
+                if (Find.World.worldObjects.AnyWorldObjectAt(locationTile)) continue;
 
-            break;
+                break;
+            }
         }
 
         Settlement wo = (Settlement) WorldObjectMaker.MakeWorldObject(WorldObjectDefOf.Settlement);
         Faction fac = Find.FactionManager.FirstFactionOfDef(Grey_GooDefOf.GG_GreyGoo);
         wo.SetFaction(fac);
         wo.Tile = locationTile;
-        wo.Name = $"GG_ActiveGreyGoo".Translate().Colorize(Color.red);
+        wo.Name = "GG_ActiveGreyGoo".Translate().Colorize(Color.red);
         Find.WorldObjects.Add(wo);
 
         GreyGooController controller = new GreyGooController(wo);
@@ -137,8 +136,9 @@ public class GGWorldComponent(World world) : WorldComponent(world)
         return TileGooLevel.TryGetValue(tile, out float value) ? value : 0f;
     }
 
-    public bool CanCreateNewController()
+    public bool CanCreateNewController(bool isDebug = false)
     {
+        if (isDebug) return true;
         return GooEnabled && controllers.Count < 3;
     }
 }
