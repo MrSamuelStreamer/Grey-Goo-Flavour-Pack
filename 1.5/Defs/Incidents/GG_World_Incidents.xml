@@ -33,4 +33,14 @@
         <minRefireDays>15</minRefireDays>
     </IncidentDef>
 
+    <IncidentDef ParentName="EntitySwarmBase">
+        <defName>MSS_GG_ShamblerSwarm</defName>
+        <label>shambler swarm</label>
+        <workerClass>Grey_Goo.IncidentWorker_GooShamblerSwarm</workerClass>
+        <baseChance>2</baseChance>
+        <earliestDay>2</earliestDay>
+        <minRefireDays>0.1</minRefireDays>
+        <minAnomalyThreatLevel>0</minAnomalyThreatLevel>
+        <hidden>true</hidden>
+    </IncidentDef>
 </Defs>
