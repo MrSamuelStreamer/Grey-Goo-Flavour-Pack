@@ -6,6 +6,7 @@
         <defName>MSS_GG_BurnoutElectromagneticInhibitor</defName>
         <label>burnout electromagnetic inhibitor</label>
         <description>A man-portable electromagnetic inhibitor. Deploys an electromagnetic field that interferes with GreyGoo to subdue it.</description>
+        <minifiedDef>MinifiedThing</minifiedDef>
         <altitudeLayer>BuildingOnTop</altitudeLayer>
         <drawerType>MapMeshAndRealTime</drawerType>
         <pathCost>0</pathCost>
@@ -24,6 +25,7 @@
             </damageData>
         </graphicData>
         <statBases>
+            <MarketValue>1000</MarketValue>
             <MaxHitPoints>250</MaxHitPoints>
             <Flammability>0.5</Flammability>
         </statBases>
@@ -59,12 +61,19 @@
                 <countdownLabel>Burnout in</countdownLabel>
             </li>
         </comps>
+        <tradeTags>
+            <li>UtilitySpecial</li>
+        </tradeTags>
+        <thingSetMakerTags>
+            <li>RewardStandardMidFreq</li>
+        </thingSetMakerTags>
     </ThingDef>
 
     <ThingDef ParentName="BuildingBase">
         <defName>MSS_GG_GooDistruptorTower</defName>
         <label>goo disruptor tower</label>
         <description>A large scale goo disruption emitter.</description>
+        <minifiedDef>MinifiedThing</minifiedDef>
         <altitudeLayer>BuildingOnTop</altitudeLayer>
         <drawerType>MapMeshAndRealTime</drawerType>
         <pathCost>20</pathCost>
@@ -76,6 +85,7 @@
             <drawSize>3</drawSize>
         </graphicData>
         <statBases>
+            <MarketValue>4000</MarketValue>
             <MaxHitPoints>250</MaxHitPoints>
             <Flammability>0.5</Flammability>
         </statBases>
@@ -107,9 +117,15 @@
             </li>
             <li Class="CompProperties_Power">
                 <compClass>CompPowerTrader</compClass>
-                <basePowerConsumption>2000</basePowerConsumption>
+                <basePowerConsumption>4000</basePowerConsumption>
             </li>
         </comps>
+        <tradeTags>
+            <li>UtilitySpecial</li>
+        </tradeTags>
+        <thingSetMakerTags>
+            <li>RewardStandardLowFreq</li>
+        </thingSetMakerTags>
     </ThingDef>
 
 </Defs>
