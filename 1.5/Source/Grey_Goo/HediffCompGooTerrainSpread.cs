@@ -7,9 +7,9 @@ public class HediffCompGooTerrainSpread: HediffComp
     public HediffCompProperties_GooTerrainSpread Props => (HediffCompProperties_GooTerrainSpread) props;
     public override void Notify_PawnDied(DamageInfo? dinfo, Hediff culprit = null)
     {
-        if(!Rand.Chance(Props.chanceToDropGoo)) return;
+        if(parent.pawn.Corpse.Map == null || !Rand.Chance(Props.chanceToDropGoo)) return;
 
-        IntVec3 cell = parent.pawn.Position;
-        parent.pawn.Map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo);
+        IntVec3 cell = parent.pawn.Corpse.Position;
+        parent.pawn.Corpse.Map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo);
     }
 }

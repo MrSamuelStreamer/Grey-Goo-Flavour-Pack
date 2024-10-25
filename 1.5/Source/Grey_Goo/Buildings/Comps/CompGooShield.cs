@@ -127,7 +127,7 @@ public class CompGooShield : ThingComp, IMapCellProtector
 
         List<Pawn> pawns = protectedCells.SelectMany(c=>c.GetThingList(this.parent.Map)).OfType<Pawn>().ToList();
 
-        IEnumerable<Pawn> pawnsWithRelevantXenotypeToDamage = pawns.Where(p=>p.genes != null && Props.gooEnemyXenotypes.Contains(p.genes.Xenotype)).ToList();
+        IEnumerable<Pawn> pawnsWithRelevantXenotypeToDamage = pawns.Where(p=>p.genes != null && Props.gooEnemyXenotypes.Contains(p.genes.Xenotype) || p.mutant.Def == MutantDefOf.Shambler).ToList();
 
         foreach (Pawn p in pawnsWithRelevantXenotypeToDamage)
         {

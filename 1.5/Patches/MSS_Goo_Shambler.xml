@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/HediffDef[defName="Shambler"]/comps</xpath>
+		<value>
+            <li Class="Grey_Goo.HediffCompProperties_GooTerrainSpread">
+                <chanceToDropGoo>0.1</chanceToDropGoo>
+            </li>
+		</value>
+	</Operation>
+</Patch>
