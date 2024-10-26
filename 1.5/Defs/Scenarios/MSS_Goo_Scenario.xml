@@ -112,6 +112,14 @@
           <maxDays>5</maxDays>
           <repeat>True</repeat>
         </li>
+          <li Class="ScenPart_CreateIncident">
+          <def>CreateIncident</def>
+          <incident>MSS_GG_ShamblerSwarm</incident>
+          <intervalDays>0.1</intervalDays>
+          <minDays>0.1</minDays>
+          <maxDays>0.1</maxDays>
+          <repeat>True</repeat>
+        </li>
       </parts>
     </scenario>
   </ScenarioDef>
