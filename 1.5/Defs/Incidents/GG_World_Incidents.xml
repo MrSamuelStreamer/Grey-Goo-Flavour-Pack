@@ -39,7 +39,7 @@
         <workerClass>Grey_Goo.IncidentWorker_GooShamblerSwarm</workerClass>
         <baseChance>2</baseChance>
         <earliestDay>3</earliestDay>
-        <minRefireDays>15.0</minRefireDays>    <!-- control spawn rate via scenario, then they can balance if they want -->
+        <minRefireDays>0.1</minRefireDays>    <!-- control spawn rate via scenario, then they can balance if they want -->
         <minAnomalyThreatLevel>0</minAnomalyThreatLevel>
         <hidden>true</hidden>
     </IncidentDef>
