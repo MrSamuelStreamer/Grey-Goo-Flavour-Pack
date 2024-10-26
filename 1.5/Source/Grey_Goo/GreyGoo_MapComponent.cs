@@ -7,6 +7,7 @@ using RimWorld;
 using UnityEngine;
 using Verse;
 using Random = UnityEngine.Random;
+using NetRandom = System.Random;
 
 namespace Grey_Goo;
 
@@ -16,6 +17,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
     public List<IntVec3> ProtectedCells = new List<IntVec3>();
     public HashSet<IntVec3> ProtectedCellsSet => ProtectedCells.ToHashSet();
 
+    public NetRandom RandLocal = new NetRandom();
     public record struct CellInfo
     {
         public bool IsGooed = false;
@@ -103,9 +105,20 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
                 .ToList();
 
             // if gooed, add to GooedCells
-            foreach (IntVec3 nCell in candidates.Take(Mathf.Max(1, Mathf.CeilToInt(candidates.Count * ChanceToSpreadGoo))))
+            foreach (IntVec3 nCell in candidates)
             {
-                CellsToChange.Enqueue(nCell);
+                // CellsToChange.Enqueue(nCell);
+                float fertility = map.fertilityGrid.FertilityAt(nCell);
+
+                float spreadChance = 0.01f + (Mathf.Max(0, (fertility - 0.5f)/100f) * ChanceToSpreadGoo); // can still spread on infertile terrain
+
+                if(RandLocal.NextDouble() < spreadChance){
+                    CellInfo info = AllMapCells[nCell];
+                    map.terrainGrid.SetTerrain(nCell, Grey_GooDefOf.GG_Goo);
+                    CellInfo newCI = new CellInfo { IsGooed = true, IsActive = true, Terrain = Grey_GooDefOf.GG_Goo };
+                    AllMapCells.TryUpdate(nCell, newCI, info);
+
+                }
             }
 
             // check things on self and all neighbours to apply damage to
@@ -126,6 +139,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
     public void GooRecheck()
     {
+        // backup func to recheck over all goo at a slower rate
         float level = ggWorldComponent.GetTileGooLevelAt(map.Tile);
 
         if(!AllMapCells.Any(kv=>kv.Value.IsGooed) && !Mathf.Approximately(level, 0))
@@ -136,7 +150,6 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         }
 
         NextGooRecheckTick = TicksToRecheckGoo + Find.TickManager.TicksGame;
-        // backup func to recheck over all goo at a slower rate
 
         foreach ((IntVec3 cell, CellInfo cellInfo) in AllMapCells)
         {
@@ -206,44 +219,19 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         {
             if (ThingsToDamage.TryDequeue(out Thing thing) && thing != null)
             {
-                if (thing is { Destroyed: false } && Random.value > (ChanceToApplyDamage/100))
+                if (thing is { Destroyed: false } && Random.value > (ChanceToApplyDamage/100) && thing is Pawn && Random.value < 0.1)
                 {
-                    if (thing is Pawn && Random.value < 0.1)
-                    {
-                        ; // 10% chance to damage people
-                        DamageInfo dinfo = new DamageInfo(
-                            Grey_GooDefOf.GG_Goo_Burn,
-                            Grey_GooMod.settings.GooDamageRange.RandomInRange,
-                            1f);
-                        thing.TakeDamage(dinfo);
-                    }
+                    ; // 10% chance to damage people
+                    DamageInfo dinfo = new DamageInfo(
+                        Grey_GooDefOf.GG_Goo_Burn,
+                        Grey_GooMod.settings.GooDamageRange.RandomInRange,
+                        1f);
+                    thing.TakeDamage(dinfo);
                 }
             }
             else
             {
                 break;
-            }
-        }
-
-        for (int i = 0; i < Mathf.Max(1, Mathf.Min(10, CellsToChange.Count / 10)); i++)
-        {
-            if (CellsToChange.TryDequeue(out IntVec3 cell) && cell != IntVec3.Invalid)
-            {
-                float fertility = map.fertilityGrid.FertilityAt(cell);
-
-                float spreadChance = 0.01f + Mathf.Max(0, (fertility - 0.5f)/100f); // can still spread on infertile terrain
-
-                if(Random.value < spreadChance){
-                    CellInfo info = AllMapCells[cell];
-                    map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo);
-                    CellInfo newCI = new CellInfo { IsGooed = true, IsActive = true, Terrain = Grey_GooDefOf.GG_Goo };
-                    AllMapCells.TryUpdate(cell, newCI, info);
-
-                }
-                else
-                {
-                    break;
-                }
             }
         }
     }
