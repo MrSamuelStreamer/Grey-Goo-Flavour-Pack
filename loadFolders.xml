@@ -10,5 +10,6 @@
         <li IfModActive="RedMattis.BetterPrerequisites">Compatibility/redmattis.betterprerequisites/1.5</li>
 		<li IfModActive="ushanka.biologicalwarfare">Compatibility/ushanka.biologicalwarfare</li>
 		<li IfModActive="rh2.faction.rangers">Compatibility/rh2.faction.rangers</li>
+		<li IfModActive="vanillaracesexpanded.fungoid">Compatibility/vanillaracesexpanded.fungoid</li>
 	</v1.5>
 </loadFolders>

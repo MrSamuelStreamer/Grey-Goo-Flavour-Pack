@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <VRE_GeneInfector.label>Grey Mechanite Host</VRE_GeneInfector.label>
+    <VRE_GeneInfector.description>This drone is a host for Grey Mechanites. When a target is attacked by a pawn with this gene the mechanites will spread, and unless treated until immunity, or the affected body part is amputated, the target will turn into a Drone capable of spreading more Grey Mechanites.</VRE_GeneInfector.description>
+    <VRE_GeneInfection.label>Grey Mechanite Spread</VRE_GeneInfection.label>
+    <VRE_GeneInfection.description>This person has been infected by Grey Mechanites and unless treated until immunity, or the affected body part is amputated, the target will turn into a Drone capable of spreading more Grey Mechanites.</VRE_GeneInfection.description>
+</LanguageData>
