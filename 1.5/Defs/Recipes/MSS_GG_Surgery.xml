@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Defs>
+    <RecipeDef ParentName="SurgeryRemoveImplantBase">
+        <defName>MSS_GG_RemoveGene_BS_DroneKind</defName>
+        <label>remove drone gene</label>
+        <workerClass>Grey_Goo.GeneRemovalRecipeWorker</workerClass>
+        <description>Remove drone gene.</description>
+        <hideBodyPartNames>true</hideBodyPartNames>
+        <isViolation>true</isViolation>
+        <targetsBodyPart>false</targetsBodyPart>
+        <humanlikeOnly>true</humanlikeOnly>
+        <researchPrerequisite Inherit="False"></researchPrerequisite>
+        <researchPrerequisites Inherit="False"></researchPrerequisites>
+        <descriptionHyperlinks>
+            <GeneDef>BS_DroneKind</GeneDef>
+        </descriptionHyperlinks>
+        <jobString>Removing dronekind gene.</jobString>
+        <modExtensions>
+            <li Class="Grey_Goo.GeneRemovalRecipeModExtension">
+                <geneToRemove>BS_DroneKind</geneToRemove>
+            </li>
+        </modExtensions>
+    </RecipeDef>
+</Defs>
