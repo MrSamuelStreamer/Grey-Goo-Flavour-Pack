@@ -10,7 +10,6 @@
         <inheritable>false</inheritable>
         <genes>
             <li MayRequire="sarg.alphagenes">AG_Foodless</li>
-            <li MayRequire="sarg.alphagenes">AG_Mood_Unfeeling</li>
             <li MayRequire="sarg.alphagenes">AG_Regeneration</li>
             <li MayRequire="vanillaracesexpanded.fungoid">VRE_GeneInfector</li>
             <li MayRequire="redmattis.bigsmall.core">WoundHealing_VerySlow</li>
