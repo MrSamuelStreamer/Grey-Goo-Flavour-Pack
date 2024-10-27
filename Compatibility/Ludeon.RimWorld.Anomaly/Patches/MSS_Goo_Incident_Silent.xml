@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/IncidentDef[defName="ShamblerSwarm"]</xpath>
+    <value>
+      <hidden>true</hidden>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+		<xpath>Defs/IncidentDef[defName="ShamblerAssault"]</xpath>
+    <value>
+      <hidden>true</hidden>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+		<xpath>Defs/IncidentDef[defName="SmallShamblerSwarm"]</xpath>
+    <value>
+      <hidden>true</hidden>
+    </value>
+  </Operation>
+
+</Patch>

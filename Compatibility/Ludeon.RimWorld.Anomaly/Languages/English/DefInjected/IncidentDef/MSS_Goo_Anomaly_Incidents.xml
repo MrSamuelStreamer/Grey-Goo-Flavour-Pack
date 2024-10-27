@@ -6,4 +6,6 @@
     <SmallShamblerSwarm.letterLabel>Grey Corpses Approach</SmallShamblerSwarm.letterLabel>
     <SmallShamblerSwarm.letterLabel>A small group of {0} grey corpses are approaching. They will finish being broken down by the Grey Goo mechanites within a day.\n\nIf you can capture one, you can study it for forbidden knowledge. Otherwise, they might not notice you if you leave them alone.</SmallShamblerSwarm.letterLabel>
     <ShamblerAssault.label>Shade Horde</ShamblerAssault.label>
+    <DeathPall.label>Reprogramming Swarm</DeathPall.label>
+    <DeathPall.letterLabel>Reprogramming Swarm</DeathPall.letterLabel>
 </LanguageData>

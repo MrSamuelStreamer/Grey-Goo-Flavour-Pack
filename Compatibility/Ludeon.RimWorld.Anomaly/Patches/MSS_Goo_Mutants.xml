@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
 
-	<Operation Class="PatchOperationReplace">
+	<!-- <Operation Class="PatchOperationReplace">
 		<xpath>Defs/MutantDef[defName="Shambler"]/useCorpseGraphics</xpath>
     <value>
-      <useCorpseGraphics>false</useCorpseGraphics>
+      <useCorpseGraphics>true</useCorpseGraphics>
     </value>
   </Operation>
 
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/MutantDef[defName="Shambler"]/isConsideredCorpse</xpath>
     <value>
-      <isConsideredCorpse>false</isConsideredCorpse>
+      <isConsideredCorpse>true</isConsideredCorpse>   
     </value>
   </Operation>
+  
+    Commenting out, unsure why these were patched out? Possibly legacy stuff?
+  
+  -->    
 
 	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/MutantDef[defName="Shambler"]/renderNodeProperties</xpath>

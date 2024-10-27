@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  
+  <!-- Shamblers -->
+  <ShamblerRegenerating>Succumbing to grey mechanite programming to rise again.</ShamblerRegenerating>
+  <ShamblerRising>Reprogramming.</ShamblerRising>
+  <ShamblerStanding>Being processed by grey mechanites.</ShamblerStanding>
+  <ShamblerShuffling>Being processed by grey mechanites.</ShamblerShuffling>
+  <LetterText_ShamblerGorehulk>Be careful, the group contains a mechanite goohulk.</LetterText_ShamblerGorehulk>
+  <LetterText_ShamblerGorehulkPlural>Be careful, the group contains several mechanite goohulks.</LetterText_ShamblerGorehulkPlural>
+  <LetterText_ShamblerChimera>Be careful, the group contains a mechanite goohemoth.</LetterText_ShamblerChimera>
+  <LetterText_ShamblerChimeraPlural>Be careful, the group contains several mechanite goohemoth.</LetterText_ShamblerChimeraPlural>
+
+  <!-- Death Pall -->
+  <LetterLabelDeathPallEnded>Mechanite Reprogramming cloud is clearing</LetterLabelDeathPallEnded> 
+  <LetterDeathPallEnded>The cloud of grey mechanites is lifting. Corpses will be processed to dust soon.</LetterDeathPallEnded>
+
+</LanguageData>
