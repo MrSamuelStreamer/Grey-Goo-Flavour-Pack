@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/TerrainDef[defName="Sand"]</xpath>
+        <value>
+            <description>Transform inactive grey goo into sand.</description>
+            <constructEffect>ConstructDirt</constructEffect>
+            <designationCategory>Floors</designationCategory>
+            <costList>
+                <BlocksLimestone>7</BlocksLimestone>
+                <Hay>32</Hay>
+            </costList>
+            <placeWorkers>
+                <li>Grey_Goo.PlaceWorker_ReclaimedGoo</li>
+            </placeWorkers>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/TerrainDef[defName="Sand"]/statBases</xpath>
+        <value>
+            <WorkToBuild>1600</WorkToBuild>
+            <MarketValue>0</MarketValue>
+        </value>
+    </Operation>
+</Patch>

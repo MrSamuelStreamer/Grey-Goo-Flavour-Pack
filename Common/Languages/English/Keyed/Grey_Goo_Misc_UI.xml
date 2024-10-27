@@ -26,4 +26,6 @@
     <MSS_GG_MinGoo>Goo Spead -100%</MSS_GG_MinGoo>
 
     <MSS_GG_CreateControllerHere>Create Goo Controller here</MSS_GG_CreateControllerHere>
+
+    <MSS_GG_MustBeInactiveGoo>Terrain must be Inactive Goo</MSS_GG_MustBeInactiveGoo>
 </LanguageData>
