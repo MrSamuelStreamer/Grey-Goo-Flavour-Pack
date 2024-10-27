@@ -208,6 +208,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
     public override void MapComponentTick()
     {
         base.MapComponentTick();
+        if(!Grey_GooMod.settings.EnableGoo) return;
 
         if ((CurrentGooUpdateTask is null || CurrentGooUpdateTask.IsCompleted) && Find.TickManager.TicksGame >= NextGooUpdateTick && ThingsToDamage.IsEmpty && CellsToChange.IsEmpty)
             CurrentGooUpdateTask = Task.Run(UpdateGoo);
