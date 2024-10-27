@@ -50,6 +50,12 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
     public GGWorldComponent ggWorldComponent => Find.World.GetComponent<GGWorldComponent>();
 
+    public float CurrentGooCoverage => AllMapCells.Count(item => item.Value.IsGooed) / (float)map.cellIndices.NumGridCells;
+    public float WorldMapSiteCoverage => ggWorldComponent.GetTileGooLevelAt(map.Tile);
+
+    // If we're ahead of the world coverage, slow down, if we're behind, speed up
+    public float WorldMapSiteCoverageMultiplier => CurrentGooCoverage > WorldMapSiteCoverage ? Mathf.Min(0.05f, WorldMapSiteCoverage) : WorldMapSiteCoverage * 10f;
+
     public IntVec3 OriginPos => ggWorldComponent.GetDirection8WayToNearestController(map.Tile) switch
                 {
                     Direction8Way.North => new IntVec3(map.Size.x / 2, 0, 0),
@@ -110,14 +116,13 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
                 // CellsToChange.Enqueue(nCell);
                 float fertility = map.fertilityGrid.FertilityAt(nCell);
 
-                float spreadChance = 0.01f + (Mathf.Max(0, (fertility - 0.5f)/100f) * ChanceToSpreadGoo); // can still spread on infertile terrain
+                float spreadChance = Mathf.Min(1f, 0.01f + Mathf.Max(0, (fertility - 0.5f)/100f) * ChanceToSpreadGoo * WorldMapSiteCoverageMultiplier); // can still spread on infertile terrain
 
                 if(RandLocal.NextDouble() < spreadChance){
                     CellInfo info = AllMapCells[nCell];
                     map.terrainGrid.SetTerrain(nCell, Grey_GooDefOf.GG_Goo);
                     CellInfo newCI = new CellInfo { IsGooed = true, IsActive = true, Terrain = Grey_GooDefOf.GG_Goo };
                     AllMapCells.TryUpdate(nCell, newCI, info);
-
                 }
             }
 
@@ -153,8 +158,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
         foreach ((IntVec3 cell, CellInfo cellInfo) in AllMapCells)
         {
-            CellInfo newCellInfo = new CellInfo();
-            newCellInfo.Terrain = map.terrainGrid.TerrainAt(cell);
+            CellInfo newCellInfo = new CellInfo { Terrain = map.terrainGrid.TerrainAt(cell) };
 
             //re-evaluate if tile is active
             // get neighbours
@@ -222,7 +226,6 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
             {
                 if (thing is { Destroyed: false } && Random.value > (ChanceToApplyDamage/100) && thing is Pawn && Random.value < 0.1)
                 {
-                    ; // 10% chance to damage people
                     DamageInfo dinfo = new DamageInfo(
                         Grey_GooDefOf.GG_Goo_Burn,
                         Grey_GooMod.settings.GooDamageRange.RandomInRange,
@@ -263,6 +266,16 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
             map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo);
             AllMapCells.TryUpdate(cell, new CellInfo{IsActive = true, IsGooed = true}, info);
         });
+    }
 
+    public override void MapGenerated()
+    {
+        GenThreading.ParallelForEach(map.AllCells.InRandomOrder().Take(Mathf.CeilToInt(map.AllCells.Count() * WorldMapSiteCoverage)).ToList(), cell =>
+        {
+            CellInfo info = AllMapCells[cell];
+            // check if a tile is unprotected goo, and not in protected tiles, and convert back to active goo
+            map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo);
+            AllMapCells.TryUpdate(cell, new CellInfo{IsActive = true, IsGooed = true}, info);
+        });
     }
 }
