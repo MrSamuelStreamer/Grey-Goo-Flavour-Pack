@@ -56,7 +56,7 @@
         <texturePathRough>World/GG_Goo_5</texturePathRough>
         <texturePathWater>World/GG_Goo_5</texturePathWater>
 
-        <terrainShader>GG_LiquidMetalSimplex</terrainShader>
+        <terrainShader>KMR_LiquidMetalSimplex</terrainShader>
 
         <renderPrecedence>200</renderPrecedence>
         <pathCost>120</pathCost>
