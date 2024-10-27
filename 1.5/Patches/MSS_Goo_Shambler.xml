@@ -4,7 +4,7 @@
 		<xpath>Defs/HediffDef[defName="Shambler"]/comps</xpath>
 		<value>
             <li Class="Grey_Goo.HediffCompProperties_GooTerrainSpread">
-                <chanceToDropGoo>0.1</chanceToDropGoo>
+                <chanceToDropGoo>0.005</chanceToDropGoo> <!-- patching to be extremely low, unmanagable in early game at higher levels, wealth scaling? -->
             </li>
 		</value>
 	</Operation>
