@@ -54,7 +54,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
     public float WorldMapSiteCoverage => ggWorldComponent.GetTileGooLevelAt(map.Tile);
 
     // If we're ahead of the world coverage, slow down, if we're behind, speed up
-    public float WorldMapSiteCoverageMultiplier => CurrentGooCoverage > WorldMapSiteCoverage ? Mathf.Min(0.05f, WorldMapSiteCoverage) : WorldMapSiteCoverage * 10f;
+    public float WorldMapSiteCoverageMultiplier => CurrentGooCoverage > WorldMapSiteCoverage ? Mathf.Min(0.1f, WorldMapSiteCoverage) : WorldMapSiteCoverage * 10f;
 
     public IntVec3 OriginPos => ggWorldComponent.GetDirection8WayToNearestController(map.Tile) switch
                 {
