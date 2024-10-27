@@ -11,7 +11,7 @@ public class GGTerrainDef: TerrainDef
     public string texturePathRough;
     public string texturePathWater;
 
-    public GG_ShaderTypeDef terrainShader;
+    public ShaderTypeDef terrainShader;
 
     public string TexturePath
     {

@@ -28,19 +28,45 @@
         </injuryProps>
     </HediffDef>
 
+    <ThoughtDef>
+        <defName>MSS_GG_ItsEatingMe</defName>
+        <durationDays>0.1</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>it was eating me!</label>
+                <description>I could feel goo trying to dissolve me! I could feel it eating through my skin!</description>
+                <baseMoodEffect>-16</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
     <Grey_Goo.GGTerrainDef ParentName="NaturalTerrainBase">
         <defName>GG_Goo</defName>
         <label>grey goo</label>
 
-        <texturePath>World/GG_Goo_6</texturePath>
+        <edgeType>Fade</edgeType>
+        <categoryType>Misc</categoryType>
+
+        <traversedThought>MSS_GG_ItsEatingMe</traversedThought>
+
+        <texturePath>World/GG_Goo_20</texturePath>
         <texturePathFade>World/GG_Goo_5</texturePathFade>
         <texturePathRough>World/GG_Goo_5</texturePathRough>
         <texturePathWater>World/GG_Goo_5</texturePathWater>
 
-        <terrainShader>GG_LiquidMetalSimplex</terrainShader>
+        <terrainShader>KMR_LiquidMetalSimplex</terrainShader>
 
-        <renderPrecedence>340</renderPrecedence>
+        <renderPrecedence>200</renderPrecedence>
         <pathCost>120</pathCost>
+
+        <affordances>
+            <li>Light</li>
+            <li>GrowSoil</li>
+            <li>Diggable</li>
+            <li>Bridgeable</li>
+        </affordances>
 
         <statBases>
             <Beauty>-100</Beauty>
@@ -56,7 +82,6 @@
             <li>GrowSoil</li>
             <li>Diggable</li>
         </affordances>
-
 
         <fertility>0</fertility>
 

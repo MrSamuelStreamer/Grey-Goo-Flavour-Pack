@@ -14,6 +14,12 @@
             <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
             <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
         </li>
+        <li>
+            <packageId>keyz182.KeyzMiscResources</packageId>
+            <displayName>Keyz Misc Resources</displayName>
+            <steamWorkshopUrl>steam://url/CommunityFilePage/3355560776</steamWorkshopUrl>
+            <downloadUrl>https://github.com/keyz182/KeyzMiscResources</downloadUrl>
+        </li>
     </modDependencies>
     <loadAfter>
         <li>brrainz.harmony</li>
@@ -29,5 +35,6 @@
         <li>syrchalis.setupcamp</li>
         <li>rh2.faction.rangers</li>
         <li>vanillaracesexpanded.fungoid</li>
+        <li>keyz182.KeyzMiscResources</li>
     </loadAfter>
 </ModMetaData>

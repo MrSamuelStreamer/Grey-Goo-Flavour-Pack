@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Keyz_Misc_Resources;
 using RimWorld.Planet;
 using UnityEngine;
 using Verse;
@@ -27,7 +28,7 @@ public class WorldLayer_GreyGoo: WorldLayer
     public GGWorldComponent ggWorldComponent => Find.World.GetComponent<GGWorldComponent>();
 
     public readonly IEnumerable<int> nums = Enumerable.Repeat(1, 20).Select((tr, ti)=> tr + ti).ToList().AsReadOnly();
-    public List<Lazy<Material>> Materials => nums.Select(i => new Lazy<Material>(() => MaterialPool.MatFrom($"World/GG_Goo_{i}", GG_Shaders.LiquidMetal, 3511))).ToList();
+    public List<Lazy<Material>> Materials => nums.Select(i => new Lazy<Material>(() => MaterialPool.MatFrom($"World/GG_Goo_{i}", Shaders.LiquidMetal, 3511))).ToList();
 
     private static int GetRegionIdForTile(int tileId) => Mathf.FloorToInt(tileId / 500f);
 

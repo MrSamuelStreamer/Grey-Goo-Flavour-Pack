@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Keyz_Misc_Resources;
 using UnityEngine;
 using Verse;
 
@@ -20,7 +21,7 @@ public class BossBar_MapComponent(Map map) : MapComponent(map)
             if (_fontStyle == null)
             {
                 _fontStyle = new GUIStyle();
-                _fontStyle.font =  GG_Fonts.OptimusPrincepsSemiBold;
+                _fontStyle.font =  Fonts.OptimusPrincepsSemiBold;
                 _fontStyle.alignment = TextAnchor.MiddleLeft;
                 _fontStyle.fontSize = 40;
                 _fontStyle.richText = true;
