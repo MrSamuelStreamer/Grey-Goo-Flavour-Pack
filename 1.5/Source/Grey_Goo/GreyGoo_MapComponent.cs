@@ -240,13 +240,13 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
     {
         List<IntVec3> newlyProtectedCells = mapCellProtector.CellsInRadius(map).ToList();
         ProtectedCells.AddRange(newlyProtectedCells);
-        foreach (IntVec3 cell in newlyProtectedCells.Where(cell=>map.terrainGrid.TerrainAt(cell) == Grey_GooDefOf.GG_Goo))
-        {
+        GenThreading.ParallelForEach(newlyProtectedCells.Where(cell=>map.terrainGrid.TerrainAt(cell) == Grey_GooDefOf.GG_Goo).ToList(), (cell) => {
             CellInfo info = AllMapCells[cell];
             // Ensure goo cell in protected tiles are "deactivated"
             map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo_Inactive);
             AllMapCells.TryUpdate(cell, new CellInfo{IsActive = false, IsGooed = false}, info);
-        }
+
+        });
     }
 
     public void NotifyCellsUnprotected(IMapCellProtector mapCellProtector)
@@ -255,14 +255,13 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
         ProtectedCells.RemoveWhere(c=>newlyUnprotectedCells.Contains(c));
 
-        // because it's a list, not a hashset, we can safely remove, as tiles covered by multiple protectors are dublicated, and we only remove once.
-        foreach (IntVec3 cell in newlyUnprotectedCells.Where(cell=>map.terrainGrid.TerrainAt(cell) == Grey_GooDefOf.GG_Goo_Inactive))
+        GenThreading.ParallelForEach(newlyUnprotectedCells.Where(cell=>map.terrainGrid.TerrainAt(cell) == Grey_GooDefOf.GG_Goo_Inactive).ToList(), (cell) =>
         {
             CellInfo info = AllMapCells[cell];
             // check if a tile is unprotected goo, and not in protected tiles, and convert back to active goo
             map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo);
             AllMapCells.TryUpdate(cell, new CellInfo{IsActive = true, IsGooed = true}, info);
-        }
+        });
 
     }
 }
