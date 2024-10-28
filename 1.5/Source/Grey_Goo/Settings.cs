@@ -15,6 +15,8 @@ public class Settings : ModSettings
     public float ChanceForGooToDamagePercent = 0.001f;
     public FloatRange GooDamageRange = new FloatRange(0f,4f);
 
+    public int MaxShamblersOnMap = 40;
+
     public float ChanceToMerge = 0.015f;
     public int ShamblerMergeHediffSeverityToTransform = 10;
 
@@ -58,6 +60,9 @@ public class Settings : ModSettings
         options.Label("MSS_GG_Settings_ShamblerMergeHediffSeverityToTransform".Translate(ShamblerMergeHediffSeverityToTransform));
         options.IntAdjuster(ref ShamblerMergeHediffSeverityToTransform, 1);
 
+        options.Label("MSS_GG_Settings_MaxShamblersOnMap".Translate(MaxShamblersOnMap));
+        options.IntAdjuster(ref MaxShamblersOnMap, 1);
+
         options.Gap();
 
         options.End();
@@ -75,5 +80,6 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref MapGooReevaluateFrequency, "MapGooReevaluateFrequency", 6000);
         Scribe_Values.Look(ref ChanceToMerge, "ChanceToMerge", 0.015f);
         Scribe_Values.Look(ref ShamblerMergeHediffSeverityToTransform, "ShamblerMergeHediffSeverityToTransform", 10);
+        Scribe_Values.Look(ref MaxShamblersOnMap, "MaxShamblersOnMap", 40);
     }
 }

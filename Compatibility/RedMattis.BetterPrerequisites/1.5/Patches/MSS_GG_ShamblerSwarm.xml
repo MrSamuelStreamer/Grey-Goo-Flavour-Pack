@@ -4,4 +4,10 @@
     <Operation Class="PatchOperationRemove">
         <xpath>Defs/ThinkTreeDef[defName="Shambler"]/thinkRoot/subNodes/li[@Class="ThinkNode_Subtree" and ./treeDef[text()="LordDuty"]]</xpath>
     </Operation>
+    <Operation Class="PatchOperationRemove">
+        <xpath>Defs/ThinkTreeDef[defName="Shambler"]/thinkRoot/subNodes/li[@Class="ThinkNodeConditional_EscapingHoldingPlatform"]</xpath>
+    </Operation>
+    <Operation Class="PatchOperationRemove">
+        <xpath>Defs/ThinkTreeDef[defName="ShamblerConstant"]/thinkRoot/subNodes/li[@Class="ThinkNode_ConditionalCanDoLordJobNow"]</xpath>
+    </Operation>
 </Patch>
