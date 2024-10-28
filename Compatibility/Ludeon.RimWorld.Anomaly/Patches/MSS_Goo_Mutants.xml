@@ -49,4 +49,40 @@
   </value>
   </Operation>
 
+    <!-- Stuff for corpses!!! -->
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/HediffDef[defName="ShamblerCorpse"]/renderNodeProperties</xpath>
+        <value>
+            <li Class="PawnRenderNodeProperties_Overlay">
+                <debugLabel>Shambler wounds</debugLabel>
+                <workerClass>PawnRenderNodeWorker_OverlayShambler</workerClass>
+                <overlayLayer>Head</overlayLayer>
+                <baseLayer>61</baseLayer>
+                <pawnType>HumanlikeOnly</pawnType>
+                <parentTagDef>Head</parentTagDef>
+            </li>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/HediffDef[defName="ShamblerCorpse"]/renderNodeProperties</xpath>
+        <value>
+            <li>
+                <nodeClass>PawnRenderNode_AttachmentHead</nodeClass>
+                <workerClass>PawnRenderNodeWorker_FlipWhenCrawling</workerClass>
+                <texPath>Things/Pawn/Humanlike/HeadAttachments/Goo_Blob</texPath>
+                <parentTagDef>Head</parentTagDef>
+                <drawData>
+                    <defaultData>
+                        <layer>80</layer>
+                    </defaultData>
+                    <dataWest>
+                        <layer>10</layer>
+                    </dataWest>
+                </drawData>
+            </li>
+        </value>
+    </Operation>
+
 </Patch>
