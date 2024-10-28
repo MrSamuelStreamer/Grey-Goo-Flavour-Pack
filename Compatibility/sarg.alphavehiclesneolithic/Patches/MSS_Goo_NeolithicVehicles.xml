@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/Vehicles.VehicleBuildDef[defName="AV_Wheelbarrow_Blueprint"]</xpath>
+		<value>
+			<researchPrerequisites>
+				<li>MSS_Goo_Basic_Transport</li>
+			</researchPrerequisites>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/Vehicles.VehicleBuildDef[defName="AV_WarChariot_Blueprint"]</xpath>
+		<value>
+			<researchPrerequisites>
+				<li>MSS_Goo_Basic_Transport</li>
+			</researchPrerequisites>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/Vehicles.VehicleBuildDef[defName="AV_Rickshaw_Blueprint"]</xpath>
+		<value>
+			<researchPrerequisites>
+				<li>MSS_Goo_Basic_Transport</li>
+			</researchPrerequisites>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/Vehicles.VehicleBuildDef[defName="AV_OxCart_Blueprint"]</xpath>
+		<value>
+			<researchPrerequisites>
+				<li>MSS_Goo_Basic_Transport</li>
+			</researchPrerequisites>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/Vehicles.VehicleBuildDef[defName="AV_Hwacha_Blueprint"]</xpath>
+		<value>
+			<researchPrerequisites>
+				<li>MSS_Goo_Basic_Transport</li>
+			</researchPrerequisites>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/Vehicles.VehicleBuildDef[defName="AV_DogSled_Blueprint"]</xpath>
+		<value>
+			<researchPrerequisites>
+				<li>MSS_Goo_Basic_Transport</li>
+			</researchPrerequisites>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/Vehicles.VehicleBuildDef[defName="AV_CoveredCarriage_Blueprint"]</xpath>
+		<value>
+			<researchPrerequisites>
+				<li>MSS_Goo_Basic_Transport</li>
+			</researchPrerequisites>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/Vehicles.VehicleBuildDef[defName="AV_Chariot_Blueprint"]</xpath>
+		<value>
+			<researchPrerequisites>
+				<li>MSS_Goo_Basic_Transport</li>
+			</researchPrerequisites>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/Vehicles.VehicleBuildDef[defName="AV_Balloon_Blueprint"]</xpath>
+		<value>
+			<researchPrerequisites>
+				<li>MSS_Goo_Basic_Transport</li>
+			</researchPrerequisites>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/Vehicles.VehicleBuildDef[defName="AV_OutriggerCanoe_Blueprint"]</xpath>
+		<value>
+			<researchPrerequisites>
+				<li>MSS_Goo_Basic_Boats</li>
+			</researchPrerequisites>
+		</value>
+	</Operation>
+</Patch>

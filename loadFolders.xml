@@ -10,5 +10,8 @@
 		<li IfModActive="ushanka.biologicalwarfare">Compatibility/ushanka.biologicalwarfare</li>
 		<li IfModActive="rh2.faction.rangers">Compatibility/rh2.faction.rangers</li>
 		<li IfModActive="vanillaracesexpanded.fungoid">Compatibility/vanillaracesexpanded.fungoid</li>
+		<li IfModActive="smashphil.vehicleframework">Compatibility/smashphil.vehicleframework</li>
+		<li IfModActive="sarg.alphavehiclesageofsail">Compatibility/sarg.alphavehiclesageofsail</li>
+		<li IfModActive="sarg.alphavehiclesneolithic">Compatibility/sarg.alphavehiclesneolithic</li>
 	</v1.5>
 </loadFolders>

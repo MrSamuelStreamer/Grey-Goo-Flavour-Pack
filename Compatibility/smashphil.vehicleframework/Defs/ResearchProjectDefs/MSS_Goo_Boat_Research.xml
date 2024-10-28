@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  
+  <ResearchProjectDef>
+    <defName>MSS_Goo_Basic_Boats</defName>
+    <label>Basic Boats</label>
+    <description>Build basic wooden vessels for transportation across bodies of water.</description>
+    <baseCost>1500</baseCost>
+    <techLevel>Medieval</techLevel>
+    <researchViewX>1.00</researchViewX>
+    <researchViewY>3.50</researchViewY>
+    <generalRules>
+      <rulesStrings>
+        <li>subject->boatbuilding</li>
+
+        <li>subject_story->learnt the intricacies of building ships</li>
+        <li>subject_story->built vessels to navigate the waters</li>
+
+        <li>subject_gerund->boat building</li>
+      </rulesStrings>
+    </generalRules>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef>
+    <defName>MSS_Goo_Basic_Transport</defName>
+    <label>Basic Transport</label>
+    <description>Build basic modes of transporting good or people.</description>
+    <baseCost>1800</baseCost>
+    <techLevel>Medieval</techLevel>
+    <researchViewX>1.00</researchViewX>
+    <researchViewY>3.50</researchViewY>
+    <generalRules>
+      <rulesStrings>
+        <li>subject->mechanics</li>
+
+        <li>subject_story->brushed up on their knowledge of transportation</li>
+        <li>subject_story->created vehicles to traverse long journeys</li>
+
+        <li>subject_gerund->vehicle building</li>
+      </rulesStrings>
+    </generalRules>
+  </ResearchProjectDef>
+
+</Defs>

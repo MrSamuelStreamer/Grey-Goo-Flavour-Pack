@@ -36,5 +36,8 @@
         <li>rh2.faction.rangers</li>
         <li>vanillaracesexpanded.fungoid</li>
         <li>keyz182.KeyzMiscResources</li>
+        <li>smashphil.vehicleframework</li>
+        <li>sarg.alphavehiclesneolithic</li>
+        <li>sarg.alphavehiclesageofsail</li>
     </loadAfter>
 </ModMetaData>

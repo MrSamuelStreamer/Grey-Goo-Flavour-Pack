@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/Vehicles.VehicleBuildDef[defName="AV_Cog_Blueprint"]</xpath>
+		<value>
+			<researchPrerequisites>
+				<li>MSS_Goo_Basic_Boats</li>
+			</researchPrerequisites>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/Vehicles.VehicleBuildDef[defName="AV_Longship_Blueprint"]</xpath>
+		<value>
+			<researchPrerequisites>
+				<li>MSS_Goo_Basic_Boats</li>
+			</researchPrerequisites>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/Vehicles.VehicleBuildDef[defName="AV_Junk_Blueprint"]</xpath>
+		<value>
+			<researchPrerequisites>
+				<li>MSS_Goo_Basic_Boats</li>
+			</researchPrerequisites>
+		</value>
+	</Operation>
+</Patch>
