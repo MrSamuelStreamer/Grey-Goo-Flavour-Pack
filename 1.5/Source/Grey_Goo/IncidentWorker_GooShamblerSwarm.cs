@@ -9,7 +9,7 @@ namespace Grey_Goo;
 
 public class IncidentWorker_GooShamblerSwarm: IncidentWorker_ShamblerSwarm
 {
-    public static Lazy<FieldInfo> queuedIncidents = new Lazy<FieldInfo>(()=>AccessTools.Field(typeof(IncidentWorker), "queuedIncidents"));
+    public static Lazy<FieldInfo> queuedIncidents = new Lazy<FieldInfo>(()=>AccessTools.Field(typeof(IncidentQueue), "queuedIncidents"));
     public int ShamblersOnMap(Map map)
     {
         return map.mapPawns.AllPawns.Count(p => p.mutant != null && p.mutant.Def == MutantDefOf.Shambler);
@@ -25,6 +25,7 @@ public class IncidentWorker_GooShamblerSwarm: IncidentWorker_ShamblerSwarm
 
     public bool AlreadyInQueue()
     {
+        if(Find.Storyteller.incidentQueue == null) return false;
         List<QueuedIncident> queue = (List<QueuedIncident>)queuedIncidents.Value.GetValue(Find.Storyteller.incidentQueue);
 
         return queue != null && queue.Any(i => i.FiringIncident.def == def);
