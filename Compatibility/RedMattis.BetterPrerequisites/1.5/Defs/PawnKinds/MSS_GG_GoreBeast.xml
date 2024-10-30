@@ -60,6 +60,7 @@
             <corpseHiddenWhileUndiscovered>true</corpseHiddenWhileUndiscovered>
         </race>
         <comps>
+            <li Class="KeyzBossBars.CompProperties_BossBar" MayRequire="keyz182.KeyzBossBars" />
             <li Class="CompProperties_HoldingPlatformTarget">
                 <baseEscapeIntervalMtbDays>40</baseEscapeIntervalMtbDays>
             </li>

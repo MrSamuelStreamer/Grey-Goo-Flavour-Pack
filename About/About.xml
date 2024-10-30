@@ -16,8 +16,14 @@
         </li>
         <li>
             <packageId>keyz182.KeyzMiscResources</packageId>
-            <displayName>Keyz Misc Resources</displayName>
+            <displayName>Keyz. Misc Resources</displayName>
             <steamWorkshopUrl>steam://url/CommunityFilePage/3355560776</steamWorkshopUrl>
+            <downloadUrl>https://github.com/keyz182/KeyzMiscResources</downloadUrl>
+        </li>
+        <li>
+            <packageId>keyz182.keyzbossbars</packageId>
+            <displayName>Keyz' Boss Bars</displayName>
+            <steamWorkshopUrl>steam://url/CommunityFilePage/3357376267</steamWorkshopUrl>
             <downloadUrl>https://github.com/keyz182/KeyzMiscResources</downloadUrl>
         </li>
     </modDependencies>
@@ -36,6 +42,7 @@
         <li>rh2.faction.rangers</li>
         <li>vanillaracesexpanded.fungoid</li>
         <li>keyz182.KeyzMiscResources</li>
+        <li>keyz182.keyzbossbars</li>
         <li>smashphil.vehicleframework</li>
         <li>sarg.alphavehiclesneolithic</li>
         <li>sarg.alphavehiclesageofsail</li>
