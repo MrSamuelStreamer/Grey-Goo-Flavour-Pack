@@ -3,7 +3,7 @@ using RimWorld;
 using UnityEngine;
 using Verse;
 
-namespace Thirst_Flavour_Pack.HarmonyPatches;
+namespace Grey_Goo.HarmonyPatches;
 
 [HarmonyPatch(typeof(MutantUtility), nameof(MutantUtility.GetShamblerColor))]
 public class ShamblerColorPatch
