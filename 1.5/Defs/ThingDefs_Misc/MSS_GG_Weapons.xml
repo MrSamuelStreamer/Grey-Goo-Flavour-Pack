@@ -6,7 +6,7 @@
         <label>Improvised EMP launcher</label>
         <description>An improvised EMP shell launcher. The shell will upon impact release a burst of electromagnetic energy, stunning mechanical targets (mechanoids, turrets, mortars) and depleting shields in the area of effect.\nBeing improvised, it has lower range, and worse accuracy, but it can have a bigger blast radius.</description>
         <graphicData>
-            <texPath>Things/Item/Equipment/WeaponRanged/EMPLauncher</texPath>
+            <texPath>Things/Item/Equipment/MSS_GG_EMP_Launcher</texPath>
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
         <soundInteract>Interact_Rifle</soundInteract>
