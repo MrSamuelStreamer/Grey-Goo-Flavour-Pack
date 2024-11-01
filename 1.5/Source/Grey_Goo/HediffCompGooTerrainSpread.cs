@@ -10,6 +10,6 @@ public class HediffCompGooTerrainSpread: HediffComp
         if(parent.pawn.Corpse.Map == null || !Rand.Chance(Props.chanceToDropGoo)) return;
 
         IntVec3 cell = parent.pawn.Corpse.Position;
-        parent.pawn.Corpse.Map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo);
+        parent.pawn.Corpse.Map.terrainGrid.TryGooTerrain(cell);
     }
 }

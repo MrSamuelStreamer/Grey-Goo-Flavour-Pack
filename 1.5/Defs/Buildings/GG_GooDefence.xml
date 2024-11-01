@@ -12,6 +12,7 @@
         <pathCost>0</pathCost>
         <passability>Standable</passability>
         <fillPercent>0.35</fillPercent>
+        <uiIconScale>0.35</uiIconScale>
         <graphicData>
             <texPath>Things/Building/Security/BroadshieldProjector</texPath>
             <graphicClass>Graphic_Single</graphicClass>
@@ -30,6 +31,22 @@
             <Flammability>0.5</Flammability>
             <Mass>3</Mass>
         </statBases>
+        <costList>
+            <Bioferrite>20</Bioferrite>
+            <Shard>1</Shard>
+            <Steel>50</Steel>
+            <ComponentIndustrial>1</ComponentIndustrial>
+        </costList>
+        <recipeMaker>
+            <unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+            <researchPrerequisite>MSS_GG_Defence</researchPrerequisite>
+            <skillRequirements>
+                <Crafting>8</Crafting>
+            </skillRequirements>
+            <recipeUsers Inherit="False">
+                <li>FabricationBench</li>
+            </recipeUsers>
+        </recipeMaker>
         <tickerType>Normal</tickerType>
         <killedLeavings />
         <rotatable>false</rotatable>
@@ -74,6 +91,7 @@
         </comps>
         <tradeTags>
             <li>UtilitySpecial</li>
+            <li>ExoticMisc</li>
         </tradeTags>
         <thingSetMakerTags>
             <li>RewardStandardMidFreq</li>
@@ -90,6 +108,7 @@
         <pathCost>20</pathCost>
         <passability>Standable</passability>
         <fillPercent>0.35</fillPercent>
+        <uiIconScale>0.35</uiIconScale>
         <graphicData>
             <texPath>Things/Buildings/MSS_GG_GooDistruptorTower</texPath>
             <graphicClass>Graphic_Single</graphicClass>
@@ -104,6 +123,15 @@
             <Flammability>0.5</Flammability>
             <Mass>25</Mass>
         </statBases>
+        <costList>
+            <Shard>2</Shard>
+            <Bioferrite>50</Bioferrite>
+            <Steel>200</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+        </costList>
+        <researchPrerequisites>
+            <li>MSS_GG_Defence</li>
+        </researchPrerequisites>
         <tickerType>Normal</tickerType>
         <killedLeavings />
         <rotatable>false</rotatable>
@@ -111,9 +139,11 @@
         <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
         <soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
         <repairEffect>ConstructMetal</repairEffect>
-        <resourcesFractionWhenDeconstructed>0</resourcesFractionWhenDeconstructed>
+        <rotatable>false</rotatable>
+        <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded> <!-- Best affordance needed for stone -->
+        <designationCategory>Security</designationCategory>
         <building>
-            <claimable>false</claimable>
+            <claimable>true</claimable>
             <destroySound>BuildingDestroyed_Metal_Small</destroySound>
             <ai_chillDestination>false</ai_chillDestination>
             <isEdifice>false</isEdifice>
@@ -121,7 +151,7 @@
         </building>
         <comps>
             <li Class="Grey_Goo.Buildings.Comps.CompProperties_GooShield">
-                <radius>30</radius>
+                <radius>20</radius>
                 <disarmedByEmpForTicks>600</disarmedByEmpForTicks>
                 <drawWithNoSelection>true</drawWithNoSelection>
                 <minAlpha>0.1</minAlpha>
@@ -139,11 +169,24 @@
             </li>
             <li Class="CompProperties_Power">
                 <compClass>CompPowerTrader</compClass>
-                <basePowerConsumption>4000</basePowerConsumption>
+                <basePowerConsumption>1000</basePowerConsumption>
+            </li>
+            <li Class="CompProperties_Refuelable">
+                <fuelConsumptionRate>10.0</fuelConsumptionRate>
+                <fuelCapacity>20.0</fuelCapacity>
+                <fuelConsumptionPerTickInRain>0.0006</fuelConsumptionPerTickInRain>
+                <fuelFilter>
+                    <thingDefs>
+                        <li>Bioferrite</li>
+                    </thingDefs>
+                </fuelFilter>
+                <initialFuelPercent>1</initialFuelPercent>
+                <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
             </li>
         </comps>
         <tradeTags>
             <li>UtilitySpecial</li>
+            <li>ExoticMisc</li>
         </tradeTags>
         <thingSetMakerTags>
             <li>RewardStandardLowFreq</li>
@@ -177,4 +220,279 @@
             <destroyedOutLabel>Burned out</destroyedOutLabel>
         </injuryProps>
     </HediffDef>
+
+    <ThingDef ParentName="FurnitureBase">
+        <defName>MSS_GG_GiantHoldingPlatform</defName>
+        <label>giant holding platform</label>
+        <description>A giant platform for holding dangerous entities. The corners have eyelets where strong chains can be attached.\n\nDowned entities can be captured and secured on a holding platform, where they can be studied for Anomaly knowledge. Increase containment strength by building strong walls and doors, and other special containment devices.</description>
+
+        <graphicData>
+            <texPath>Things/Building/HoldingPlatform/HoldingPlatform</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <drawSize>(7, 7)</drawSize>
+        </graphicData>
+
+        <researchPrerequisites>
+            <li>MSS_GG_Defence</li>
+        </researchPrerequisites>
+
+        <statBases>
+            <MaxHitPoints>2500</MaxHitPoints>
+            <WorkToBuild>4000</WorkToBuild>
+            <Mass>50</Mass>
+            <Flammability>0.5</Flammability>
+            <EMPResistance>0.50</EMPResistance>
+        </statBases>
+        <costList>
+            <Steel>400</Steel>
+        </costList>
+
+        <thingClass>Building_HoldingPlatform</thingClass>
+        <containedPawnsSelectable>true</containedPawnsSelectable>
+        <passability>PassThroughOnly</passability>
+        <rotatable>false</rotatable>
+        <fillPercent>0.4</fillPercent>
+        <drawerType>RealtimeOnly</drawerType> <!-- Prevents items clipping into it -->
+        <tickerType>Normal</tickerType>
+        <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+        <uiOrder>100</uiOrder>
+        <pathCost>30</pathCost>
+        <canOverlapZones>false</canOverlapZones>
+        <size>(7, 7)</size>
+        <defaultPlacingRot>North</defaultPlacingRot>
+        <minMonolithLevel>1</minMonolithLevel>
+        <descriptionHyperlinks>
+            <ThingDef>Electroharvester</ThingDef>
+            <ThingDef>ElectricInhibitor</ThingDef>
+            <ThingDef>ShardInhibitor</ThingDef>
+            <ThingDef>BioferriteHarvester</ThingDef>
+        </descriptionHyperlinks>
+        <thingCategories Inherit="False">
+            <li>BuildingsMisc</li>
+        </thingCategories>
+        <inspectorTabs>
+            <li>ITab_Entity</li>
+        </inspectorTabs>
+        <designationCategory>Anomaly</designationCategory>
+        <statBases>
+            <MeditationFocusStrength>0</MeditationFocusStrength>
+        </statBases>
+        <building>
+            <buildingTags>
+                <li>Anomaly</li>
+            </buildingTags>
+        </building>
+        <comps>
+            <li Class="CompProperties_AffectedByFacilities">
+                <linkableFacilities>
+                    <li>Electroharvester</li>
+                    <li>ElectricInhibitor</li>
+                    <li>ShardInhibitor</li>
+                    <li>BioferriteHarvester</li>
+                </linkableFacilities>
+            </li>
+            <li Class="CompProperties_MeditationFocus">
+                <statDef>MeditationFocusStrength</statDef>
+                <focusTypes>
+                    <li>Void</li>
+                </focusTypes>
+                <offsets>
+                    <li Class="FocusStrengthOffset_OccupiedHoldingPlatform">
+                        <offset>0.40</offset>
+                    </li>
+                </offsets>
+            </li>
+            <li Class="CompProperties_AttachPoints">
+                <points>
+                    <!-- CABLES TO HARVESTERS/POWER -->
+                    <li>
+                        <offset>(0, 0, 0)</offset>
+                        <type>CableConnection0</type>
+                    </li>
+                    <li>
+                        <offset>(0, 0, 0)</offset>
+                        <type>CableConnection1</type>
+                    </li>
+                    <li>
+                        <offset>(0, 0, 0)</offset>
+                        <type>CableConnection2</type>
+                    </li>
+                    <li>
+                        <offset>(0, 0, 0)</offset>
+                        <type>CableConnection3</type>
+                    </li>
+
+                    <!-- FOR HOLDING ENTITIES -->
+                    <li>
+                        <offset>(-3.32, 0, 3.32)</offset>
+                        <type>PlatformRestraint0</type>
+                    </li>
+                    <li>
+                        <offset>(3.32, 0, 3.32)</offset>
+                        <type>PlatformRestraint1</type>
+                    </li>
+                    <li>
+                        <offset>(3.32, 0, -3.32)</offset>
+                        <type>PlatformRestraint2</type>
+                    </li>
+                    <li>
+                        <offset>(-3.32, 0, -3.32)</offset>
+                        <type>PlatformRestraint3</type>
+                    </li>
+                </points>
+            </li>
+            <li Class="CompProperties_EntityHolderPlatform">
+                <untetheredGraphicTexPath>Things/Building/HoldingPlatform/HoldingPlatform_ChainsUntethered</untetheredGraphicTexPath>
+                <tilingChainTexPath>Things/Building/HoldingPlatform/HoldingPlatform_EntityChain_StrongOutline</tilingChainTexPath>
+                <baseChainFastenerTexPath>Things/Building/HoldingPlatform/HoldingPlatform_ChainFastener</baseChainFastenerTexPath>
+                <targetChainFastenerTexPath>Things/Building/HoldingPlatform/HoldingPlatform_ChainFastener_StrongOutline</targetChainFastenerTexPath>
+                <entityLungeSoundHi>EntityChainHigh</entityLungeSoundHi>
+                <entityLungeSoundLow>EntityChainLow</entityLungeSoundLow>
+            </li>
+        </comps>
+    </ThingDef>
+
+
+    <ThingDef ParentName="BuildingBase">
+        <defName>MSS_GG_Turret_EMPMiniTurret</defName>
+        <label>EMP mini-turret</label>
+        <description>A portable improvised EMP automatic turret. Requires steel to refurbish its barrel after heavy use. May explode when damaged. Its dumb AI brain can't be directly controlled, so beware of friendly fire.</description>
+        <thingClass>Building_TurretGun</thingClass>
+        <drawerType>MapMeshAndRealTime</drawerType>
+        <graphicData>
+            <texPath>Things/Building/Security/TurretMini_Base</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <drawSize>(3,3)</drawSize>
+            <damageData>
+                <rect>(0.2,0.2,0.6,0.6)</rect>
+            </damageData>
+            <shadowData>
+                <volume>(0.27,0.25,0.27)</volume>
+                <offset>(0,0,0)</offset>
+            </shadowData>
+        </graphicData>
+        <uiIconPath>Things/Building/Security/TurretMini_MenuIcon</uiIconPath>
+        <uiIconScale>0.90</uiIconScale>
+        <minifiedDef>MinifiedThing</minifiedDef>
+        <altitudeLayer>Building</altitudeLayer>
+        <stealable>false</stealable>
+        <rotatable>false</rotatable>
+        <thingCategories>
+            <li>BuildingsSecurity</li>
+        </thingCategories>
+        <statBases>
+            <MaxHitPoints>100</MaxHitPoints>
+            <Flammability>0.7</Flammability>
+            <WorkToBuild>1800</WorkToBuild>
+            <Mass>8</Mass>
+            <Beauty>-20</Beauty>
+            <ShootingAccuracyTurret>0.96</ShootingAccuracyTurret>
+        </statBases>
+        <tickerType>Normal</tickerType>
+        <comps>
+            <li Class="CompProperties_Explosive">
+                <wickTicks>240</wickTicks>
+                <explosiveRadius>3.9</explosiveRadius>
+                <explosiveDamageType>Bomb</explosiveDamageType>
+                <chanceNeverExplodeFromDamage>0.5</chanceNeverExplodeFromDamage>
+            </li>
+            <li Class="CompProperties_Forbiddable" />
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <basePowerConsumption>200</basePowerConsumption>
+            </li>
+            <li Class="CompProperties_Flickable" />
+            <li Class="CompProperties_Breakdownable" />
+            <li Class="CompProperties_Refuelable">
+                <fuelLabel>Shots until barrel change</fuelLabel>
+                <fuelGizmoLabel>Barrel durability</fuelGizmoLabel>
+                <outOfFuelMessage>Needs new barrel</outOfFuelMessage>
+                <fuelFilter>
+                    <thingDefs>
+                        <li>Steel</li>
+                    </thingDefs>
+                </fuelFilter>
+                <fuelCapacity>60</fuelCapacity>       <!-- 30 bursts -->
+                <fuelMultiplier>0.75</fuelMultiplier> <!-- 1.333 steel per burst, 80 per full rearm -->
+                <initialFuelPercent>1</initialFuelPercent>
+                <autoRefuelPercent>0.5</autoRefuelPercent>
+                <showFuelGizmo>true</showFuelGizmo>
+                <minimumFueledThreshold>1</minimumFueledThreshold>
+                <factorByDifficulty>true</factorByDifficulty>
+                <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+                <fuelIconPath>UI/Overlays/Barrel</fuelIconPath>
+            </li>
+            <li Class="CompProperties_Stunnable">
+                <affectedDamageDefs>
+                    <li>Stun</li>
+                    <li>EMP</li>
+                </affectedDamageDefs>
+            </li>
+        </comps>
+        <passability>PassThroughOnly</passability>
+        <pathCost>50</pathCost>
+        <fillPercent>0.4</fillPercent>
+        <hasTooltip>true</hasTooltip>
+        <stuffCategories>
+            <li>Metallic</li>
+        </stuffCategories>
+        <costStuffCount>30</costStuffCount>
+        <costList>
+            <Steel>70</Steel>
+            <ComponentIndustrial>3</ComponentIndustrial>
+        </costList>
+        <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+        <designationCategory>Security</designationCategory>
+        <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+        <building>
+            <combatPower>15</combatPower>
+            <ai_combatDangerous>true</ai_combatDangerous>
+            <turretGunDef>MSS_GG_Gun_EMPMiniTurret</turretGunDef>
+            <turretBurstCooldownTime>4.8</turretBurstCooldownTime>
+        </building>
+        <placeWorkers>
+            <li>PlaceWorker_TurretTop</li>
+            <li>PlaceWorker_ShowTurretRadius</li>
+        </placeWorkers>
+        <designationHotKey>Misc2</designationHotKey>
+        <researchPrerequisites>
+            <li>GunTurrets</li>
+            <li>MSS_GG_Defence</li>
+        </researchPrerequisites>
+    </ThingDef>
+
+    <ThingDef ParentName="BaseWeaponTurret">
+        <defName>MSS_GG_Gun_EMPMiniTurret</defName>
+        <label>EMP mini-turret gun</label>
+        <description>A simple improvised automatic EMP gun made to be mounted on a turret.</description>
+        <graphicData>
+            <!-- <texPath>Things/Building/Security/TurretMini_Top</texPath> -->
+            <texPath>Things/Item/Equipment/MSS_GG_EMP_Turret_Top</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+        </graphicData>
+        <statBases>
+            <AccuracyTouch>0.77</AccuracyTouch>
+            <AccuracyShort>0.70</AccuracyShort>
+            <AccuracyMedium>0.45</AccuracyMedium>
+            <AccuracyLong>0.24</AccuracyLong>
+            <RangedWeapon_Cooldown>8</RangedWeapon_Cooldown>
+            <DeteriorationRate>0</DeteriorationRate>
+            <Mass>5</Mass>
+            <Flammability>0</Flammability>
+        </statBases>
+        <verbs>
+            <li>
+                <verbClass>Verb_Shoot</verbClass>
+                <defaultProjectile>MSS_GG_Bullet_Improvised_EMPLauncher</defaultProjectile>
+                <warmupTime>0</warmupTime>
+                <range>20</range>
+                <ticksBetweenBurstShots>8</ticksBetweenBurstShots>
+                <burstShotCount>1</burstShotCount>
+                <soundCast>GunShotA</soundCast>
+                <soundCastTail>GunTail_Light</soundCastTail>
+                <muzzleFlashScale>9</muzzleFlashScale>
+                <consumeFuelPerShot>1</consumeFuelPerShot>
+            </li>
+        </verbs>
+    </ThingDef>
 </Defs>

@@ -14,6 +14,7 @@
     <MSS_GG_Setting_ChanceForGooToDamagePercent>Chance for goo to damage thing per tick {0}%</MSS_GG_Setting_ChanceForGooToDamagePercent>
     <MSS_GG_Setting_MapGooReevaluateFrequency>Number of ticks to spread the map goo reevaluation over {0}</MSS_GG_Setting_MapGooReevaluateFrequency>
     <MSS_GG_Setting_MapGooUpdateFrequency>Ticks to spread the goo update over {0}</MSS_GG_Setting_MapGooUpdateFrequency>
+    <MSS_GG_Settings_MaxShamblersOnMap>Cutoff for new shamblers wandering onto map {0}</MSS_GG_Settings_MaxShamblersOnMap>
 
     <MSS_GG_GooControllerSpawned>A new grey goo controller has formed!</MSS_GG_GooControllerSpawned>
     <MSS_GG_TileInspectString>Goo conversion level: {0}%</MSS_GG_TileInspectString>

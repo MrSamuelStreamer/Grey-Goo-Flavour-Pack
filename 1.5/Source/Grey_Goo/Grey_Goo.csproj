@@ -19,8 +19,8 @@
     <DebugType>portable</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
@@ -252,6 +252,10 @@
 
     <ReleaseFiles Update="..\..\Defs\GG_Terrain.xml">
       <Link>Grey-Goo-Flavour-Pack\1.5\Defs\GG_Terrain.xml</Link>
+    </ReleaseFiles>
+
+    <ReleaseFiles Update="..\..\Defs\ThingDefs_Misc\MSS_GG_Weapons.xml">
+      <Link>Grey-Goo-Flavour-Pack\1.5\Defs\ThingDefs_Misc\MSS_GG_Weapons.xml</Link>
     </ReleaseFiles>
   </ItemGroup>
   <ItemGroup>

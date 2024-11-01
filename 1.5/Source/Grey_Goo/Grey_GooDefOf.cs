@@ -14,6 +14,5 @@ public static class Grey_GooDefOf
 
     public static FactionDef GG_GreyGoo;
 
-    public static HediffDef MSS_GG_BossBar;
     static Grey_GooDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(Grey_GooDefOf));
 }

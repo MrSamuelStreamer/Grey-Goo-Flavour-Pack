@@ -5,7 +5,7 @@ using UnityEngine;
 using Verse;
 using System.Collections.Generic;
 
-namespace Thirst_Flavour_Pack.HarmonyPatches;
+namespace Grey_Goo.HarmonyPatches;
 
 [HarmonyPatch(typeof(MutantUtility), nameof(MutantUtility.GetShamblerColor))]
 public class ShamblerColorPatch

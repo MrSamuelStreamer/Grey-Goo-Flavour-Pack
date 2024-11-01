@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <ResearchProjectDef>
+        <defName>MSS_GG_Defence</defName>
+        <label>Grey Goo Defence</label>
+        <description>Research into EMP technology has lead to methods to push back the goo at a small scale.</description>
+        <baseCost>1500</baseCost>
+        <techLevel>Industrial</techLevel>
+        <prerequisites>
+            <li>Electricity</li>
+        </prerequisites>
+        <researchViewX>9.00</researchViewX>
+        <researchViewY>5.40</researchViewY>
+        <generalRules>
+            <rulesStrings>
+                <li>subject->Grey Goo Defence</li>
+
+                <li>subject_story->experimented with EMP generators on a contained sample of goo</li>
+                <li>subject_story->poked the goo with curiosity</li>
+
+                <li>subject_gerund->defending against goo</li>
+            </rulesStrings>
+        </generalRules>
+    </ResearchProjectDef>
+</Defs>

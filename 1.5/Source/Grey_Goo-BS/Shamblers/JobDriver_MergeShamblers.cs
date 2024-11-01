@@ -50,6 +50,18 @@ public class JobDriver_MergeShamblers : JobDriver
             request.ForcedMutant = pawn.mutant.Def;
 
             Pawn newPawn = PawnGenerator.GeneratePawn(request);
+            if (pawn.Name is NameTriple trip)
+            {
+                newPawn.Name = trip;
+                newPawn.Name = new NameTriple(trip.First, "Gorebeast", trip.Last);
+            }
+            else
+            {
+                NameTriple plain = NameTriple.FromString(pawn.Name.ToStringFull);
+                newPawn.Name = new NameTriple(plain.First, "Gorebeast", plain.Last);
+
+            }
+
             SpawnRequest req = new SpawnRequest([newPawn], [pawn.Position],1, 1) { spawnSound = SoundDefOf.FleshmassBirth };
             pawn.Map.deferredSpawner.AddRequest(req);
             pawn.Destroy(DestroyMode.Vanish);
