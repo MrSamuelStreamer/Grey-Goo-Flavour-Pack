@@ -120,7 +120,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
                 if(RandLocal.NextDouble() < spreadChance){
                     CellInfo info = AllMapCells[nCell];
-                    map.terrainGrid.SetTerrain(nCell, Grey_GooDefOf.GG_Goo);
+                    map.terrainGrid.TryGooTerrain(nCell);
                     CellInfo newCI = new CellInfo { IsGooed = true, IsActive = true, Terrain = Grey_GooDefOf.GG_Goo };
                     AllMapCells.TryUpdate(nCell, newCI, info);
                 }
@@ -149,7 +149,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
         if(!AllMapCells.Any(kv=>kv.Value.IsGooed) && !Mathf.Approximately(level, 0))
         {
-            map.terrainGrid.SetTerrain(OriginPos, Grey_GooDefOf.GG_Goo);
+            map.terrainGrid.TryGooTerrain(OriginPos);
             CellInfo info = AllMapCells[OriginPos];
             AllMapCells.TryUpdate(OriginPos, new CellInfo{IsGooed = true, IsActive = true}, info);
         }
@@ -191,7 +191,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
             // Ensure goo cell in protected tiles are "deactivated"
             if (newCellInfo.Terrain == Grey_GooDefOf.GG_Goo && ProtectedCellsSet.Contains(cell))
             {
-                map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo_Inactive);
+                map.terrainGrid.TryDeactivateGooTerrain(cell);
                 newCellInfo.Terrain = Grey_GooDefOf.GG_Goo_Inactive;
                 newCellInfo.IsGooed = false;
                 newCellInfo.IsActive = false;
@@ -199,7 +199,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
             // check if a tile is inactive goo, and not in protected tiles, and convert back to active goo
             else if (newCellInfo.Terrain == Grey_GooDefOf.GG_Goo_Inactive && !ProtectedCellsSet.Contains(cell))
             {
-                map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo);
+                map.terrainGrid.TryGooTerrain(cell);
                 newCellInfo.Terrain = Grey_GooDefOf.GG_Goo;
                 newCellInfo.IsGooed = true;
                 newCellInfo.IsActive = true;
@@ -247,7 +247,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         GenThreading.ParallelForEach(newlyProtectedCells.Where(cell=>map.terrainGrid.TerrainAt(cell) == Grey_GooDefOf.GG_Goo).ToList(), (cell) => {
             CellInfo info = AllMapCells[cell];
             // Ensure goo cell in protected tiles are "deactivated"
-            map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo_Inactive);
+            map.terrainGrid.TryDeactivateGooTerrain(cell);
             AllMapCells.TryUpdate(cell, new CellInfo{IsActive = false, IsGooed = false}, info);
 
         });
@@ -263,7 +263,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         {
             CellInfo info = AllMapCells[cell];
             // check if a tile is unprotected goo, and not in protected tiles, and convert back to active goo
-            map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo);
+            map.terrainGrid.TryGooTerrain(cell);
             AllMapCells.TryUpdate(cell, new CellInfo{IsActive = true, IsGooed = true}, info);
         });
     }
@@ -274,7 +274,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         {
             CellInfo info = AllMapCells[cell];
             // check if a tile is unprotected goo, and not in protected tiles, and convert back to active goo
-            map.terrainGrid.SetTerrain(cell, Grey_GooDefOf.GG_Goo);
+            map.terrainGrid.TryGooTerrain(cell);
             AllMapCells.TryUpdate(cell, new CellInfo{IsActive = true, IsGooed = true}, info);
         });
     }

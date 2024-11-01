@@ -13,6 +13,8 @@ public class GGTerrainDef: TerrainDef
 
     public ShaderTypeDef terrainShader;
 
+    public List<TerrainDef> preventPlacingOnTerrain;
+
     public string TexturePath
     {
         get

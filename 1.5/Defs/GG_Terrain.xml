@@ -61,6 +61,16 @@
         <renderPrecedence>200</renderPrecedence>
         <pathCost>120</pathCost>
 
+        <preventPlacingOnTerrain>
+            <li>Water</li>
+            <li>WaterDeep</li>
+            <li>WaterOceanDeep</li>
+            <li>WaterMovingChestDeep</li>
+            <li>WaterShallow</li>
+            <li>WaterOceanShallow</li>
+            <li>WaterMovingShallow</li>
+        </preventPlacingOnTerrain>
+
         <affordances>
             <li>Light</li>
             <li>GrowSoil</li>
