@@ -253,6 +253,10 @@
     <ReleaseFiles Update="..\..\Defs\GG_Terrain.xml">
       <Link>Grey-Goo-Flavour-Pack\1.5\Defs\GG_Terrain.xml</Link>
     </ReleaseFiles>
+
+    <ReleaseFiles Update="..\..\Defs\ThingDefs_Misc\MSS_GG_Weapons.xml">
+      <Link>Grey-Goo-Flavour-Pack\1.5\Defs\ThingDefs_Misc\MSS_GG_Weapons.xml</Link>
+    </ReleaseFiles>
   </ItemGroup>
   <ItemGroup>
     <ReleaseFiles Include="..\..\Defs\Incidents\GG_World_Incidents.xml">

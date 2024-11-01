@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Defs>
+    <ThingDef ParentName="BaseHumanMakeableGun">
+        <defName>MSS_GG_Gun_Improvised_EmpLauncher</defName>
+        <label>Improvised EMP launcher</label>
+        <description>An improvised EMP shell launcher. The shell will upon impact release a burst of electromagnetic energy, stunning mechanical targets (mechanoids, turrets, mortars) and depleting shields in the area of effect.\nBeing improvised, it has lower range, and worse accuracy, but it can have a bigger blast radius.</description>
+        <graphicData>
+            <texPath>Things/Item/Equipment/WeaponRanged/EMPLauncher</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+        </graphicData>
+        <soundInteract>Interact_Rifle</soundInteract>
+        <generateCommonality>0.3</generateCommonality>
+        <weaponClasses>
+            <li>RangedHeavy</li>
+        </weaponClasses>
+        <weaponTags>
+            <li>GrenadeEMP</li>
+        </weaponTags>
+        <statBases>
+            <WorkToMake>3000</WorkToMake>
+            <Mass>4.2</Mass>
+            <RangedWeapon_Cooldown>4.5</RangedWeapon_Cooldown>
+        </statBases>
+        <costList>
+            <Steel>125</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+        </costList>
+        <recipeMaker>
+            <skillRequirements>
+                <Crafting>4</Crafting>
+            </skillRequirements>
+            <researchPrerequisite>MSS_GG_Defence</researchPrerequisite>
+            <displayPriority>460</displayPriority>
+        </recipeMaker>
+        <verbs>
+            <li>
+                <verbClass>Verb_Shoot</verbClass>
+                <hasStandardCommand>true</hasStandardCommand>
+                <defaultProjectile>MSS_GG_Bullet_Improvised_EMPLauncher</defaultProjectile>
+                <warmupTime>7.5</warmupTime>
+                <range>19</range>
+                <forcedMissRadius>3.5</forcedMissRadius>
+                <burstShotCount>1</burstShotCount>
+                <soundCast>Shot_IncendiaryLauncher</soundCast>
+                <soundCastTail>GunTail_Medium</soundCastTail>
+                <muzzleFlashScale>17</muzzleFlashScale>
+                <targetParams>
+                    <canTargetLocations>true</canTargetLocations>
+                </targetParams>
+            </li>
+        </verbs>
+        <tools>
+            <li>
+                <label>stock</label>
+                <capacities>
+                    <li>Blunt</li>
+                </capacities>
+                <power>9</power>
+                <cooldownTime>2</cooldownTime>
+            </li>
+            <li>
+                <label>barrel</label>
+                <capacities>
+                    <li>Blunt</li>
+                    <li>Poke</li>
+                </capacities>
+                <power>9</power>
+                <cooldownTime>2</cooldownTime>
+            </li>
+        </tools>
+    </ThingDef>
+
+    <ThingDef ParentName="BaseBullet">
+        <defName>MSS_GG_Bullet_Improvised_EMPLauncher</defName>
+        <label>Imrpovised EMP launcher shell</label>
+        <graphicData>
+            <texPath>Things/Projectile/LauncherShot</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <shaderType>TransparentPostLight</shaderType>
+            <color>(68,150,215)</color>
+        </graphicData>
+        <modExtensions>
+            <li Class="Grey_Goo.ProjectileModExtension">
+                <explosionSizeMultiplier>0.5~2</explosionSizeMultiplier>
+            </li>
+        </modExtensions>
+        <thingClass>Grey_Goo.Projectile_EMP</thingClass>
+        <projectile>
+            <speed>20</speed>
+            <damageDef>EMP</damageDef>
+            <!-- Use default damage from explosion def -->
+            <postExplosionSpawnChance>1</postExplosionSpawnChance>
+            <explosionChanceToStartFire>0</explosionChanceToStartFire>
+            <explosionRadius>3</explosionRadius>
+            <ai_IsIncendiary>true</ai_IsIncendiary>
+            <arcHeightFactor>0.3</arcHeightFactor>
+            <soundExplode>Explosion_EMP</soundExplode>
+            <doExplosionVFX>true</doExplosionVFX>
+            <shadowSize>0.6</shadowSize>
+        </projectile>
+    </ThingDef>
+</Defs>

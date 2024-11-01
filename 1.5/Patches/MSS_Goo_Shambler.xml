@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
-	<Operation Class="PatchOperationAdd">
-		<xpath>Defs/HediffDef[defName="Shambler"]/comps</xpath>
-		<value>
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/HediffDef[defName="Shambler"]/comps</xpath>
+        <value>
             <li Class="Grey_Goo.HediffCompProperties_GooTerrainSpread">
                 <chanceToDropGoo>0.00</chanceToDropGoo> <!-- temporarily removing, will add to drones and "special types" -->
             </li>
-		</value>
-	</Operation>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/HediffDef[defName="Shambler"]/comps</xpath>
+        <value>
+            <li Class="HediffCompProperties_ReactOnDamage">
+                <damageDefIncoming>EMP</damageDefIncoming>
+                <createHediff>BrainShock</createHediff>
+            </li>
+        </value>
+    </Operation>
 	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/HediffDef[defName="Shambler"]/stages/li/statOffsets</xpath>
 		<value>
