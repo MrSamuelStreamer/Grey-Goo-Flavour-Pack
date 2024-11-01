@@ -8,6 +8,12 @@
             </li>
 		</value>
 	</Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/HediffDef[defName="Shambler"]/stages/li/statOffsets</xpath>
+		<value>
+            <EMPResistance>-0.5</EMPResistance>
+		</value>
+	</Operation>
     <Operation Class="PatchOperationAdd">
         <xpath>Defs/StorytellerDef[@Name="BaseStoryteller"]/comps</xpath>
         <value>

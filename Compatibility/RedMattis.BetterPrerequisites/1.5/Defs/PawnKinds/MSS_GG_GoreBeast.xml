@@ -17,6 +17,7 @@
             <MoveSpeed>2</MoveSpeed>
             <SM_BodySizeMultiplier>12</SM_BodySizeMultiplier>
             <MeleeDamageFactor>12</MeleeDamageFactor>
+            <EMPResistance>0.5</EMPResistance>
         </statBases>
         <tradeability>None</tradeability>
         <race>
