@@ -12,6 +12,7 @@
         <pathCost>0</pathCost>
         <passability>Standable</passability>
         <fillPercent>0.35</fillPercent>
+        <uiIconScale>0.35</uiIconScale>
         <graphicData>
             <texPath>Things/Building/Security/BroadshieldProjector</texPath>
             <graphicClass>Graphic_Single</graphicClass>
@@ -30,6 +31,22 @@
             <Flammability>0.5</Flammability>
             <Mass>3</Mass>
         </statBases>
+        <costList>
+            <Bioferrite>20</Bioferrite>
+            <Shard>1</Shard>
+            <Steel>50</Steel>
+            <ComponentIndustrial>1</ComponentIndustrial>
+        </costList>
+        <recipeMaker>
+            <unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+            <researchPrerequisite>MSS_GG_Defence</researchPrerequisite>
+            <skillRequirements>
+                <Crafting>8</Crafting>
+            </skillRequirements>
+            <recipeUsers Inherit="False">
+                <li>FabricationBench</li>
+            </recipeUsers>
+        </recipeMaker>
         <tickerType>Normal</tickerType>
         <killedLeavings />
         <rotatable>false</rotatable>
@@ -74,6 +91,7 @@
         </comps>
         <tradeTags>
             <li>UtilitySpecial</li>
+            <li>ExoticMisc</li>
         </tradeTags>
         <thingSetMakerTags>
             <li>RewardStandardMidFreq</li>
@@ -90,6 +108,7 @@
         <pathCost>20</pathCost>
         <passability>Standable</passability>
         <fillPercent>0.35</fillPercent>
+        <uiIconScale>0.35</uiIconScale>
         <graphicData>
             <texPath>Things/Buildings/MSS_GG_GooDistruptorTower</texPath>
             <graphicClass>Graphic_Single</graphicClass>
@@ -104,6 +123,15 @@
             <Flammability>0.5</Flammability>
             <Mass>25</Mass>
         </statBases>
+        <costList>
+            <Shard>2</Shard>
+            <Bioferrite>50</Bioferrite>
+            <Steel>200</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+        </costList>
+        <researchPrerequisites>
+            <li>MSS_GG_Defence</li>
+        </researchPrerequisites>
         <tickerType>Normal</tickerType>
         <killedLeavings />
         <rotatable>false</rotatable>
@@ -111,9 +139,11 @@
         <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
         <soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
         <repairEffect>ConstructMetal</repairEffect>
-        <resourcesFractionWhenDeconstructed>0</resourcesFractionWhenDeconstructed>
+        <rotatable>false</rotatable>
+        <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded> <!-- Best affordance needed for stone -->
+        <designationCategory>Security</designationCategory>
         <building>
-            <claimable>false</claimable>
+            <claimable>true</claimable>
             <destroySound>BuildingDestroyed_Metal_Small</destroySound>
             <ai_chillDestination>false</ai_chillDestination>
             <isEdifice>false</isEdifice>
@@ -121,7 +151,7 @@
         </building>
         <comps>
             <li Class="Grey_Goo.Buildings.Comps.CompProperties_GooShield">
-                <radius>30</radius>
+                <radius>20</radius>
                 <disarmedByEmpForTicks>600</disarmedByEmpForTicks>
                 <drawWithNoSelection>true</drawWithNoSelection>
                 <minAlpha>0.1</minAlpha>
@@ -139,11 +169,24 @@
             </li>
             <li Class="CompProperties_Power">
                 <compClass>CompPowerTrader</compClass>
-                <basePowerConsumption>4000</basePowerConsumption>
+                <basePowerConsumption>1000</basePowerConsumption>
+            </li>
+            <li Class="CompProperties_Refuelable">
+                <fuelConsumptionRate>10.0</fuelConsumptionRate>
+                <fuelCapacity>20.0</fuelCapacity>
+                <fuelConsumptionPerTickInRain>0.0006</fuelConsumptionPerTickInRain>
+                <fuelFilter>
+                    <thingDefs>
+                        <li>Bioferrite</li>
+                    </thingDefs>
+                </fuelFilter>
+                <initialFuelPercent>1</initialFuelPercent>
+                <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
             </li>
         </comps>
         <tradeTags>
             <li>UtilitySpecial</li>
+            <li>ExoticMisc</li>
         </tradeTags>
         <thingSetMakerTags>
             <li>RewardStandardLowFreq</li>
@@ -177,4 +220,135 @@
             <destroyedOutLabel>Burned out</destroyedOutLabel>
         </injuryProps>
     </HediffDef>
+
+    <ThingDef ParentName="FurnitureBase" >
+        <defName>MSS_GG_GiantHoldingPlatform</defName>
+        <label>giant holding platform</label>
+        <description>A giant platform for holding dangerous entities. The corners have eyelets where strong chains can be attached.\n\nDowned entities can be captured and secured on a holding platform, where they can be studied for Anomaly knowledge. Increase containment strength by building strong walls and doors, and other special containment devices.</description>
+
+        <graphicData>
+            <texPath>Things/Building/HoldingPlatform/HoldingPlatform</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <drawSize>(7, 7)</drawSize>
+        </graphicData>
+
+        <researchPrerequisites>
+            <li>MSS_GG_Defence</li>
+        </researchPrerequisites>
+
+        <statBases>
+            <MaxHitPoints>2500</MaxHitPoints>
+            <WorkToBuild>4000</WorkToBuild>
+            <Mass>50</Mass>
+            <Flammability>0.5</Flammability>
+            <EMPResistance>0.50</EMPResistance>
+        </statBases>
+        <costList>
+            <Steel>400</Steel>
+        </costList>
+
+        <thingClass>Building_HoldingPlatform</thingClass>
+        <containedPawnsSelectable>true</containedPawnsSelectable>
+        <passability>PassThroughOnly</passability>
+        <rotatable>false</rotatable>
+        <fillPercent>0.4</fillPercent>
+        <drawerType>RealtimeOnly</drawerType> <!-- Prevents items clipping into it -->
+        <tickerType>Normal</tickerType>
+        <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+        <uiOrder>100</uiOrder>
+        <pathCost>30</pathCost>
+        <canOverlapZones>false</canOverlapZones>
+        <size>(7, 7)</size>
+        <defaultPlacingRot>North</defaultPlacingRot>
+        <minMonolithLevel>1</minMonolithLevel>
+        <descriptionHyperlinks>
+            <ThingDef>Electroharvester</ThingDef>
+            <ThingDef>ElectricInhibitor</ThingDef>
+            <ThingDef>ShardInhibitor</ThingDef>
+            <ThingDef>BioferriteHarvester</ThingDef>
+        </descriptionHyperlinks>
+        <thingCategories Inherit="False">
+            <li>BuildingsMisc</li>
+        </thingCategories>
+        <inspectorTabs>
+            <li>ITab_Entity</li>
+        </inspectorTabs>
+        <designationCategory>Anomaly</designationCategory>
+        <statBases>
+            <MeditationFocusStrength>0</MeditationFocusStrength>
+        </statBases>
+        <building>
+            <buildingTags>
+                <li>Anomaly</li>
+            </buildingTags>
+        </building>
+        <comps>
+            <li Class="CompProperties_AffectedByFacilities">
+                <linkableFacilities>
+                    <li>Electroharvester</li>
+                    <li>ElectricInhibitor</li>
+                    <li>ShardInhibitor</li>
+                    <li>BioferriteHarvester</li>
+                </linkableFacilities>
+            </li>
+            <li Class="CompProperties_MeditationFocus">
+                <statDef>MeditationFocusStrength</statDef>
+                <focusTypes>
+                    <li>Void</li>
+                </focusTypes>
+                <offsets>
+                    <li Class="FocusStrengthOffset_OccupiedHoldingPlatform">
+                        <offset>0.40</offset>
+                    </li>
+                </offsets>
+            </li>
+            <li Class="CompProperties_AttachPoints">
+                <points>
+                    <!-- CABLES TO HARVESTERS/POWER -->
+                    <li>
+                        <offset>(0, 0, 0)</offset>
+                        <type>CableConnection0</type>
+                    </li>
+                    <li>
+                        <offset>(0, 0, 0)</offset>
+                        <type>CableConnection1</type>
+                    </li>
+                    <li>
+                        <offset>(0, 0, 0)</offset>
+                        <type>CableConnection2</type>
+                    </li>
+                    <li>
+                        <offset>(0, 0, 0)</offset>
+                        <type>CableConnection3</type>
+                    </li>
+
+                    <!-- FOR HOLDING ENTITIES -->
+                    <li>
+                        <offset>(-3.32, 0, 3.32)</offset>
+                        <type>PlatformRestraint0</type>
+                    </li>
+                    <li>
+                        <offset>(3.32, 0, 3.32)</offset>
+                        <type>PlatformRestraint1</type>
+                    </li>
+                    <li>
+                        <offset>(3.32, 0, -3.32)</offset>
+                        <type>PlatformRestraint2</type>
+                    </li>
+                    <li>
+                        <offset>(-3.32, 0, -3.32)</offset>
+                        <type>PlatformRestraint3</type>
+                    </li>
+                </points>
+            </li>
+            <li Class="CompProperties_EntityHolderPlatform">
+                <untetheredGraphicTexPath>Things/Building/HoldingPlatform/HoldingPlatform_ChainsUntethered</untetheredGraphicTexPath>
+                <tilingChainTexPath>Things/Building/HoldingPlatform/HoldingPlatform_EntityChain_StrongOutline</tilingChainTexPath>
+                <baseChainFastenerTexPath>Things/Building/HoldingPlatform/HoldingPlatform_ChainFastener</baseChainFastenerTexPath>
+                <targetChainFastenerTexPath>Things/Building/HoldingPlatform/HoldingPlatform_ChainFastener_StrongOutline</targetChainFastenerTexPath>
+                <entityLungeSoundHi>EntityChainHigh</entityLungeSoundHi>
+                <entityLungeSoundLow>EntityChainLow</entityLungeSoundLow>
+            </li>
+        </comps>
+    </ThingDef>
 </Defs>

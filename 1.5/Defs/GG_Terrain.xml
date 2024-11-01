@@ -62,7 +62,6 @@
         <pathCost>120</pathCost>
 
         <preventPlacingOnTerrain>
-            <li>Water</li>
             <li>WaterDeep</li>
             <li>WaterOceanDeep</li>
             <li>WaterMovingChestDeep</li>

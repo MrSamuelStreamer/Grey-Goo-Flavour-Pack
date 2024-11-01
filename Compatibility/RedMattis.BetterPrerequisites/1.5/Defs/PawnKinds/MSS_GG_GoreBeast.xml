@@ -32,6 +32,7 @@
             <bloodDef>Filth_DarkBlood</bloodDef>
             <bleedRateFactor>0.5</bleedRateFactor>
             <fleshType>EntityFlesh</fleshType>
+            <nameCategory>HumanStandard</nameCategory>
             <isImmuneToInfections>true</isImmuneToInfections>
             <specificMeatDef>Meat_Twisted</specificMeatDef>
             <leatherDef>Leather_Human</leatherDef>
@@ -62,7 +63,7 @@
         <comps>
             <li Class="KeyzBossBars.CompProperties_BossBar" MayRequire="keyz182.KeyzBossBars" />
             <li Class="CompProperties_HoldingPlatformTarget">
-                <baseEscapeIntervalMtbDays>40</baseEscapeIntervalMtbDays>
+                <baseEscapeIntervalMtbDays>10</baseEscapeIntervalMtbDays>
             </li>
             <li Class="CompProperties_AttachPoints">
                 <!-- This thing has alternateGraphics, and all of these points will need overrides in the PawnKindDef. -->
@@ -86,7 +87,7 @@
                 </points>
             </li>
             <li Class="CompProperties_ProducesBioferrite">
-                <bioferriteDensity>1.5</bioferriteDensity>
+                <bioferriteDensity>10</bioferriteDensity>
             </li>
             <li Class="CompProperties_Studiable">
                 <frequencyTicks>120000</frequencyTicks>

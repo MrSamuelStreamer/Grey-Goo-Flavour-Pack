@@ -27,8 +27,9 @@ public class CompGooShield : ThingComp, IMapCellProtector
     public bool HaveMap = false;
 
     public CompPowerTrader PowerTrader => parent.GetComp<CompPowerTrader>();
+    public CompRefuelable Refuelable => parent.GetComp<CompRefuelable>();
 
-    public bool IsPowered => PowerTrader?.PowerOn ?? true;
+    public bool IsPowered => (Refuelable?.HasFuel ?? true) && (PowerTrader?.PowerOn ?? true);
 
     private static Material ShieldDotMat
     {
