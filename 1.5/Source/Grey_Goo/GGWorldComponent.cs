@@ -44,7 +44,7 @@ public class GGWorldComponent(World world) : WorldComponent(world)
             }
         }
 
-        Site wo = (Site) WorldObjectMaker.MakeWorldObject(Grey_GooDefOf.MSS_GG_GooControllerMapGen);
+        Site wo = (Site) WorldObjectMaker.MakeWorldObject(Grey_GooDefOf.MSS_GG_GooControllerWorldDef);
         Faction fac = Find.FactionManager.FirstFactionOfDef(Grey_GooDefOf.GG_GreyGoo);
         wo.SetFaction(fac);
         wo.Tile = locationTile;

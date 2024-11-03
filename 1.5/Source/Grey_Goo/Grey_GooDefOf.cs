@@ -16,7 +16,7 @@ public static class Grey_GooDefOf
 
     public static SitePartDef MSS_GG_GooControllerSitePart;
 
-    public static WorldObjectDef MSS_GG_GooControllerMapGen;
+    public static WorldObjectDef MSS_GG_GooControllerWorldDef;
 
     static Grey_GooDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(Grey_GooDefOf));
 }

@@ -10,7 +10,6 @@
             <li>FindPlayerStartSpot</li>
             <li>ScenParts</li>
             <li>Fog</li>
-            <li>MSS_GG_GooController</li>
         </genSteps>
     </MapGeneratorDef>
 
@@ -34,8 +33,9 @@
     </GenStepDef>
 
     <WorldObjectDef>
-        <defName>MSS_GG_GooControllerMapGen</defName>
+        <defName>MSS_GG_GooControllerWorldDef</defName>
         <worldObjectClass>Site</worldObjectClass>
+        <texture>true</texture>
         <expandingIcon>true</expandingIcon>
         <expandingIconPriority>70</expandingIconPriority>
         <mapGenerator>MSS_GG_GooControllerMapGen</mapGenerator>
