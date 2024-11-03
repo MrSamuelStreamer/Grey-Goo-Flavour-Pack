@@ -142,4 +142,17 @@ public class GGWorldComponent(World world) : WorldComponent(world)
         if (isDebug) return true;
         return GooEnabled && controllers.Count < 3;
     }
+
+    public virtual void Notify_ControllerDestroyed(Map map)
+    {
+        GreyGooController controller = controllers.FirstOrDefault(ggc => ggc.wo == map.Parent);
+        controllers.Remove(controller);
+
+        Find.LetterStack.ReceiveLetter(
+            string.Format("GG_ControllerDestroyTitle".Translate()),
+            string.Format("GG_ControllerDestroyDesc".Translate(), controller.wo.Label.Colorize(controller.wo.Faction.Color)),
+            LetterDefOf.ThreatBig,
+            new LookTargets(controller.wo)
+        );
+    }
 }

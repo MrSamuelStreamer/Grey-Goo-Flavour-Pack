@@ -5,6 +5,7 @@
         <defName>MSS_GG_GooControllerBuilding</defName>
         <label>grey goo controller</label>
         <description>A grey goo controller.</description>
+        <thingClass>Grey_Goo.Building_GooController</thingClass>
         <size>(6,4)</size>
         <graphicData>
             <texPath>Things/Building/Misc/SunBlocker</texPath>

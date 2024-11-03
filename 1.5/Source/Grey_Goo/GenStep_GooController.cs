@@ -34,7 +34,7 @@ public class GenStep_GooController: GenStep_Scatterer
         if(map.Parent is not Site site) return;
         SitePart sitePart = site.parts.FirstOrDefault(p => p.def == Grey_GooDefOf.MSS_GG_GooControllerSitePart);
         if(sitePart == null) return;
-        if(sitePart.conditionCauser.Destroyed) return;
+            if(sitePart.conditionCauser.Destroyed) return;
         BaseGen.globalSettings.map = map;
         ResolveParams resolveParams = new ResolveParams();
         resolveParams.rect = CellRect.CenteredOn(loc, 12, 12).ClipInsideMap(map);

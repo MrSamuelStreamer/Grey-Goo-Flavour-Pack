@@ -16,4 +16,7 @@
     <MSS_GG_Shambler_Merge_Gorebeast>{0} merged with {1} to form a Gorebeast shamblers!</MSS_GG_Shambler_Merge_Gorebeast>
 
     <MSS_GG_MergedShambler_Desc>This shambler has merged with {0} other shamblers.</MSS_GG_MergedShambler_Desc>
+
+    <GG_ControllerDestroyTitle>Grey Goo Controller Destroyed!</GG_ControllerDestroyTitle>
+    <GG_ControllerDestroyDesc>Grey Goo Controller Destroyed!</GG_ControllerDestroyDesc>
 </LanguageData>
