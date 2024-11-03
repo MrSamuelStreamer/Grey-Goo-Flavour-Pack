@@ -270,12 +270,12 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
     public override void MapGenerated()
     {
-        GenThreading.ParallelForEach(map.AllCells.InRandomOrder().Take(Mathf.CeilToInt(map.AllCells.Count() * WorldMapSiteCoverage)).ToList(), cell =>
+        foreach (IntVec3 cell in map.AllCells.InRandomOrder().Take(Mathf.CeilToInt(map.AllCells.Count() * WorldMapSiteCoverage)))
         {
             CellInfo info = AllMapCells[cell];
             // check if a tile is unprotected goo, and not in protected tiles, and convert back to active goo
             map.terrainGrid.TryGooTerrain(cell);
             AllMapCells.TryUpdate(cell, new CellInfo{IsActive = true, IsGooed = true}, info);
-        });
+        }
     }
 }

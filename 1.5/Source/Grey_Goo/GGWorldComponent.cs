@@ -44,11 +44,12 @@ public class GGWorldComponent(World world) : WorldComponent(world)
             }
         }
 
-        Settlement wo = (Settlement) WorldObjectMaker.MakeWorldObject(WorldObjectDefOf.Settlement);
+        Site wo = (Site) WorldObjectMaker.MakeWorldObject(Grey_GooDefOf.MSS_GG_GooControllerMapGen);
         Faction fac = Find.FactionManager.FirstFactionOfDef(Grey_GooDefOf.GG_GreyGoo);
         wo.SetFaction(fac);
         wo.Tile = locationTile;
-        wo.Name = "GG_ActiveGreyGoo".Translate().Colorize(Color.red);
+        wo.customLabel = "GG_ActiveGreyGoo".Translate().Colorize(Color.red);
+        wo.AddPart(new SitePart(wo, Grey_GooDefOf.MSS_GG_GooControllerSitePart, new SitePartParams()));
         Find.WorldObjects.Add(wo);
 
         GreyGooController controller = new GreyGooController(wo);

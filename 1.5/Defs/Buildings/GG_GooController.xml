@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Defs>
+    <ThingDef ParentName="ConditionCauserBase">
+        <defName>MSS_GG_GooControllerBuilding</defName>
+        <label>grey goo controller</label>
+        <description>A grey goo controller.</description>
+        <size>(6,4)</size>
+        <graphicData>
+            <texPath>Things/Building/Misc/SunBlocker</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <drawSize>(8.8,8.8)</drawSize>
+            <drawOffset>(0,0,0.6)</drawOffset>
+            <shadowData>
+                <volume>(4.5,3.5,3.4)</volume>
+                <offset>(0,0,0)</offset>
+            </shadowData>
+            <damageData>
+                <rect>(0.5, 0, 4.8, 3.4)</rect>
+            </damageData>
+        </graphicData>
+        <building>
+            <soundAmbient>SunBlocker_Ambience</soundAmbient>
+        </building>
+    </ThingDef>
+</Defs>

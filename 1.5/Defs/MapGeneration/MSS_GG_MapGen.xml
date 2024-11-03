@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Defs>
+    <MapGeneratorDef>
+        <defName>MSS_GG_GooControllerMapGen</defName>
+        <genSteps>
+            <li>ElevationFertility</li>
+            <li>Caves</li>
+            <li>Terrain</li>
+            <li>CavesTerrain</li>
+            <li>FindPlayerStartSpot</li>
+            <li>ScenParts</li>
+            <li>Fog</li>
+            <li>MSS_GG_GooController</li>
+        </genSteps>
+    </MapGeneratorDef>
+
+    <SitePartDef ParentName="ConditionCauserSitePartBase">
+        <defName>MSS_GG_GooControllerSitePart</defName>
+        <label>Grey Goo Controller</label>
+        <description>A Grey Goo Controller.</description>
+        <workerClass>Grey_Goo.SitePartWorker_ConditionCauser_GooController</workerClass>
+        <conditionCauserDef>MSS_GG_GooControllerBuilding</conditionCauserDef>
+        <siteTexture>World/GG_Faction</siteTexture>
+    </SitePartDef>
+
+    <GenStepDef>
+        <defName>MSS_GG_GooController</defName>
+        <order>400</order>
+        <linkWithSite>MSS_GG_GooControllerSitePart</linkWithSite>
+        <genStep Class="Grey_Goo.GenStep_GooController">
+            <count>1</count>
+            <nearMapCenter>true</nearMapCenter>
+        </genStep>
+    </GenStepDef>
+
+    <WorldObjectDef>
+        <defName>MSS_GG_GooControllerMapGen</defName>
+        <worldObjectClass>Site</worldObjectClass>
+        <expandingIcon>true</expandingIcon>
+        <expandingIconPriority>70</expandingIconPriority>
+        <mapGenerator>MSS_GG_GooControllerMapGen</mapGenerator>
+        <comps>
+            <li Class="WorldObjectCompProperties_Timeout" />
+            <li Class="WorldObjectCompProperties_DefeatAllEnemiesQuest" />
+            <li Class="WorldObjectCompProperties_ItemStashContents" />
+            <li Class="WorldObjectCompProperties_DownedRefugee" />
+            <li Class="WorldObjectCompProperties_PrisonerWillingToJoin" />
+            <li Class="WorldObjectCompProperties_FormCaravan" />
+            <li Class="WorldObjectCompProperties_TimedDetectionRaids" />
+            <li Class="WorldObjectCompProperties_EnterCooldown" />
+            <li Class="WorldObjectCompProperties_TimedMakeFactionHostile" />
+        </comps>
+        <IncidentTargetTags>
+            <li>Map_Misc</li>
+        </IncidentTargetTags>
+    </WorldObjectDef>
+</Defs>
