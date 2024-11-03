@@ -17,6 +17,8 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
     public List<IntVec3> ProtectedCells = new List<IntVec3>();
     public HashSet<IntVec3> ProtectedCellsSet => ProtectedCells.ToHashSet();
 
+    public HediffDef InfectionHediff = DefDatabase<HediffDef>.GetNamed("Taggerung_SCP_GeneMutation");
+
     public NetRandom RandLocal = new NetRandom();
 
     public record struct CellInfo
@@ -230,7 +232,12 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         {
             if (ThingsToDamage.TryDequeue(out Thing thing) && thing != null)
             {
-                if (thing is { Destroyed: false } && Random.value > (ChanceToApplyDamage / 100) && thing is Pawn && Random.value < 0.1)
+                if (Grey_GooMod.settings.InfectOnGooTouch && InfectionHediff != null && thing is { Destroyed: false } && thing is Pawn p)
+                {
+                    p.health.GetOrAddHediff(InfectionHediff);
+                }
+
+                if (thing is { Destroyed: false } && Random.value > (ChanceToApplyDamage/100) && thing is Pawn && Random.value < 0.1)
                 {
                     DamageInfo dinfo = new DamageInfo(
                         Grey_GooDefOf.GG_Goo_Burn,

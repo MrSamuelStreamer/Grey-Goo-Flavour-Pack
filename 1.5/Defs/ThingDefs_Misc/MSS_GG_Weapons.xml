@@ -38,7 +38,7 @@
                 <verbClass>Verb_Shoot</verbClass>
                 <hasStandardCommand>true</hasStandardCommand>
                 <defaultProjectile>MSS_GG_Bullet_Improvised_EMPLauncher</defaultProjectile>
-                <warmupTime>7.5</warmupTime>
+                <warmupTime>4.5</warmupTime>
                 <range>19</range>
                 <forcedMissRadius>3.5</forcedMissRadius>
                 <burstShotCount>1</burstShotCount>
