@@ -14,6 +14,7 @@ public class Settings : ModSettings
     public float ChanceToSpreadGooToCell = 0.01f;
     public float ChanceForGooToDamagePercent = 0.001f;
     public FloatRange GooDamageRange = new FloatRange(0f,4f);
+    public bool InfectOnGooTouch = false;
 
     public int MaxShamblersOnMap = 40;
 
@@ -48,6 +49,9 @@ public class Settings : ModSettings
         Widgets.FloatRange(options.GetRect(40), 1, ref GooDamageRange, 0f, 10f, "MSS_GG_Setting_GooDamageRange");
         options.Gap();
 
+        options.CheckboxLabeled("MSS_GG_InfectOnGooTouch".Translate(), ref InfectOnGooTouch);
+        options.Gap();
+
         options.Label("MSS_GG_Setting_MapGooReevaluateFrequency".Translate(MapGooReevaluateFrequency));
         options.IntAdjuster(ref MapGooReevaluateFrequency, 60);
 
@@ -77,6 +81,7 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref ChanceToSpreadGooToCell, "ChanceToSpreadGooToCell", 0.01f);
         Scribe_Values.Look(ref ChanceForGooToDamagePercent, "ChanceForGooToDamagePercent", 0.001f);
         Scribe_Values.Look(ref GooDamageRange, "GooDamageRange", new FloatRange(0f, 4f));
+        Scribe_Values.Look(ref InfectOnGooTouch, "InfectOnGooTouch", false);
         Scribe_Values.Look(ref MapGooReevaluateFrequency, "MapGooReevaluateFrequency", 6000);
         Scribe_Values.Look(ref ChanceToMerge, "ChanceToMerge", 0.015f);
         Scribe_Values.Look(ref ShamblerMergeHediffSeverityToTransform, "ShamblerMergeHediffSeverityToTransform", 10);
