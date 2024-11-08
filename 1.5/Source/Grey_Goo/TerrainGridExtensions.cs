@@ -5,13 +5,19 @@ namespace Grey_Goo;
 
 public static class TerrainGridExtensions
 {
+    public static float ChanceToSpreadModifier(this TerrainGrid grid, IntVec3 c)
+    {
+        if (!Grey_GooDefOf.GG_Goo.reduceChanceOfPlacingOnTerrain.NullOrEmpty() &&
+            Grey_GooDefOf.GG_Goo.reduceChanceOfPlacingOnTerrain.Contains(grid.TerrainAt(c))) return 0.001f;
+
+        return 1f;
+    }
+
     public static bool TryGooTerrain(this TerrainGrid grid, IntVec3 c)
     {
         try
         {
             if (!Grey_GooMod.settings.EnableGoo) return false;
-            if (!Grey_GooDefOf.GG_Goo.preventPlacingOnTerrain.NullOrEmpty() &&
-                Grey_GooDefOf.GG_Goo.preventPlacingOnTerrain.Contains(grid.TerrainAt(c))) return false;
 
             grid.SetTerrain(c, Grey_GooDefOf.GG_Goo);
             return true;

@@ -30,4 +30,10 @@
     <MSS_GG_CreateControllerHere>Create Goo Controller here</MSS_GG_CreateControllerHere>
 
     <MSS_GG_MustBeInactiveGoo>Terrain must be Inactive Goo</MSS_GG_MustBeInactiveGoo>
+
+    <MSS_GG_MortarSyphoningEnergy>Syphoning energy from the grey goo</MSS_GG_MortarSyphoningEnergy>
+    <MSS_GG_MortarReady>Ready to fire</MSS_GG_MortarReady>
+    <MSS_GG_MortarFiring>Grey goo mortar firing!</MSS_GG_MortarFiring>
+    <MSS_GG_MortarNotOnGoo>Grey Goo Mortar is not on a goo tile, so cannot fire</MSS_GG_MortarNotOnGoo>
+    <MSS_GG_MortarNotOnMap>Grey Goo Mortar is not on a map</MSS_GG_MortarNotOnMap>
 </LanguageData>
