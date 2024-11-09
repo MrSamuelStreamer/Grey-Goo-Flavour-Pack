@@ -17,7 +17,7 @@ public class Settings : ModSettings
     public bool InfectOnGooTouch = false;
     public Vector2 scrollPosition = Vector2.zero;
 
-    public IntRange GooMortarSpawnTickRange = new IntRange(27000, 54000);
+    public IntRange GooMortarSpawnTickRange = new IntRange(18000, 54000);
 
     public int MaxShamblersOnMap = 40;
 
@@ -105,6 +105,6 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref ChanceToMerge, "ChanceToMerge", 0.015f);
         Scribe_Values.Look(ref ShamblerMergeHediffSeverityToTransform, "ShamblerMergeHediffSeverityToTransform", 10);
         Scribe_Values.Look(ref MaxShamblersOnMap, "MaxShamblersOnMap", 40);
-        Scribe_Values.Look(ref GooMortarSpawnTickRange, "GooMortarSpawnTickRange",  new IntRange(27000, 54000));
+        Scribe_Values.Look(ref GooMortarSpawnTickRange, "GooMortarSpawnTickRange",  new IntRange(18000, 54000));
     }
 }
