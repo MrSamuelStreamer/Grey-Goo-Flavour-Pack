@@ -8,8 +8,9 @@ public class Projectile_GreyGoo: Projectile_Explosive
 {
     protected override void Explode()
     {
-        IEnumerable<IntVec3> CellsToGo = GenAdj.CardinalDirectionsAndInside.Select(d => Position + d).Where(c => c.InBounds(Map));
+        IntVec3 position = Position;
         Map map = Map;
+        IEnumerable<IntVec3> CellsToGo = GenAdj.CardinalDirectionsAndInside.Select(d => position + d).Where(c => c.InBounds(map));
         base.Explode();
         foreach (IntVec3 cell in CellsToGo)
         {
@@ -17,4 +18,8 @@ public class Projectile_GreyGoo: Projectile_Explosive
         }
     }
 
+    public override void Tick()
+    {
+        base.Tick();
+    }
 }

@@ -91,7 +91,7 @@
         <projectile>
             <useGraphicClass>True</useGraphicClass>
             <shadowSize>1</shadowSize>
-            <damageDef>MSS_GG_GooBurn</damageDef>
+            <damageDef>MSS_GG_GooMortarBurn</damageDef>
             <spinRate>20</spinRate>
             <damageAmountBase>10</damageAmountBase>
             <speed>41</speed>
@@ -140,7 +140,7 @@
     </ThingDef>
 
     <DamageDef ParentName="Flame">
-        <defName>MSS_GG_GooBurn</defName>
+        <defName>MSS_GG_GooMortarBurn</defName>
         <label>grey goo burn</label>
         <workerClass>DamageWorker_AddInjury</workerClass>
         <armorCategory>Sharp</armorCategory>

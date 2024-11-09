@@ -68,13 +68,19 @@
         <comps>
             <li Class="Grey_Goo.Buildings.Comps.CompProperties_GooShield">
                 <radius>4.9</radius>
-                <disarmedByEmpForTicks>600</disarmedByEmpForTicks>
+                <interceptGroundProjectiles>true</interceptGroundProjectiles>
+                <interceptAirProjectiles>true</interceptAirProjectiles>
+                <interceptNonHostileProjectiles>false</interceptNonHostileProjectiles>
+                <interceptOutgoingProjectiles>false</interceptOutgoingProjectiles>
+                <hitPoints>20</hitPoints>
+                <disarmedByEmpForTicks>320</disarmedByEmpForTicks>
                 <drawWithNoSelection>true</drawWithNoSelection>
                 <minAlpha>0.1</minAlpha>
                 <idlePulseSpeed>3</idlePulseSpeed>
                 <minIdleAlpha>0.05</minIdleAlpha>
                 <color>(0.2, 0.2, 1)</color>
                 <activeSound>Broadshield_Ambience</activeSound>
+                <reactivateEffect>BulletShieldGenerator_Reactivate</reactivateEffect>
                 <gooInfectedHediffs>
                     <li>Taggerung_SCP_GeneMutation</li>
                 </gooInfectedHediffs>
@@ -152,13 +158,19 @@
         <comps>
             <li Class="Grey_Goo.Buildings.Comps.CompProperties_GooShield">
                 <radius>20</radius>
-                <disarmedByEmpForTicks>600</disarmedByEmpForTicks>
+                <interceptGroundProjectiles>false</interceptGroundProjectiles>
+                <interceptAirProjectiles>true</interceptAirProjectiles>
+                <interceptNonHostileProjectiles>false</interceptNonHostileProjectiles>
+                <interceptOutgoingProjectiles>false</interceptOutgoingProjectiles>
+                <hitPoints>200</hitPoints>
+                <disarmedByEmpForTicks>3200</disarmedByEmpForTicks>
                 <drawWithNoSelection>true</drawWithNoSelection>
                 <minAlpha>0.1</minAlpha>
                 <idlePulseSpeed>3</idlePulseSpeed>
                 <minIdleAlpha>0.05</minIdleAlpha>
                 <color>(0.2, 0.2, 1)</color>
                 <activeSound>Broadshield_Ambience</activeSound>
+                <reactivateEffect>BulletShieldGenerator_Reactivate</reactivateEffect>
                 <gooInfectedHediffs>
                     <li>Taggerung_SCP_GeneMutation</li>
                 </gooInfectedHediffs>
