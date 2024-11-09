@@ -75,7 +75,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
     public FloatRange DamageRange = new FloatRange(0f, 4f);
 
-    public IntRange MortarSpawnInterval = new IntRange(60*60, 60*60*2);
+    public IntRange MortarSpawnInterval => Grey_GooMod.settings.GooMortarSpawnTickRange;
 
     public int NextMortarSpawnTick = -1;
 

@@ -17,6 +17,8 @@ public class Settings : ModSettings
     public bool InfectOnGooTouch = false;
     public Vector2 scrollPosition = Vector2.zero;
 
+    public IntRange GooMortarSpawnTickRange = new IntRange(27000, 54000);
+
     public int MaxShamblersOnMap = 40;
 
     public float ChanceToMerge = 0.015f;
@@ -24,7 +26,7 @@ public class Settings : ModSettings
 
     public void DoWindowContents(Rect wrect)
     {
-        float scrollViewHeigh = 650f;
+        float scrollViewHeigh = 702f;
 
         Rect viewRect = new Rect(0f, 0f, wrect.width- 20, scrollViewHeigh);
         scrollPosition = GUI.BeginScrollView(new Rect(0, 50, wrect.width, wrect.height - 50), scrollPosition, viewRect);
@@ -79,6 +81,8 @@ public class Settings : ModSettings
             options.IntAdjuster(ref MaxShamblersOnMap, 1);
 
             options.Gap();
+            Widgets.IntRange(options.GetRect(40), 2, ref GooMortarSpawnTickRange, 0, 200000, "MSS_GG_Settings_GooMortarSpawnTickRange");
+            options.Gap();
         }
         finally
         {
@@ -101,5 +105,6 @@ public class Settings : ModSettings
         Scribe_Values.Look(ref ChanceToMerge, "ChanceToMerge", 0.015f);
         Scribe_Values.Look(ref ShamblerMergeHediffSeverityToTransform, "ShamblerMergeHediffSeverityToTransform", 10);
         Scribe_Values.Look(ref MaxShamblersOnMap, "MaxShamblersOnMap", 40);
+        Scribe_Values.Look(ref GooMortarSpawnTickRange, "GooMortarSpawnTickRange",  new IntRange(27000, 54000));
     }
 }
