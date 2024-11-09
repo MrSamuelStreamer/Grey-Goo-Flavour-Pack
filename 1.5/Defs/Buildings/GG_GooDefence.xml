@@ -68,6 +68,8 @@
         <comps>
             <li Class="Grey_Goo.Buildings.Comps.CompProperties_GooShield">
                 <radius>4.9</radius>
+                <cooldownTicks>300</cooldownTicks>
+                <hitPointsRestoreInstantlyAfterCharge>true</hitPointsRestoreInstantlyAfterCharge>
                 <interceptGroundProjectiles>true</interceptGroundProjectiles>
                 <interceptAirProjectiles>true</interceptAirProjectiles>
                 <interceptNonHostileProjectiles>false</interceptNonHostileProjectiles>
@@ -158,6 +160,8 @@
         <comps>
             <li Class="Grey_Goo.Buildings.Comps.CompProperties_GooShield">
                 <radius>20</radius>
+                <cooldownTicks>1200</cooldownTicks>
+                <hitPointsRestoreInstantlyAfterCharge>false</hitPointsRestoreInstantlyAfterCharge>
                 <interceptGroundProjectiles>false</interceptGroundProjectiles>
                 <interceptAirProjectiles>true</interceptAirProjectiles>
                 <interceptNonHostileProjectiles>false</interceptNonHostileProjectiles>

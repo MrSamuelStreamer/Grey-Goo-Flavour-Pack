@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using HarmonyLib;
 using RimWorld;
 using UnityEngine;
@@ -37,7 +38,6 @@ public class CompGooShield : CompProjectileInterceptor, IMapCellProtector
         get => (CompProperties_GooShield) props;
     }
 
-
     public override void PostPostMake()
     {
         base.PostPostMake();
@@ -47,6 +47,7 @@ public class CompGooShield : CompProjectileInterceptor, IMapCellProtector
             GreyGoo_MapComponent comp = parent.Map.GetComponent<GreyGoo_MapComponent>();
             comp?.NotifyCellsProtected(this);
             HaveMap = true;
+            comp?.TriggerGooRecheck();
         }
     }
 
@@ -60,6 +61,9 @@ public class CompGooShield : CompProjectileInterceptor, IMapCellProtector
 
     public override void CompTick()
     {
+        if (currentHitPoints < 0 && HitPointsMax > 0)
+            currentHitPoints = HitPointsMax;
+
         if (!HaveMap && parent.Map != null)
         {
             GreyGoo_MapComponent comp = parent.Map.GetComponent<GreyGoo_MapComponent>();
@@ -117,22 +121,22 @@ public class CompGooShield : CompProjectileInterceptor, IMapCellProtector
         QuestUtility.SendQuestTargetSignals(pawn.questTags, "PlayerTended", pawn.Named("SUBJECT"));
     }
 
-    public override void PostDraw()
-    {
-        // base.PostDraw();
-        Vector3 drawPos = parent.DrawPos with { y = AltitudeLayer.MoteOverhead.AltitudeFor() };
-        float currentAlpha = (float)GetCurrentAlpha.Value.Invoke(this, []);
-
-        if (currentAlpha > 0.0)
-        {
-            Color color = Active || !Find.Selector.IsSelected(parent) ? Props.color : InactiveColor;
-            color.a *= currentAlpha;
-            MatPropertyBlock.SetColor(ShaderPropertyIDs.Color, color);
-            Matrix4x4 matrix = new Matrix4x4();
-            matrix.SetTRS(drawPos, Quaternion.identity, new Vector3((float) (Props.radius * 2.0 * (297.0 / 256.0)), 1f, (float) (Props.radius * 2.0 * (297.0 / 256.0))));
-            Graphics.DrawMesh(MeshPool.plane10, matrix, ForceFieldMat, 0, null, 0, MatPropertyBlock);
-        }
-    }
+    // public override void PostDraw()
+    // {
+    //     // base.PostDraw();
+    //     Vector3 drawPos = parent.DrawPos with { y = AltitudeLayer.MoteOverhead.AltitudeFor() };
+    //     float currentAlpha = (float)GetCurrentAlpha.Value.Invoke(this, []);
+    //
+    //     if (currentAlpha > 0.0)
+    //     {
+    //         Color color = Active || !Find.Selector.IsSelected(parent) ? Props.color : InactiveColor;
+    //         color.a *= currentAlpha;
+    //         MatPropertyBlock.SetColor(ShaderPropertyIDs.Color, color);
+    //         Matrix4x4 matrix = new Matrix4x4();
+    //         matrix.SetTRS(drawPos, Quaternion.identity, new Vector3((float) (Props.radius * 2.0 * (297.0 / 256.0)), 1f, (float) (Props.radius * 2.0 * (297.0 / 256.0))));
+    //         Graphics.DrawMesh(MeshPool.plane10, matrix, ForceFieldMat, 0, null, 0, MatPropertyBlock);
+    //     }
+    // }
 
     public override void PostPreApplyDamage(ref DamageInfo dinfo, out bool absorbed)
     {
@@ -146,5 +150,16 @@ public class CompGooShield : CompProjectileInterceptor, IMapCellProtector
     {
         List<IntVec3> cells = GenRadial.RadialCellsAround(parent.Position, Props.radius, true).ToList();
         return cells;
+    }
+
+
+    public override string CompInspectStringExtra()
+    {
+        StringBuilder sb = new StringBuilder(base.CompInspectStringExtra());
+        if (sb.Length != 0)
+            sb.AppendLine();
+        sb.AppendTagged("MSS_GG_CompGooShieldEnergy".Translate(currentHitPoints, HitPointsMax));
+
+        return sb.ToString();
     }
 }

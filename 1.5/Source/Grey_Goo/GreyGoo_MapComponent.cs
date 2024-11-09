@@ -40,13 +40,13 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
                 .ToDictionary(x => map.cellIndices.IndexToCell(x), _ => new CellInfo()));
 
     public int TicksToUpdateGoo => Grey_GooMod.settings.MapGooUpdateFrequency;
-    public int NextGooUpdateTick = Grey_GooMod.settings.MapGooUpdateFrequency;
+    public int NextGooUpdateTick = 600;
     private Task CurrentGooUpdateTask;
     public ConcurrentQueue<Thing> ThingsToDamage = new ConcurrentQueue<Thing>();
     public ConcurrentQueue<IntVec3> CellsToChange = new ConcurrentQueue<IntVec3>();
 
     public int TicksToRecheckGoo => Grey_GooMod.settings.MapGooReevaluateFrequency;
-    public int NextGooRecheckTick = Grey_GooMod.settings.MapGooReevaluateFrequency;
+    public int NextGooRecheckTick = 300;
     private Task CurrentGooRecheckTask;
 
     public float ChanceToSpreadGoo => Grey_GooMod.settings.ChanceToSpreadGooToCell;
@@ -213,6 +213,11 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
             AllMapCells.TryUpdate(cell, newCellInfo, cellInfo);
         }
+    }
+
+    public void TriggerGooRecheck()
+    {
+        NextGooRecheckTick = Find.TickManager.TicksGame;
     }
 
     public override void MapComponentTick()

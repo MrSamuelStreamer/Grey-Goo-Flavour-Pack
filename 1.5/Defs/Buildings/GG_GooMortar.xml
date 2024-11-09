@@ -90,12 +90,14 @@
         <thingClass>Grey_Goo.Projectile_GreyGoo</thingClass>
         <projectile>
             <useGraphicClass>True</useGraphicClass>
-            <shadowSize>1</shadowSize>
+            <shadowSize>2</shadowSize>
             <damageDef>MSS_GG_GooMortarBurn</damageDef>
             <spinRate>20</spinRate>
-            <damageAmountBase>10</damageAmountBase>
-            <speed>41</speed>
-            <arcHeightFactor>1</arcHeightFactor>
+            <damageAmountBase>50</damageAmountBase>
+            <armorPenetrationBase>10</armorPenetrationBase>
+            <stoppingPower>1</stoppingPower>
+            <speed>11</speed>
+            <arcHeightFactor>4</arcHeightFactor>
             <explosionRadius>3.9</explosionRadius>
             <flyOverhead>true</flyOverhead>
             <soundExplode>SpitterSpitLands</soundExplode>
@@ -146,6 +148,11 @@
         <armorCategory>Sharp</armorCategory>
         <hediff>AcidBurn</hediff>
         <scaleDamageToBuildingsBasedOnFlammability>false</scaleDamageToBuildingsBasedOnFlammability>
+        <isRanged>true</isRanged>
+        <isExplosive>true</isExplosive>
+        <makesAnimalsFlee>true</makesAnimalsFlee>
+        <causeStun>true</causeStun>
+        <deathMessage>{0} has been overcome by goo.</deathMessage>
     </DamageDef>
 
     <EffecterDef>
