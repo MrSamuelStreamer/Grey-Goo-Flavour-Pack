@@ -90,10 +90,10 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         foreach ((IntVec3 cell, CellInfo cellInfo) in ActiveCells)
         {
             // Skip if there's a building here
-            if (map.thingGrid.ThingsAt(cell).Any(t => t is Building)) return;
+            if (map.thingGrid.ThingsAt(cell).Any(t => t is Building)) continue;
 
             // skip if protected
-            if (ProtectedCells.Contains(cell)) return;
+            if (ProtectedCells.Contains(cell)) continue;
 
             // get neighbours that are valid and exclude tiles we already know about
             IEnumerable<IntVec3> neighboursAndSelf = GenAdj.AdjacentCellsAndInside.Select(d => cell + d).Where(c => c.InBounds(map)).Except(GooedCells.Keys).ToList();
@@ -102,7 +102,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
             if (!neighboursAndSelf.Any())
             {
                 AllMapCells.TryUpdate(cell, cellInfo with { IsActive = false }, cellInfo);
-                return;
+                continue;
             }
 
             // build a list of neighbours and things
@@ -142,7 +142,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
         // check all gooed cells for things to damage
         IEnumerable<Thing> gooedCellsThings = GooedCells.Select(kv => kv.Key).Select(c => new { Cell = c, ThingsAt = map.thingGrid.ThingsAt(c) }).SelectMany(ct => ct.ThingsAt)
-            .Where(t => t is not Building_GooController).Where(t=>t.def != Grey_GooDefOf.MSS_GG_Goo_Mortar);
+            .Where(t => t is not Building_GooController).Where(t => t.def != Grey_GooDefOf.MSS_GG_Goo_Mortar);
 
         foreach (Thing thing in gooedCellsThings)
         {
@@ -220,6 +220,12 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         NextGooRecheckTick = Find.TickManager.TicksGame;
     }
 
+    public bool PawnWearingGooProofApparel(Thing thing)
+    {
+        if (thing is not Pawn pawn) return false;
+        return pawn.apparel?.WornApparel != null && pawn.apparel.WornApparel.Any(a => a.def == Grey_GooDefOf.MSS_GG_GooWaders);
+    }
+
     public override void MapComponentTick()
     {
         base.MapComponentTick();
@@ -234,20 +240,35 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
         for (int i = 0; i < Mathf.Max(1, Mathf.Min(10, ThingsToDamage.Count / 10)); i++)
         {
-            if (ThingsToDamage.TryDequeue(out Thing thing) && thing != null)
+            if (ThingsToDamage.TryDequeue(out Thing thing) && thing != null && thing is { Destroyed: false })
             {
-                if (Grey_GooMod.settings.InfectOnGooTouch && InfectionHediff != null && thing is { Destroyed: false } && thing is Pawn p)
+                if (!PawnWearingGooProofApparel(thing))
                 {
-                    p.health.GetOrAddHediff(InfectionHediff);
-                }
+                    if (Grey_GooMod.settings.InfectOnGooTouch && InfectionHediff != null && thing is Pawn p)
+                    {
+                        p.health.GetOrAddHediff(InfectionHediff);
+                    }
 
-                if (thing is { Destroyed: false } && Random.value > (ChanceToApplyDamage/100) && thing is Pawn && Random.value < 0.1)
+                    if (Random.value > (ChanceToApplyDamage / 100))
+                    {
+                        DamageInfo dinfo = new DamageInfo(
+                            Grey_GooDefOf.GG_Goo_Burn,
+                            Grey_GooMod.settings.GooDamageRange.RandomInRange,
+                            1f);
+                        thing.TakeDamage(dinfo);
+                    }
+                }
+                else if (thing is Pawn p)
                 {
-                    DamageInfo dinfo = new DamageInfo(
-                        Grey_GooDefOf.GG_Goo_Burn,
-                        Grey_GooMod.settings.GooDamageRange.RandomInRange,
-                        1f);
-                    thing.TakeDamage(dinfo);
+                    foreach (Apparel apparel in p.apparel.WornApparel.Where(a => a.def == Grey_GooDefOf.MSS_GG_GooWaders))
+                    {
+                        DamageInfo dinfo = new DamageInfo(
+                            Grey_GooDefOf.GG_Goo_Burn,
+                            2f,
+                            1f);
+                        var res = apparel.TakeDamage(dinfo);
+                        ModLog.Log(res.ToString());
+                    }
                 }
             }
             else
@@ -276,9 +297,9 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
                 mortar.SetFactionDirect(Find.FactionManager.FirstFactionOfDef(Grey_GooDefOf.GG_GreyGoo));
                 GenSpawn.Spawn(mortar, cell, map);
             }
+
             NextMortarSpawnTick = MortarSpawnInterval.RandomInRange + Find.TickManager.TicksGame;
         }
-
     }
 
     public void GooTileAt(IntVec3 cell)
