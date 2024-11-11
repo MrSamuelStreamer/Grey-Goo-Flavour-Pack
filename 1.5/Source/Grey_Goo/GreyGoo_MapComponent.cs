@@ -34,6 +34,10 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
     public ConcurrentQueue<Thing> ThingsToDamage = new ConcurrentQueue<Thing>();
     public HashSet<IntVec3> ProtectedCellsSet => ProtectedCells.ToHashSet();
 
+
+    public bool GooBoosted => Find.Maps.Any(m => m.GameConditionManager.ConditionIsActive(Grey_GooDefOf.MSS_GG_GooBoosted)) ||
+                              Find.World.GameConditionManager.ConditionIsActive(Grey_GooDefOf.MSS_GG_GooBoosted);
+
     public ConcurrentDictionary<IntVec3, CellInfo> AllMapCells =>
         _allMapCells ??= new ConcurrentDictionary<IntVec3, CellInfo>(
             Enumerable.Range(0, map.cellIndices.NumGridCells)
@@ -115,6 +119,11 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
                 float spreadChance =
                     Mathf.Min(1f, 0.01f + Mathf.Max(0, (fertility - 0.5f) / 100f) * ChanceToSpreadGoo * WorldMapSiteCoverageMultiplier); // can still spread on infertile terrain
+
+                if (GooBoosted)
+                {
+                    spreadChance *= 10;
+                }
 
                 if (RandLocal.NextDouble() < spreadChance * map.terrainGrid.ChanceToSpreadModifier(nCell))
                 {
