@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using RimWorld;
 using RimWorld.BaseGen;
 using RimWorld.Planet;
 using Verse;
@@ -41,6 +42,8 @@ public class GenStep_GooController: GenStep_Scatterer
         resolveParams.faction = Find.FactionManager.FirstFactionOfDef(Grey_GooDefOf.GG_GreyGoo);
         resolveParams.conditionCauser = sitePart.conditionCauser;
         BaseGen.symbolStack.Push("conditionCauserRoom", resolveParams);
+        resolveParams.threatPoints = StorytellerUtility.DefaultSiteThreatPointsNow();
+        BaseGen.symbolStack.Push("MSS_GG_Shamblers", resolveParams);
         BaseGen.Generate();
         MapGenerator.SetVar("RectOfInterest", resolveParams.rect);
     }

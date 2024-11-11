@@ -20,6 +20,7 @@
         <workerClass>Grey_Goo.SitePartWorker_ConditionCauser_GooController</workerClass>
         <conditionCauserDef>MSS_GG_GooControllerBuilding</conditionCauserDef>
         <siteTexture>World/GG_Faction</siteTexture>
+        <expandingIconTexture>World/GG_Faction</expandingIconTexture>
     </SitePartDef>
 
     <GenStepDef>
@@ -54,4 +55,12 @@
             <li>Map_Misc</li>
         </IncidentTargetTags>
     </WorldObjectDef>
+
+    <RuleDef>
+        <defName>MSS_GG_Shamblers</defName>
+        <symbol>MSS_GG_Shamblers</symbol>
+        <resolvers>
+            <li Class="Grey_Goo.SymbolResolver_Shamblers" />
+        </resolvers>
+    </RuleDef>
 </Defs>

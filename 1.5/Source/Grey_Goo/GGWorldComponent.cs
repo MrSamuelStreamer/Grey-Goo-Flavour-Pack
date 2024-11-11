@@ -62,6 +62,8 @@ public class GGWorldComponent(World world) : WorldComponent(world)
 
     public override void WorldComponentTick()
     {
+        if(!Grey_GooMod.settings.EnableGoo) return;
+
         if (!HasAlreadyStarted && Current.ProgramState == ProgramState.Playing)
         {
             HasAlreadyStarted = true;
