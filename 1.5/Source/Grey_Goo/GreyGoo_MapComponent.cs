@@ -262,17 +262,20 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         }
 
         // More chance to spawn a mortar as coverage increases
-        if (NextMortarSpawnTick < Find.TickManager.TicksGame && Rand.Chance(CurrentGooCoverage))
+        if (NextMortarSpawnTick < Find.TickManager.TicksGame)
         {
-            IntVec3 cell = AllMapCells.Where(c => c.Value.IsGooed).Select(c => c.Key).RandomElement();
-            foreach (Thing thing in map.thingGrid.ThingsAt(cell))
+            if (Rand.Chance(Mathf.Max(CurrentGooCoverage, 0.15f)))
             {
-                thing.Destroy();
-            }
+                IntVec3 cell = AllMapCells.Where(c => c.Value.IsGooed).Select(c => c.Key).RandomElement();
+                foreach (Thing thing in map.thingGrid.ThingsAt(cell))
+                {
+                    thing.Destroy();
+                }
 
-            Thing mortar = ThingMaker.MakeThing(Grey_GooDefOf.MSS_GG_Goo_Mortar);
-            mortar.SetFactionDirect(Find.FactionManager.FirstFactionOfDef(Grey_GooDefOf.GG_GreyGoo));
-            GenSpawn.Spawn(mortar, cell, map);
+                Thing mortar = ThingMaker.MakeThing(Grey_GooDefOf.MSS_GG_Goo_Mortar);
+                mortar.SetFactionDirect(Find.FactionManager.FirstFactionOfDef(Grey_GooDefOf.GG_GreyGoo));
+                GenSpawn.Spawn(mortar, cell, map);
+            }
             NextMortarSpawnTick = MortarSpawnInterval.RandomInRange + Find.TickManager.TicksGame;
         }
 
