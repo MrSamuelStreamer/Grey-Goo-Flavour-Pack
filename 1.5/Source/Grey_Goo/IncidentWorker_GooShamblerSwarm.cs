@@ -21,7 +21,7 @@ public class IncidentWorker_GooShamblerSwarm: IncidentWorker_ShamblerSwarm
 
     protected override LordJob GenerateLordJob(IntVec3 entry, IntVec3 dest)
     {
-        return new LordJob_ShamblerSwarm(entry, dest);
+        return new LordJob_GooShamblerSwarm(entry, dest);
     }
 
     protected override bool TryExecuteWorker(IncidentParms parms)
@@ -70,7 +70,7 @@ public class IncidentWorker_GooShamblerSwarm: IncidentWorker_ShamblerSwarm
 
         if (lord != null)
         {
-            lord.AddPawns(entities);
+                lord.AddPawns(entities);
         }
         else
         {

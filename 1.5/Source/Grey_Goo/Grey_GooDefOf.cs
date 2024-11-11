@@ -20,6 +20,7 @@ public static class Grey_GooDefOf
     public static WorldObjectDef MSS_GG_GooControllerWorldDef;
 
     public static ThingDef MSS_GG_Goo_Mortar;
+    public static ThingDef MSS_GG_GooWaders;
 
     static Grey_GooDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(Grey_GooDefOf));
 }

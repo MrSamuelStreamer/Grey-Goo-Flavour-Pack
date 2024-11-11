@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <!--MSS_GG_GooWaders-->
+
+    <ThingDef ParentName="ApparelMakeableBase">
+        <defName>MSS_GG_GooWaders</defName>
+        <label>grey goo waders</label>
+        <description>A simple set of waders made from fabric or leather, infused with bioferrite. The bioferrite provides protection from the goo until it's eaten away. Being just fabric and bioferrite it doesn't give much armour.</description>
+        <recipeMaker>
+            <displayPriority>265</displayPriority>
+            <researchPrerequisites>
+                <li>ComplexClothing</li>
+                <li>MSS_GG_Defence</li>
+            </researchPrerequisites>
+        </recipeMaker>
+        <graphicData>
+            <texPath>Things/Item/MSS_GG_GooWaders</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+        </graphicData>
+        <costStuffCount>40</costStuffCount>
+        <stuffCategories>
+            <li>Fabric</li>
+            <li>Leathery</li>
+        </stuffCategories>
+        <thingCategories>
+            <li>ApparelMisc</li>
+        </thingCategories>
+        <costList>
+            <Bioferrite>20</Bioferrite>
+        </costList>
+        <statBases>
+            <MaxHitPoints>150</MaxHitPoints>
+            <WorkToMake>1600</WorkToMake>
+            <Mass>0.75</Mass>
+            <StuffEffectMultiplierArmor>0.2</StuffEffectMultiplierArmor>
+            <StuffEffectMultiplierInsulation_Cold>0.20</StuffEffectMultiplierInsulation_Cold>
+            <StuffEffectMultiplierInsulation_Heat>0.08</StuffEffectMultiplierInsulation_Heat>
+            <EquipDelay>2</EquipDelay>
+        </statBases>
+        <apparel>
+            <bodyPartGroups>
+                <li>Legs</li>
+            </bodyPartGroups>
+            <layers>
+                <li>OnSkin</li>
+            </layers>
+            <tags>
+                <li>IndustrialBasic</li>
+            </tags>
+            <defaultOutfitTags>
+                <li>Worker</li>
+                <li>Soldier</li>
+            </defaultOutfitTags>
+            <canBeDesiredForIdeo>false</canBeDesiredForIdeo>
+        </apparel>
+        <colorGenerator Class="ColorGenerator_StandardApparel" />
+        <tradeTags Inherit="false" />
+    </ThingDef>
+</Defs>
