@@ -13,26 +13,26 @@ namespace Grey_Goo;
 
 public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 {
-    // keep this a list and allow duplicates to make it easier to handle removing overlapping protected tiles.
-    public List<IntVec3> ProtectedCells = new List<IntVec3>();
-    public HashSet<IntVec3> ProtectedCellsSet => ProtectedCells.ToHashSet();
+    private ConcurrentDictionary<IntVec3, CellInfo> _allMapCells;
+    public ConcurrentQueue<IntVec3> CellsToChange = new ConcurrentQueue<IntVec3>();
+    public float ChanceToApplyDamage = Grey_GooMod.settings.ChanceForGooToDamagePercent;
+    private Task CurrentGooRecheckTask;
+    private Task CurrentGooUpdateTask;
+
+    public FloatRange DamageRange = new FloatRange(0f, 4f);
 
     public HediffDef InfectionHediff = DefDatabase<HediffDef>.GetNamed("Taggerung_SCP_GeneMutation");
+    public int NextGooRecheckTick = 300;
+    public int NextGooUpdateTick = 600;
+
+    public int NextMortarSpawnTick = -1;
+
+    // keep this a list and allow duplicates to make it easier to handle removing overlapping protected tiles.
+    public List<IntVec3> ProtectedCells = new List<IntVec3>();
 
     public NetRandom RandLocal = new NetRandom();
-
-    public record struct CellInfo
-    {
-        public bool IsGooed = false;
-        public bool IsActive = false;
-        public TerrainDef Terrain = null;
-
-        public CellInfo()
-        {
-        }
-    }
-
-    private ConcurrentDictionary<IntVec3, CellInfo> _allMapCells;
+    public ConcurrentQueue<Thing> ThingsToDamage = new ConcurrentQueue<Thing>();
+    public HashSet<IntVec3> ProtectedCellsSet => ProtectedCells.ToHashSet();
 
     public ConcurrentDictionary<IntVec3, CellInfo> AllMapCells =>
         _allMapCells ??= new ConcurrentDictionary<IntVec3, CellInfo>(
@@ -40,17 +40,10 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
                 .ToDictionary(x => map.cellIndices.IndexToCell(x), _ => new CellInfo()));
 
     public int TicksToUpdateGoo => Grey_GooMod.settings.MapGooUpdateFrequency;
-    public int NextGooUpdateTick = 600;
-    private Task CurrentGooUpdateTask;
-    public ConcurrentQueue<Thing> ThingsToDamage = new ConcurrentQueue<Thing>();
-    public ConcurrentQueue<IntVec3> CellsToChange = new ConcurrentQueue<IntVec3>();
 
     public int TicksToRecheckGoo => Grey_GooMod.settings.MapGooReevaluateFrequency;
-    public int NextGooRecheckTick = 300;
-    private Task CurrentGooRecheckTask;
 
     public float ChanceToSpreadGoo => Grey_GooMod.settings.ChanceToSpreadGooToCell;
-    public float ChanceToApplyDamage = Grey_GooMod.settings.ChanceForGooToDamagePercent;
 
     public GGWorldComponent ggWorldComponent => Find.World.GetComponent<GGWorldComponent>();
 
@@ -73,11 +66,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         _ => IntVec3.Invalid
     };
 
-    public FloatRange DamageRange = new FloatRange(0f, 4f);
-
     public IntRange MortarSpawnInterval => Grey_GooMod.settings.GooMortarSpawnTickRange;
-
-    public int NextMortarSpawnTick = -1;
 
     public void UpdateGoo()
     {
@@ -142,7 +131,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
         // check all gooed cells for things to damage
         IEnumerable<Thing> gooedCellsThings = GooedCells.Select(kv => kv.Key).Select(c => new { Cell = c, ThingsAt = map.thingGrid.ThingsAt(c) }).SelectMany(ct => ct.ThingsAt)
-            .Where(t => t is not Building_GooController).Where(t => t.def != Grey_GooDefOf.MSS_GG_Goo_Mortar);
+            .Where(t => t is not Building_GooController).Where(t => t.def != Grey_GooDefOf.MSS_GG_Goo_Mortar).Where(t => t.def != Grey_GooDefOf.MSS_GG_ArchotechPowerNode);
 
         foreach (Thing thing in gooedCellsThings)
         {
@@ -337,6 +326,17 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         foreach (IntVec3 cell in map.AllCells.InRandomOrder().Take(Mathf.CeilToInt(map.AllCells.Count() * WorldMapSiteCoverage)))
         {
             GooTileAt(cell);
+        }
+    }
+
+    public record struct CellInfo
+    {
+        public bool IsActive = false;
+        public bool IsGooed = false;
+        public TerrainDef Terrain = null;
+
+        public CellInfo()
+        {
         }
     }
 }

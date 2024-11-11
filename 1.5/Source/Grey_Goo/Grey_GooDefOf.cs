@@ -20,7 +20,11 @@ public static class Grey_GooDefOf
     public static WorldObjectDef MSS_GG_GooControllerWorldDef;
 
     public static ThingDef MSS_GG_Goo_Mortar;
+    public static ThingDef MSS_GG_ArchotechPowerNode;
     public static ThingDef MSS_GG_GooWaders;
+
+
+    public static GameConditionDef MSS_GG_GooBoosted;
 
     static Grey_GooDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(Grey_GooDefOf));
 }

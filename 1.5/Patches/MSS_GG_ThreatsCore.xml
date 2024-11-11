@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/QuestScriptDef[defName="Util_GenerateSite"]/root/singleSitePartRules/rulesStrings</xpath>
+        <value>
+            <li>root(priority=1,sitePart==MSS_GG_ArchotechPowerNodeSitePart)->there's (*Threat)an archotech power node(/Threat) there. It's power is being leeched by the grey goo and is boosting it's spread massively</li>
+        </value>
+    </Operation>
+</Patch>

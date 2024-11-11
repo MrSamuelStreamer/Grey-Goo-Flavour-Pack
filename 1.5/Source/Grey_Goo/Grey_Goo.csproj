@@ -257,6 +257,10 @@
     <ReleaseFiles Update="..\..\Defs\ThingDefs_Misc\MSS_GG_Weapons.xml">
       <Link>Grey-Goo-Flavour-Pack\1.5\Defs\ThingDefs_Misc\MSS_GG_Weapons.xml</Link>
     </ReleaseFiles>
+
+    <ReleaseFiles Update="..\..\Defs\Utility\MSS_GG_ProblemCausers.xml">
+      <Link>Grey-Goo-Flavour-Pack\1.5\Defs\Utility\MSS_GG_ProblemCausers.xml</Link>
+    </ReleaseFiles>
   </ItemGroup>
   <ItemGroup>
     <ReleaseFiles Include="..\..\Defs\Incidents\GG_World_Incidents.xml">

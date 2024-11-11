@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Defs>
+    <!-- ========================= Weather controller ========================= -->
+    <ThingDef ParentName="ConditionCauserBase">
+        <defName>MSS_GG_ArchotechPowerNode</defName>
+        <label>archotech power node</label>
+        <description>An archotech power node. An ancient zero-point energy generator.</description>
+        <size>(6,6)</size>
+        <castEdgeShadows>True</castEdgeShadows>
+        <graphicData>
+            <texPath>Things/Building/Misc/WeatherController</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <drawSize>(6,6)</drawSize>
+            <shadowData>
+                <volume>(5.5,3.5,5.4)</volume>
+                <offset>(0,0,0)</offset>
+            </shadowData>
+            <damageData>
+                <rect>(0.1, 0.8, 5.8, 4.1)</rect>
+            </damageData>
+        </graphicData>
+        <building>
+            <soundAmbient>WeatherAffecter_Ambience</soundAmbient>
+        </building>
+        <comps>
+            <li Class="CompProperties_CausesGameCondition">
+                <conditionDef>MSS_GG_GooBoosted</conditionDef>
+                <compClass>Grey_Goo.CompCauseGameCondition_GooBoost</compClass>
+                <worldRange>100</worldRange>
+                <preventConditionStacking>true</preventConditionStacking>
+            </li>
+        </comps>
+    </ThingDef>
+
+    <GameConditionDef>
+        <defName>MSS_GG_GooBoosted</defName>
+        <conditionClass>Grey_Goo.GameCondition_GooBoosted</conditionClass>
+        <label>grey goo boosted</label>
+        <description>The spread of Grey Goo is being boosted by something nearby.</description>
+        <descriptionFuture>something nearby [map_definite] will boost goo spread [gameConditionDuration_duration]</descriptionFuture>
+        <endMessage>The spread of Grey Goo is no longer being boosted.</endMessage>
+        <letterText>Something has begun boosting the spread of Grey Goo</letterText>
+        <letterDef>NegativeEvent</letterDef>
+        <canBePermanent>true</canBePermanent>
+        <weatherDef>UnnaturalFog</weatherDef>
+        <natural>false</natural>
+    </GameConditionDef>
+
+    <SitePartDef ParentName="ConditionCauserSitePartBase">
+        <defName>MSS_GG_ArchotechPowerNodeSitePart</defName>
+        <label>archotech power node</label>
+        <description>An archotech power node at the site that the grey goo is leeching power from. Using these massive power reserves, it's speeding up it's spread!</description>
+        <conditionCauserDef>MSS_GG_ArchotechPowerNode</conditionCauserDef>
+        <workerClass>Grey_Goo.SitePartWorker_GooConditionCauser</workerClass>
+        <activeThreatDisturbanceFactor>0.2</activeThreatDisturbanceFactor>
+        <tags Inherit="false">
+            <li>MSS_GG_QuestConditionCauser</li>
+        </tags>
+    </SitePartDef>
+
+    <GenStepDef ParentName="ConditionCauserGenStepBase">
+        <defName>MSS_GG_ArchotechPowerNodeGenStep</defName>
+        <linkWithSite>MSS_GG_ArchotechPowerNodeSitePart</linkWithSite>
+        <genStep Class="Grey_Goo.GenStep_PreGoo"/>
+    </GenStepDef>
+</Defs>
