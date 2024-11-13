@@ -35,21 +35,21 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
     public HashSet<IntVec3> ProtectedCellsSet => ProtectedCells.ToHashSet();
 
 
-    public bool GooBoosted => Find.Maps.Any(m => m.GameConditionManager.ConditionIsActive(Grey_GooDefOf.MSS_GG_GooBoosted)) ||
-                              Find.World.GameConditionManager.ConditionIsActive(Grey_GooDefOf.MSS_GG_GooBoosted);
+    public static bool GooBoosted => Find.Maps.Any(m => m.GameConditionManager.ConditionIsActive(Grey_GooDefOf.MSS_GG_GooBoosted)) ||
+                                     Find.World.GameConditionManager.ConditionIsActive(Grey_GooDefOf.MSS_GG_GooBoosted);
 
     public ConcurrentDictionary<IntVec3, CellInfo> AllMapCells =>
         _allMapCells ??= new ConcurrentDictionary<IntVec3, CellInfo>(
             Enumerable.Range(0, map.cellIndices.NumGridCells)
                 .ToDictionary(x => map.cellIndices.IndexToCell(x), _ => new CellInfo()));
 
-    public int TicksToUpdateGoo => Grey_GooMod.settings.MapGooUpdateFrequency;
+    public static int TicksToUpdateGoo => Grey_GooMod.settings.MapGooUpdateFrequency;
 
-    public int TicksToRecheckGoo => Grey_GooMod.settings.MapGooReevaluateFrequency;
+    public static int TicksToRecheckGoo => Grey_GooMod.settings.MapGooReevaluateFrequency;
 
-    public float ChanceToSpreadGoo => Grey_GooMod.settings.ChanceToSpreadGooToCell;
+    public static float ChanceToSpreadGoo => Grey_GooMod.settings.ChanceToSpreadGooToCell;
 
-    public GGWorldComponent ggWorldComponent => Find.World.GetComponent<GGWorldComponent>();
+    public static GGWorldComponent ggWorldComponent => Find.World.GetComponent<GGWorldComponent>();
 
     public float CurrentGooCoverage => AllMapCells.Count(item => item.Value.IsGooed) / (float) map.cellIndices.NumGridCells;
     public float WorldMapSiteCoverage => ggWorldComponent.GetTileGooLevelAt(map.Tile);
@@ -70,7 +70,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         _ => IntVec3.Invalid
     };
 
-    public IntRange MortarSpawnInterval => Grey_GooMod.settings.GooMortarSpawnTickRange;
+    public static IntRange MortarSpawnInterval => Grey_GooMod.settings.GooMortarSpawnTickRange;
 
     public void UpdateGoo()
     {
@@ -114,7 +114,6 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
             // if gooed, add to GooedCells
             foreach (IntVec3 nCell in candidates)
             {
-                // CellsToChange.Enqueue(nCell);
                 float fertility = map.fertilityGrid.FertilityAt(nCell);
 
                 float spreadChance =
@@ -218,7 +217,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         NextGooRecheckTick = Find.TickManager.TicksGame;
     }
 
-    public bool PawnWearingGooProofApparel(Thing thing)
+    public static bool PawnWearingGooProofApparel(Thing thing)
     {
         if (thing is not Pawn pawn) return false;
         return pawn.apparel?.WornApparel != null && pawn.apparel.WornApparel.Any(a => a.def == Grey_GooDefOf.MSS_GG_GooWaders);
@@ -229,58 +228,96 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         base.MapComponentTick();
         if (!Grey_GooMod.settings.EnableGoo) return;
 
+        StartGooUpdateIfNeeded();
+        StartGooRecheckIfNeeded();
+        ProcessThingsToDamage();
+        ScheduleMortarSpawnIfNeeded();
+        TrySpawnMortar();
+    }
+
+    public void StartGooUpdateIfNeeded()
+    {
         if ((CurrentGooUpdateTask is null || CurrentGooUpdateTask.IsCompleted) && Find.TickManager.TicksGame >= NextGooUpdateTick && ThingsToDamage.IsEmpty &&
             CellsToChange.IsEmpty)
             CurrentGooUpdateTask = Task.Run(UpdateGoo);
+    }
 
+    public void StartGooRecheckIfNeeded()
+    {
         if ((CurrentGooRecheckTask is null || CurrentGooRecheckTask.IsCompleted) && Find.TickManager.TicksGame >= NextGooRecheckTick)
             CurrentGooRecheckTask = Task.Run(GooRecheck);
+    }
 
-        for (int i = 0; i < Mathf.Max(1, Mathf.Min(10, ThingsToDamage.Count / 10)); i++)
+    public void ProcessThingsToDamage()
+    {
+        const int minIterations = 1;
+        const int maxIterations = 10;
+
+        for (int i = 0; i < Mathf.Max(minIterations, Mathf.Min(maxIterations, ThingsToDamage.Count / 10)); i++)
         {
             if (ThingsToDamage.TryDequeue(out Thing thing) && thing != null && thing is { Destroyed: false })
             {
-                if (!PawnWearingGooProofApparel(thing))
-                {
-                    if (Grey_GooMod.settings.InfectOnGooTouch && InfectionHediff != null && thing is Pawn p)
-                    {
-                        p.health.GetOrAddHediff(InfectionHediff);
-                    }
-
-                    if (Random.value > (ChanceToApplyDamage / 100))
-                    {
-                        DamageInfo dinfo = new DamageInfo(
-                            Grey_GooDefOf.GG_Goo_Burn,
-                            Grey_GooMod.settings.GooDamageRange.RandomInRange,
-                            1f);
-                        thing.TakeDamage(dinfo);
-                    }
-                }
-                else if (thing is Pawn p)
-                {
-                    foreach (Apparel apparel in p.apparel.WornApparel.Where(a => a.def == Grey_GooDefOf.MSS_GG_GooWaders))
-                    {
-                        DamageInfo dinfo = new DamageInfo(
-                            Grey_GooDefOf.GG_Goo_Burn,
-                            2f,
-                            1f);
-                        var res = apparel.TakeDamage(dinfo);
-                        ModLog.Log(res.ToString());
-                    }
-                }
+                HandleThingDamage(thing);
             }
             else
             {
                 break;
             }
         }
+    }
 
+    public void HandleThingDamage(Thing thing)
+    {
+        if (!PawnWearingGooProofApparel(thing))
+        {
+            ApplyGooEffects(thing);
+        }
+        else if (thing is Pawn pawn)
+        {
+            DamageGooProofApparel(pawn);
+        }
+    }
+
+    public void ApplyGooEffects(Thing thing)
+    {
+        if (Grey_GooMod.settings.InfectOnGooTouch && InfectionHediff != null && thing is Pawn pawn)
+        {
+            pawn.health.GetOrAddHediff(InfectionHediff);
+        }
+
+        if (Random.value > ChanceToApplyDamage / 100)
+        {
+            DamageInfo dinfo = new DamageInfo(
+                Grey_GooDefOf.GG_Goo_Burn,
+                Grey_GooMod.settings.GooDamageRange.RandomInRange,
+                1f);
+            thing.TakeDamage(dinfo);
+        }
+    }
+
+    public static void DamageGooProofApparel(Pawn pawn)
+    {
+        foreach (Apparel apparel in pawn.apparel.WornApparel.Where(a => a.def == Grey_GooDefOf.MSS_GG_GooWaders))
+        {
+            DamageInfo dinfo = new DamageInfo(
+                Grey_GooDefOf.GG_Goo_Burn,
+                2f,
+                1f);
+            DamageWorker.DamageResult res = apparel.TakeDamage(dinfo);
+            ModLog.Log(res.ToString());
+        }
+    }
+
+    public void ScheduleMortarSpawnIfNeeded()
+    {
         if (NextMortarSpawnTick < 0)
         {
             NextMortarSpawnTick = MortarSpawnInterval.RandomInRange + Find.TickManager.TicksGame;
         }
+    }
 
-        // More chance to spawn a mortar as coverage increases
+    public void TrySpawnMortar()
+    {
         if (NextMortarSpawnTick < Find.TickManager.TicksGame)
         {
             if (Rand.Chance(Mathf.Max(CurrentGooCoverage, 0.15f)))

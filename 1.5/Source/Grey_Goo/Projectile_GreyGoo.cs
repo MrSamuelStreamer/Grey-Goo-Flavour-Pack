@@ -4,7 +4,7 @@ using Verse;
 
 namespace Grey_Goo;
 
-public class Projectile_GreyGoo: Projectile_Explosive
+public class Projectile_GreyGoo : Projectile_Explosive
 {
     protected override void Explode()
     {
@@ -16,10 +16,5 @@ public class Projectile_GreyGoo: Projectile_Explosive
         {
             map.GetComponent<GreyGoo_MapComponent>()?.GooTileAt(cell);
         }
-    }
-
-    public override void Tick()
-    {
-        base.Tick();
     }
 }

@@ -5,27 +5,26 @@ using Verse;
 
 namespace Grey_Goo;
 
-public class StorytellerComp_RefiringQuest: StorytellerComp
+public class StorytellerComp_RefiringQuest : StorytellerComp
 {
-    private int IntervalsPassed => Find.TickManager.TicksGame / 1000;
+    public int NextInterval = 0;
+    public static int IntervalsPassed => Find.TickManager.TicksGame / 1000;
 
     public StorytellerCompProperties_RefiringQuest Props => (StorytellerCompProperties_RefiringQuest) props;
 
-    public int NextInterval = 0;
-
     public override IEnumerable<FiringIncident> MakeIntervalIncidents(IIncidentTarget target)
     {
-        if (Props.incident.TargetAllowed(target))
+        if (Props.incident.TargetAllowed(target) && IntervalsPassed >= NextInterval)
         {
-            if (IntervalsPassed >= NextInterval)
+            IncidentParms parms = GenerateParms(Props.incident.category, target);
+            parms.forced = true;
+            parms.silent = true;
+            if (Props.incident.Worker.CanFireNow(parms))
             {
-                IncidentParms parms = GenerateParms(Props.incident.category, target);
-                parms.forced = true;
-                parms.silent = true;
-                if (Props.incident.Worker.CanFireNow(parms))
-                    yield return new FiringIncident(Props.incident, this, parms);
-                NextInterval = IntervalsPassed + Mathf.CeilToInt(Props.minDaysPassed * 60.0f);
+                yield return new FiringIncident(Props.incident, this, parms);
             }
+
+            NextInterval = IntervalsPassed + Mathf.CeilToInt(Props.minDaysPassed * 60.0f);
         }
     }
 

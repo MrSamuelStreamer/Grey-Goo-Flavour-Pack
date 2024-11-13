@@ -22,7 +22,7 @@ public static class GGUtils
     public static readonly Texture2D MSS_GG_GooMin = ContentFinder<Texture2D>.Get("UI/MSS_GG_GooMin");
     public static readonly Texture2D GG_Faction = ContentFinder<Texture2D>.Get("World/GG_Faction");
 
-    public static Lazy<FieldInfo> worldRender_layers = new(() => AccessTools.Field(typeof(WorldRenderer), "layers"));
+    public static readonly Lazy<FieldInfo> worldRender_layers = new Lazy<FieldInfo>(() => AccessTools.Field(typeof(WorldRenderer), "layers"));
 
     public static void NotifyGooChanged(int tile)
     {

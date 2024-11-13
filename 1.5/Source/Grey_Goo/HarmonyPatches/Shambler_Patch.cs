@@ -1,14 +1,12 @@
-using System.Reflection;
 using HarmonyLib;
 using RimWorld;
 using UnityEngine;
 using Verse;
-using System.Collections.Generic;
 
 namespace Grey_Goo.HarmonyPatches;
 
 [HarmonyPatch(typeof(MutantUtility), nameof(MutantUtility.GetShamblerColor))]
-public class ShamblerColorPatch
+public static class ShamblerColorPatch
 {
     [HarmonyPostfix]
     public static Color GetShamblerColorPostfix(Color __result)
@@ -25,7 +23,7 @@ public class ShamblerColorPatch
 }
 
 [HarmonyPatch(typeof(Pawn), nameof(Pawn.ButcherProducts))]
-public class ButcherProductsPatch
+public static class ButcherProductsPatch
 {
     [HarmonyPrefix]
     public static void ButcherProducts(Pawn butcher, float efficiency, Pawn __instance)

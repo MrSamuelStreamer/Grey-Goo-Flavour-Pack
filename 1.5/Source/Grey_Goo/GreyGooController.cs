@@ -40,20 +40,30 @@ public class GreyGooController : IExposable
         }
     }
 
-    public List<int> tilesOrderedByDistance => _tilesOrderedByDistance ??= Find.World.grid.tiles.Where(t => t != tile).Where(t => !t.WaterCovered)
-        .Select(t => (t, Find.World.grid.ApproxDistanceInTiles(Find.World.grid.tiles.IndexOf(tile), Find.World.grid.tiles.IndexOf(t))))
-        .OrderBy(t => t.Item2)
-        .Select(t => Find.World.grid.tiles.IndexOf(t.Item1)).ToList();
+    public List<int> tilesOrderedByDistance => _tilesOrderedByDistance ??= GetTilesOrderedByDistance();
 
-    public GGWorldComponent ggWorldComponent => Find.World.GetComponent<GGWorldComponent>();
+    public static GGWorldComponent ggWorldComponent => Find.World.GetComponent<GGWorldComponent>();
 
-    public bool GooBoosted => Find.Maps.Any(map => map.GameConditionManager.ConditionIsActive(Grey_GooDefOf.MSS_GG_GooBoosted)) ||
-                              Find.World.GameConditionManager.ConditionIsActive(Grey_GooDefOf.MSS_GG_GooBoosted);
+    public static bool GooBoosted => Find.Maps.Any(map => map.GameConditionManager.ConditionIsActive(Grey_GooDefOf.MSS_GG_GooBoosted)) ||
+                                     Find.World.GameConditionManager.ConditionIsActive(Grey_GooDefOf.MSS_GG_GooBoosted);
 
     public void ExposeData()
     {
         Scribe_Values.Look(ref NextTileToGooify, "NextTileToGooify");
         Scribe_Collections.Look(ref _tilesOrderedByDistance, "_tilesOrderedByDistance");
+    }
+
+    public List<int> GetTilesOrderedByDistance()
+    {
+        WorldGrid worldGrid = Find.World.grid;
+        int tileIndex = worldGrid.tiles.IndexOf(tile);
+
+        return worldGrid.tiles
+            .Where(t => t != tile && !t.WaterCovered)
+            .Select(t => new { Tile = t, Distance = worldGrid.ApproxDistanceInTiles(tileIndex, worldGrid.tiles.IndexOf(t)) })
+            .OrderBy(t => t.Distance)
+            .Select(t => worldGrid.tiles.IndexOf(t.Tile))
+            .ToList();
     }
 
     public void SetParent(WorldObject parent)

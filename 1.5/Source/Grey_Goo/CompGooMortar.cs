@@ -9,7 +9,26 @@ namespace Grey_Goo;
 
 public class CompGooMortar : ThingComp, IAttackTargetSearcher, IVerbOwner
 {
+    private LocalTargetInfo lastAttackedTarget;
+
+
+    private int lastSpitTick = -99999;
+    private int nextSpitDelay = -99999;
+    private Effecter progressBarEffecter;
+    private VerbTracker verbTracker;
     public CompProperties_GooMortar Props => (CompProperties_GooMortar) props;
+
+    private Verb AttackVerb => AllVerbs[0];
+
+    private int TicksToNextSpit => lastSpitTick + nextSpitDelay - Find.TickManager.TicksGame;
+
+    private bool OnCooldown => TicksToNextSpit > 0;
+
+    public List<Verb> AllVerbs => VerbTracker.AllVerbs;
+
+    public string MortarInspectString => TicksToNextSpit > 0
+        ? "MSS_GG_MortarSyphoningEnergy".Translate() + ": " + TicksToNextSpit.ToStringTicksToPeriod()
+        : (string) "MSS_GG_MortarReady".Translate();
 
     // IAttackTargetSearcher
     public Thing Thing => parent;
@@ -25,13 +44,6 @@ public class CompGooMortar : ThingComp, IAttackTargetSearcher, IVerbOwner
     public string UniqueVerbOwnerID() => "CompGooMortar_" + parent.ThingID;
     public bool VerbsStillUsableBy(Pawn p) => false;
     public Thing ConstantCaster => parent;
-
-
-    private int lastSpitTick = -99999;
-    private int nextSpitDelay = -99999;
-    private LocalTargetInfo lastAttackedTarget;
-    private VerbTracker verbTracker;
-    private Effecter progressBarEffecter;
 
     public bool CanFire(out string reason)
     {
@@ -50,17 +62,6 @@ public class CompGooMortar : ThingComp, IAttackTargetSearcher, IVerbOwner
 
         return true;
     }
-
-    private Verb AttackVerb => AllVerbs[0];
-
-    private int TicksToNextSpit
-    {
-        get => lastSpitTick + nextSpitDelay - Find.TickManager.TicksGame;
-    }
-
-    private bool OnCooldown => TicksToNextSpit > 0;
-
-    public List<Verb> AllVerbs => VerbTracker.AllVerbs;
 
     public override void PostSpawnSetup(bool respawningAfterLoad)
     {
@@ -118,7 +119,7 @@ public class CompGooMortar : ThingComp, IAttackTargetSearcher, IVerbOwner
         {
             nextSpitDelay++;
             return;
-        };
+        }
 
         if (OnCooldown)
         {
@@ -132,7 +133,8 @@ public class CompGooMortar : ThingComp, IAttackTargetSearcher, IVerbOwner
         if (TicksToNextSpit > 0 || !parent.IsHashIntervalTick(180))
             return;
 
-        Thing castTarg = (Thing) AttackTargetFinder.BestShootTargetFromCurrentPosition(this, TargetScanFlags.NeedThreat | TargetScanFlags.NeedAutoTargetable, t => !t.Position.Roofed(t.Map));
+        Thing castTarg = (Thing) AttackTargetFinder.BestShootTargetFromCurrentPosition(this, TargetScanFlags.NeedThreat | TargetScanFlags.NeedAutoTargetable,
+            t => !t.Position.Roofed(t.Map));
         if (castTarg == null)
             return;
 
@@ -149,6 +151,6 @@ public class CompGooMortar : ThingComp, IAttackTargetSearcher, IVerbOwner
 
     public override string CompInspectStringExtra()
     {
-        return CanFire(out string reason) ? (TicksToNextSpit > 0 ? "MSS_GG_MortarSyphoningEnergy".Translate() + ": " + TicksToNextSpit.ToStringTicksToPeriod() : (string) "MSS_GG_MortarReady".Translate()) : reason;
+        return CanFire(out string reason) ? MortarInspectString : reason;
     }
 }

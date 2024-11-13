@@ -35,7 +35,7 @@
 
     <GameConditionDef>
         <defName>MSS_GG_GooBoosted</defName>
-        <conditionClass>Grey_Goo.GameCondition_GooBoosted</conditionClass>
+        <conditionClass>GameCondition</conditionClass>
         <label>grey goo boosted</label>
         <description>The spread of Grey Goo is being boosted by something nearby.</description>
         <descriptionFuture>something nearby [map_definite] will boost goo spread [gameConditionDuration_duration]</descriptionFuture>
@@ -52,7 +52,7 @@
         <label>archotech power node</label>
         <description>An archotech power node at the site that the grey goo is leeching power from. Using these massive power reserves, it's speeding up it's spread!</description>
         <conditionCauserDef>MSS_GG_ArchotechPowerNode</conditionCauserDef>
-        <workerClass>Grey_Goo.SitePartWorker_GooConditionCauser</workerClass>
+        <workerClass>SitePartWorker_ConditionCauser</workerClass>
         <activeThreatDisturbanceFactor>0.2</activeThreatDisturbanceFactor>
         <tags Inherit="false">
             <li>MSS_GG_QuestConditionCauser</li>

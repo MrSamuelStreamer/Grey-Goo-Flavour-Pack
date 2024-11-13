@@ -9,12 +9,12 @@ using Verse.AI.Group;
 
 namespace Grey_Goo;
 
-public class IncidentWorker_GooShamblerSwarm: IncidentWorker_ShamblerSwarm
+public class IncidentWorker_GooShamblerSwarm : IncidentWorker_ShamblerSwarm
 {
-    public static Dictionary<Map, LordJob> lordJobs = new Dictionary<Map, LordJob>();
+    public static readonly Dictionary<Map, LordJob> lordJobs = new Dictionary<Map, LordJob>();
+    public static readonly Lazy<FieldInfo> queuedIncidents = new Lazy<FieldInfo>(() => AccessTools.Field(typeof(IncidentQueue), "queuedIncidents"));
 
-    public static Lazy<FieldInfo> queuedIncidents = new Lazy<FieldInfo>(()=>AccessTools.Field(typeof(IncidentQueue), "queuedIncidents"));
-    public int ShamblersOnMap(Map map)
+    public static int ShamblersOnMap(Map map)
     {
         return map.mapPawns.AllPawns.Count(p => p.mutant != null && p.mutant.Def == MutantDefOf.Shambler);
     }
@@ -39,7 +39,7 @@ public class IncidentWorker_GooShamblerSwarm: IncidentWorker_ShamblerSwarm
         // if there's a lord, grab one of the pawns positions as a target point
         if (lord is { AnyActivePawn: true })
         {
-            destCell = lord.ownedPawns.Where(p=>p.mindState is { Active: true }).RandomElement().Position;
+            destCell = lord.ownedPawns.Where(p => p.mindState is { Active: true }).RandomElement().Position;
         }
 
         if (destCell == IntVec3.Invalid && !RCellFinder.TryFindTravelDestFrom(entryCell, target, out destCell))
@@ -64,13 +64,9 @@ public class IncidentWorker_GooShamblerSwarm: IncidentWorker_ShamblerSwarm
             QuestUtility.AddQuestTag(newThing, parms.questTag);
         }
 
-        // Don't send the letter or slow down
-        // SendLetter(parms, entities);
-        // Find.TickManager.slower.SignalForceNormalSpeedShort();
-
         if (lord != null)
         {
-                lord.AddPawns(entities);
+            lord.AddPawns(entities);
         }
         else
         {
@@ -80,7 +76,7 @@ public class IncidentWorker_GooShamblerSwarm: IncidentWorker_ShamblerSwarm
         return true;
     }
 
-    public bool MapIsValid(Map map)
+    public static bool MapIsValid(Map map)
     {
         if (!map.IsPlayerHome) return false;
         if (ShamblersOnMap(map) > Grey_GooMod.settings.MaxShamblersOnMap) return false;
@@ -90,8 +86,12 @@ public class IncidentWorker_GooShamblerSwarm: IncidentWorker_ShamblerSwarm
 
     public bool AlreadyInQueue()
     {
-        if(Find.Storyteller.incidentQueue == null) return false;
-        List<QueuedIncident> queue = (List<QueuedIncident>)queuedIncidents.Value.GetValue(Find.Storyteller.incidentQueue);
+        if (Find.Storyteller.incidentQueue == null)
+        {
+            return false;
+        }
+
+        List<QueuedIncident> queue = (List<QueuedIncident>) queuedIncidents.Value.GetValue(Find.Storyteller.incidentQueue);
 
         return queue != null && queue.Any(i => i.FiringIncident.def == def);
     }
@@ -100,15 +100,13 @@ public class IncidentWorker_GooShamblerSwarm: IncidentWorker_ShamblerSwarm
     {
         return base.CanFireNowSub(parms) && !AlreadyInQueue() && parms.target is Map map && MapIsValid(map);
     }
+
     protected override List<Pawn> GenerateEntities(IncidentParms parms, float points)
     {
         Map target = (Map) parms.target;
         PawnGroupMakerParms parms1 = new PawnGroupMakerParms
         {
-            groupKind = GroupKindDef,
-            tile = target.Tile,
-            faction = Faction.OfEntities,
-            points = Faction.OfEntities.def.MinPointsToGeneratePawnGroup(GroupKindDef) * 1.05f
+            groupKind = GroupKindDef, tile = target.Tile, faction = Faction.OfEntities, points = Faction.OfEntities.def.MinPointsToGeneratePawnGroup(GroupKindDef) * 1.05f
         };
         List<Pawn> entities = PawnGroupMakerUtility.GeneratePawns(parms1).Take(1).ToList();
         SetupShamblerHediffs(entities, ShamblerLifespanTicksRange);
