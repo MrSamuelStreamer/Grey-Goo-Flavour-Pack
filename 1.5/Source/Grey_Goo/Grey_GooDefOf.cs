@@ -18,6 +18,7 @@ public static class Grey_GooDefOf
     public static readonly ThingDef MSS_GG_ArchotechPowerNode;
     public static readonly ThingDef MSS_GG_GooWaders;
     public static readonly GameConditionDef MSS_GG_GooBoosted;
+    public static readonly ThingDef MSS_GG_Frogge;
 
     static Grey_GooDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(Grey_GooDefOf));
 }
