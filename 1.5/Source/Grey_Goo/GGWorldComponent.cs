@@ -10,13 +10,13 @@ namespace Grey_Goo;
 
 public class GGWorldComponent(World world) : WorldComponent(world)
 {
-    public Dictionary<int, float> TileGooLevel = new Dictionary<int, float>();
-
     public List<GreyGooController> controllers = new List<GreyGooController>();
 
     public bool HasAlreadyStarted = false;
+    public bool HasAlreadyStarted_RunEachTime = false;
+    public Dictionary<int, float> TileGooLevel = new Dictionary<int, float>();
 
-    public bool GooEnabled => Grey_GooMod.settings.EnableGoo;
+    public static bool GooEnabled => Grey_GooMod.settings.EnableGoo;
 
     public void Setup()
     {
@@ -28,8 +28,15 @@ public class GGWorldComponent(World world) : WorldComponent(world)
 
     public bool TrySpawnController(IncidentParms parms, int locationTile = -1, bool isDebug = false)
     {
-        if(!GooEnabled) return false;
-        if(!CanCreateNewController(isDebug)) return false;
+        if (!GooEnabled)
+        {
+            return false;
+        }
+
+        if (!CanCreateNewController(isDebug))
+        {
+            return false;
+        }
 
         if (locationTile < 0)
         {
@@ -62,13 +69,32 @@ public class GGWorldComponent(World world) : WorldComponent(world)
 
     public override void WorldComponentTick()
     {
-        if(!Grey_GooMod.settings.EnableGoo) return;
+        if (!Grey_GooMod.settings.EnableGoo)
+        {
+            return;
+        }
 
         if (!HasAlreadyStarted && Current.ProgramState == ProgramState.Playing)
         {
             HasAlreadyStarted = true;
             Setup();
         }
+
+        if (!HasAlreadyStarted_RunEachTime && Current.ProgramState == ProgramState.Playing)
+        {
+            HasAlreadyStarted_RunEachTime = true;
+
+            Find.Anomaly.SetLevel(MonolithLevelDefOf.Waking, true);
+            ResearchProjectDef researchDef = DefDatabase<ResearchProjectDef>.GetNamed("BioferriteHarvesting");
+            Find.ResearchManager.FinishProject(researchDef, doCompletionLetter: false);
+            researchDef = DefDatabase<ResearchProjectDef>.GetNamed("BioferriteShaping");
+            Find.ResearchManager.FinishProject(researchDef, doCompletionLetter: false);
+            researchDef = DefDatabase<ResearchProjectDef>.GetNamed("EntityContainment");
+            Find.ResearchManager.FinishProject(researchDef, doCompletionLetter: false);
+            researchDef = DefDatabase<ResearchProjectDef>.GetNamed("Electroharvester");
+            Find.ResearchManager.FinishProject(researchDef, doCompletionLetter: false);
+        }
+
 
         if (Find.TickManager.TicksGame % 60 == 0)
         {
@@ -111,7 +137,10 @@ public class GGWorldComponent(World world) : WorldComponent(world)
     {
         if (controllers.Count == 0) return Direction8Way.Invalid;
         GreyGooController closest = ClosestController(tile);
-        if(closest == null) return Direction8Way.Invalid;
+        if (closest == null)
+        {
+            return Direction8Way.Invalid;
+        }
 
         int controllerIdx = Find.World.grid.tiles.IndexOf(closest.tile);
 
@@ -129,7 +158,7 @@ public class GGWorldComponent(World world) : WorldComponent(world)
     {
         if (!TileGooLevel.ContainsKey(tile))
             TileGooLevel[tile] = 0;
-        TileGooLevel[tile] = Mathf.Clamp01(TileGooLevel[tile]+ level);
+        TileGooLevel[tile] = Mathf.Clamp01(TileGooLevel[tile] + level);
 
         GGUtils.NotifyGooChanged(tile);
     }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using BigAndSmall;
-using Grey_Goo.BS;
 using RimWorld;
 using Verse;
 using Verse.AI;
@@ -12,7 +11,7 @@ public class JobDriver_MergeShamblers : JobDriver
 {
     public void MergeShamblers()
     {
-        Hediff_MergedShade hediffA = (Hediff_MergedShade)pawn.health.GetOrAddHediff(Grey_Goo_BS_DefOf.MSS_GG_MergedShambler);
+        Hediff_MergedShade hediffA = (Hediff_MergedShade) pawn.health.GetOrAddHediff(Grey_Goo_BS_DefOf.MSS_GG_MergedShambler);
 
         if (!TargetPawnB.health.hediffSet.TryGetHediff(Grey_Goo_BS_DefOf.MSS_GG_MergedShambler, out Hediff hediffB))
         {
@@ -59,10 +58,9 @@ public class JobDriver_MergeShamblers : JobDriver
             {
                 NameTriple plain = NameTriple.FromString(pawn.Name.ToStringFull);
                 newPawn.Name = new NameTriple(plain.First, "Gorebeast", plain.Last);
-
             }
 
-            SpawnRequest req = new SpawnRequest([newPawn], [pawn.Position],1, 1) { spawnSound = SoundDefOf.FleshmassBirth };
+            SpawnRequest req = new SpawnRequest([newPawn], [pawn.Position], 1, 1) { spawnSound = SoundDefOf.FleshmassBirth };
             pawn.Map.deferredSpawner.AddRequest(req);
             pawn.Destroy(DestroyMode.Vanish);
 
@@ -74,7 +72,6 @@ public class JobDriver_MergeShamblers : JobDriver
 
             HumanoidPawnScaler.GetCache(pawn, forceRefresh: true, scheduleForce: 10);
         }
-
     }
 
     public override bool TryMakePreToilReservations(bool errorOnFailed)

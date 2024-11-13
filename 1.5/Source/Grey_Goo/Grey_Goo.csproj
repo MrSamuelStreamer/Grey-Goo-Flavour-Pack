@@ -19,7 +19,7 @@
     <DebugType>portable</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <Optimize>true</Optimize>
   </PropertyGroup>
