@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using HarmonyLib;
 using RimWorld;
 using UnityEngine;
@@ -13,7 +13,7 @@ public static class Pawn_PathFollower_Patch
     public static bool CellIsWater = false;
     public static List<TerrainDef> waterTerrain => Grey_GooDefOf.GG_Goo.reduceChanceOfPlacingOnTerrain;
 
-    [HarmonyPatch("CostToMoveIntoCell")]
+    [HarmonyPatch("CostToMoveIntoCell", [typeof(Pawn), typeof(IntVec3) ])]
     [HarmonyPrefix]
     public static void CostToMoveIntoCell_Prefix(Pawn_PathFollower __instance, Pawn pawn, IntVec3 c, ref float __result)
     {
@@ -31,7 +31,7 @@ public static class Pawn_PathFollower_Patch
         CellIsWater = true;
     }
 
-    [HarmonyPatch("CostToMoveIntoCell")]
+    [HarmonyPatch("CostToMoveIntoCell", [typeof(Pawn), typeof(IntVec3)])]
     [HarmonyPostfix]
     public static void CostToMoveIntoCell_Postfix(ref float __result)
     {

@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Runtime.InteropServices;
 using Verse;
 using UnityEngine;
@@ -14,7 +14,7 @@ public class Grey_GooMod : Mod
 
     public Grey_GooMod(ModContentPack content) : base(content)
     {
-        Log.Message("Hello world from Grey Goo");
+        ModLog.Debug("Hello world from Grey Goo");
         mod = this;
 
         // initialize settings
