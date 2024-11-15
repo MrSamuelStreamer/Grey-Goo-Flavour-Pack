@@ -21,7 +21,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
     public FloatRange DamageRange = new FloatRange(0f, 4f);
 
-    public HediffDef InfectionHediff = DefDatabase<HediffDef>.GetNamed("Taggerung_SCP_GeneMutation");
+    public HediffDef InfectionHediff = DefDatabase<HediffDef>.GetNamed("USH_Necroa");
     public int NextGooRecheckTick = 300;
     public int NextGooUpdateTick = 600;
 
