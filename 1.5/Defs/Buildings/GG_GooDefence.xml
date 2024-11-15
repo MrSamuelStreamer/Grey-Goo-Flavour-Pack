@@ -499,6 +499,7 @@
                 <defaultProjectile>MSS_GG_Bullet_Improvised_EMPLauncher</defaultProjectile>
                 <warmupTime>0</warmupTime>
                 <range>20</range>
+                <forcedMissRadius>1</forcedMissRadius>
                 <ticksBetweenBurstShots>8</ticksBetweenBurstShots>
                 <burstShotCount>1</burstShotCount>
                 <soundCast>GunShotA</soundCast>

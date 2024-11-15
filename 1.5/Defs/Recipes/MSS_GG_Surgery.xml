@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Defs>
-    <RecipeDef ParentName="SurgeryRemoveImplantBase">
+    <RecipeDef MayRequire="redmattis.bigsmall.core" ParentName="SurgeryRemoveImplantBase">
         <defName>MSS_GG_RemoveGene_BS_DroneKind</defName>
         <label>remove drone gene</label>
         <workerClass>Grey_Goo.GeneRemovalRecipeWorker</workerClass>
@@ -10,10 +10,10 @@
         <isViolation>true</isViolation>
         <targetsBodyPart>false</targetsBodyPart>
         <humanlikeOnly>true</humanlikeOnly>
-        <researchPrerequisite Inherit="False"></researchPrerequisite>
-        <researchPrerequisites Inherit="False"></researchPrerequisites>
+        <researchPrerequisite Inherit="False"/>
+        <researchPrerequisites Inherit="False"/>
         <descriptionHyperlinks>
-            <GeneDef>BS_DroneKind</GeneDef>
+            <GeneDef MayRequire="redmattis.bigsmall.core">BS_DroneKind</GeneDef>
         </descriptionHyperlinks>
         <jobString>Removing dronekind gene.</jobString>
         <modExtensions>
