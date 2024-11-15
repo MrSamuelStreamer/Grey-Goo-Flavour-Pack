@@ -25,28 +25,34 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>../../../../../RimWorldWin64_Data/Managed/Assembly-CSharp.dll</HintPath>
+      <HintPath Condition="Exists('../../../../../RimWorldWin64_Data/Managed/Assembly-CSharp.dll')">../../../../../RimWorldWin64_Data/Managed/Assembly-CSharp.dll</HintPath>
+      <HintPath Condition="Exists('../../../../../Contents/Resources/Data/Managed/Assembly-CSharp.dll')">../../../../../Contents/Resources/Data/Managed/Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
       <Reference Include="UnityEngine.CoreModule">
-          <HintPath>../../../../../RimWorldWin64_Data/Managed/UnityEngine.CoreModule.dll</HintPath>
+          <HintPath Condition="Exists('../../../../../RimWorldWin64_Data/Managed/UnityEngine.CoreModule.dll')">../../../../../RimWorldWin64_Data/Managed/UnityEngine.CoreModule.dll</HintPath>
+          <HintPath Condition="Exists('../../../../../Contents/Resources/Data/Managed/UnityEngine.CoreModule.dll')">../../../../../Contents/Resources/Data/Managed/UnityEngine.CoreModule.dll</HintPath>
           <Private>False</Private>
       </Reference>
       <Reference Include="UnityEngine.IMGUIModule">
-          <HintPath>../../../../../RimWorldWin64_Data/Managed/UnityEngine.IMGUIModule.dll</HintPath>
+          <HintPath Condition="Exists('../../../../../RimWorldWin64_Data/Managed/UnityEngine.IMGUIModule.dll')">../../../../../RimWorldWin64_Data/Managed/UnityEngine.IMGUIModule.dll</HintPath>
+          <HintPath Condition="Exists('../../../../../Contents/Resources/Data/Managed/UnityEngine.IMGUIModule.dll')">../../../../../Contents/Resources/Data/Managed/UnityEngine.IMGUIModule.dll</HintPath>
           <Private>False</Private>
       </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>../../../../../RimWorldWin64_Data/Managed/UnityEngine.TextRenderingModule.dll</HintPath>
+      <HintPath Condition="Exists('../../../../../RimWorldWin64_Data/Managed/UnityEngine.TextRenderingModule.dll')">../../../../../RimWorldWin64_Data/Managed/UnityEngine.TextRenderingModule.dll</HintPath>
+      <HintPath Condition="Exists('../../../../../Contents/Resources/Data/Managed/UnityEngine.TextRenderingModule.dll')">../../../../../Contents/Resources/Data/Managed/UnityEngine.TextRenderingModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
       <Reference Include="UnityEngine.AssetBundleModule">
-          <HintPath>../../../../../RimWorldWin64_Data/Managed/UnityEngine.AssetBundleModule.dll</HintPath>
+          <HintPath Condition="Exists('../../../../../RimWorldWin64_Data/Managed/UnityEngine.AssetBundleModule.dll')">../../../../../RimWorldWin64_Data/Managed/UnityEngine.AssetBundleModule.dll</HintPath>
+          <HintPath Condition="Exists('../../../../../Contents/Resources/Data/Managed/UnityEngine.AssetBundleModule.dll')">../../../../../Contents/Resources/Data/Managed/UnityEngine.AssetBundleModule.dll</HintPath>
           <Private>False</Private>
       </Reference>
       <Reference Include="KeyzMiscResources">
           <HintPath Condition="Exists('$(SteamPath)../../../../../../../workshop/content/294100/3355560776/1.5/Assemblies/Keyz_Misc_Resources.dll')">$(SteamPath)../../../../../../../workshop/content/294100/3355560776/1.5/Assemblies/Keyz_Misc_Resources.dll</HintPath>
-          <HintPath Condition="!Exists('$(SteamPath)../../../../../../../workshop/content/294100/3355560776/1.5/Assemblies/Keyz_Misc_Resources.dll')">$(SteamPath)../../../../../Mods/KeyzMiscResources/1.5/Assemblies/Keyz_Misc_Resources.dll</HintPath>
+          <HintPath Condition="Exists('$(SteamPath)../../../../../Mods/KeyzMiscResources/1.5/Assemblies/Keyz_Misc_Resources.dll')">$(SteamPath)../../../../../Mods/KeyzMiscResources/1.5/Assemblies/Keyz_Misc_Resources.dll</HintPath>
+          <HintPath Condition="Exists('../../../../3355560776/1.5/Assemblies/Keyz_Misc_Resources.dll')">../../../../3355560776/1.5/Assemblies/Keyz_Misc_Resources.dll</HintPath>
           <Private>False</Private>
       </Reference>
   </ItemGroup>
@@ -55,161 +61,161 @@
       <Link>Attached/Rimworld/%(RecursiveDir)/%(FileName)%(Extension)</Link>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneLinux64.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneLinux64.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneLinux64.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneLinux64.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneLinux64\liquidmetal">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneLinux64\liquidmetal</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneLinux64/liquidmetal">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneLinux64/liquidmetal</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneLinux64\liquidmetal.manifest">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneLinux64\liquidmetal.manifest</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneLinux64/liquidmetal.manifest">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneLinux64/liquidmetal.manifest</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneLinux64\liquidmetal.manifest.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneLinux64\liquidmetal.manifest.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneLinux64/liquidmetal.manifest.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneLinux64/liquidmetal.manifest.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneLinux64\liquidmetal.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneLinux64\liquidmetal.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneLinux64/liquidmetal.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneLinux64/liquidmetal.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneLinux64\shaders">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneLinux64\shaders</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneLinux64/shaders">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneLinux64/shaders</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneLinux64\shaders.manifest">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneLinux64\shaders.manifest</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneLinux64/shaders.manifest">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneLinux64/shaders.manifest</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneLinux64\shaders.manifest.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneLinux64\shaders.manifest.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneLinux64/shaders.manifest.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneLinux64/shaders.manifest.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneLinux64\shaders.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneLinux64\shaders.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneLinux64/shaders.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneLinux64/shaders.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneLinux64\StandaloneLinux64">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneLinux64\StandaloneLinux64</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneLinux64/StandaloneLinux64">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneLinux64/StandaloneLinux64</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneLinux64\StandaloneLinux64.manifest">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneLinux64\StandaloneLinux64.manifest</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneLinux64/StandaloneLinux64.manifest">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneLinux64/StandaloneLinux64.manifest</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneLinux64\StandaloneLinux64.manifest.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneLinux64\StandaloneLinux64.manifest.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneLinux64/StandaloneLinux64.manifest.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneLinux64/StandaloneLinux64.manifest.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneLinux64\StandaloneLinux64.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneLinux64\StandaloneLinux64.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneLinux64/StandaloneLinux64.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneLinux64/StandaloneLinux64.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneLinux64\zoom">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneLinux64\zoom</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneLinux64/zoom">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneLinux64/zoom</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneLinux64\zoom.manifest">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneLinux64\zoom.manifest</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneLinux64/zoom.manifest">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneLinux64/zoom.manifest</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneLinux64\zoom.manifest.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneLinux64\zoom.manifest.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneLinux64/zoom.manifest.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneLinux64/zoom.manifest.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneLinux64\zoom.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneLinux64\zoom.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneLinux64/zoom.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneLinux64/zoom.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneOSX.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneOSX.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneOSX.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneOSX.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneOSX\liquidmetal">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneOSX\liquidmetal</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneOSX/liquidmetal">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneOSX/liquidmetal</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneOSX\liquidmetal.manifest">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneOSX\liquidmetal.manifest</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneOSX/liquidmetal.manifest">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneOSX/liquidmetal.manifest</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneOSX\liquidmetal.manifest.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneOSX\liquidmetal.manifest.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneOSX/liquidmetal.manifest.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneOSX/liquidmetal.manifest.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneOSX\liquidmetal.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneOSX\liquidmetal.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneOSX/liquidmetal.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneOSX/liquidmetal.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneOSX\shaders">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneOSX\shaders</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneOSX/shaders">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneOSX/shaders</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneOSX\shaders.manifest">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneOSX\shaders.manifest</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneOSX/shaders.manifest">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneOSX/shaders.manifest</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneOSX\shaders.manifest.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneOSX\shaders.manifest.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneOSX/shaders.manifest.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneOSX/shaders.manifest.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneOSX\shaders.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneOSX\shaders.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneOSX/shaders.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneOSX/shaders.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneOSX\StandaloneOSX">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneOSX\StandaloneOSX</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneOSX/StandaloneOSX">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneOSX/StandaloneOSX</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneOSX\StandaloneOSX.manifest">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneOSX\StandaloneOSX.manifest</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneOSX/StandaloneOSX.manifest">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneOSX/StandaloneOSX.manifest</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneOSX\StandaloneOSX.manifest.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneOSX\StandaloneOSX.manifest.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneOSX/StandaloneOSX.manifest.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneOSX/StandaloneOSX.manifest.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneOSX\StandaloneOSX.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneOSX\StandaloneOSX.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneOSX/StandaloneOSX.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneOSX/StandaloneOSX.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneOSX\zoom">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneOSX\zoom</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneOSX/zoom">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneOSX/zoom</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneOSX\zoom.manifest">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneOSX\zoom.manifest</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneOSX/zoom.manifest">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneOSX/zoom.manifest</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneOSX\zoom.manifest.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneOSX\zoom.manifest.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneOSX/zoom.manifest.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneOSX/zoom.manifest.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneOSX\zoom.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneOSX\zoom.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneOSX/zoom.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneOSX/zoom.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneWindows64.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneWindows64.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneWindows64.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneWindows64.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneWindows64\liquidmetal">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneWindows64\liquidmetal</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneWindows64/liquidmetal">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneWindows64/liquidmetal</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneWindows64\liquidmetal.manifest">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneWindows64\liquidmetal.manifest</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneWindows64/liquidmetal.manifest">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneWindows64/liquidmetal.manifest</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneWindows64\liquidmetal.manifest.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneWindows64\liquidmetal.manifest.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneWindows64/liquidmetal.manifest.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneWindows64/liquidmetal.manifest.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneWindows64\liquidmetal.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneWindows64\liquidmetal.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneWindows64/liquidmetal.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneWindows64/liquidmetal.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneWindows64\shaders">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneWindows64\shaders</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneWindows64/shaders">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneWindows64/shaders</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneWindows64\shaders.manifest">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneWindows64\shaders.manifest</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneWindows64/shaders.manifest">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneWindows64/shaders.manifest</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneWindows64\shaders.manifest.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneWindows64\shaders.manifest.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneWindows64/shaders.manifest.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneWindows64/shaders.manifest.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneWindows64\shaders.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneWindows64\shaders.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneWindows64/shaders.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneWindows64/shaders.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneWindows64\StandaloneWindows64">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneWindows64\StandaloneWindows64</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneWindows64/StandaloneWindows64">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneWindows64/StandaloneWindows64</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneWindows64\StandaloneWindows64.manifest">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneWindows64\StandaloneWindows64.manifest</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneWindows64/StandaloneWindows64.manifest">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneWindows64/StandaloneWindows64.manifest</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneWindows64\StandaloneWindows64.manifest.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneWindows64\StandaloneWindows64.manifest.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneWindows64/StandaloneWindows64.manifest.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneWindows64/StandaloneWindows64.manifest.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneWindows64\StandaloneWindows64.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneWindows64\StandaloneWindows64.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneWindows64/StandaloneWindows64.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneWindows64/StandaloneWindows64.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneWindows64\zoom">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneWindows64\zoom</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneWindows64/zoom">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneWindows64/zoom</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneWindows64\zoom.manifest">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneWindows64\zoom.manifest</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneWindows64/zoom.manifest">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneWindows64/zoom.manifest</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneWindows64\zoom.manifest.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneWindows64\zoom.manifest.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneWindows64/zoom.manifest.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneWindows64/zoom.manifest.meta</Link>
     </Content>
-    <Content Include="..\..\..\Materials\Bundles\StandaloneWindows64\zoom.meta">
-      <Link>Grey-Goo-Flavour-Pack\Materials\Bundles\StandaloneWindows64\zoom.meta</Link>
+    <Content Include="../../../Materials/Bundles/StandaloneWindows64/zoom.meta">
+      <Link>Grey-Goo-Flavour-Pack/Materials/Bundles/StandaloneWindows64/zoom.meta</Link>
     </Content>
-    <Content Include="..\..\..\modlist.xml">
-      <Link>Grey-Goo-Flavour-Pack\modlist.xml</Link>
+    <Content Include="../../../modlist.xml">
+      <Link>Grey-Goo-Flavour-Pack/modlist.xml</Link>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -234,42 +240,42 @@
 
     <ExtraFiles Include="../../../LoadFolders.xml;../../../LICENSE;../../../README.md" />
 
-    <ReleaseFiles Update="..\..\Defs\GG_Terrain.xml">
-      <Link>GreyGoo\1.5\Defs\GG_Terrain.xml</Link>
+    <ReleaseFiles Update="../../Defs/GG_Terrain.xml">
+      <Link>GreyGoo/1.5/Defs/GG_Terrain.xml</Link>
     </ReleaseFiles>
 
-    <ReleaseFiles Update="..\..\Defs\Shaders\GG_Shaders.xml">
-      <Link>Grey-Goo-Flavour-Pack\1.5\Defs\Shaders\GG_Shaders.xml</Link>
+    <ReleaseFiles Update="../../Defs/Shaders/GG_Shaders.xml">
+      <Link>Grey-Goo-Flavour-Pack/1.5/Defs/Shaders/GG_Shaders.xml</Link>
     </ReleaseFiles>
 
-    <ReleaseFiles Update="..\..\Defs\Factions\GG_Factions.xml">
-      <Link>Grey-Goo-Flavour-Pack\1.5\Defs\Factions\GG_Factions.xml</Link>
+    <ReleaseFiles Update="../../Defs/Factions/GG_Factions.xml">
+      <Link>Grey-Goo-Flavour-Pack/1.5/Defs/Factions/GG_Factions.xml</Link>
     </ReleaseFiles>
 
-    <ReleaseFiles Update="..\..\Defs\Buildings\GG_GooDefence.xml">
-      <Link>Grey-Goo-Flavour-Pack\1.5\Defs\Buildings\GG_GooDefence.xml</Link>
+    <ReleaseFiles Update="../../Defs/Buildings/GG_GooDefence.xml">
+      <Link>Grey-Goo-Flavour-Pack/1.5/Defs/Buildings/GG_GooDefence.xml</Link>
     </ReleaseFiles>
 
-    <ReleaseFiles Update="..\..\Defs\GG_Terrain.xml">
-      <Link>Grey-Goo-Flavour-Pack\1.5\Defs\GG_Terrain.xml</Link>
+    <ReleaseFiles Update="../../Defs/GG_Terrain.xml">
+      <Link>Grey-Goo-Flavour-Pack/1.5/Defs/GG_Terrain.xml</Link>
     </ReleaseFiles>
 
-    <ReleaseFiles Update="..\..\Defs\ThingDefs_Misc\MSS_GG_Weapons.xml">
-      <Link>Grey-Goo-Flavour-Pack\1.5\Defs\ThingDefs_Misc\MSS_GG_Weapons.xml</Link>
+    <ReleaseFiles Update="../../Defs/ThingDefs_Misc/MSS_GG_Weapons.xml">
+      <Link>Grey-Goo-Flavour-Pack/1.5/Defs/ThingDefs_Misc/MSS_GG_Weapons.xml</Link>
     </ReleaseFiles>
 
-    <ReleaseFiles Update="..\..\Defs\Utility\MSS_GG_ProblemCausers.xml">
-      <Link>Grey-Goo-Flavour-Pack\1.5\Defs\Utility\MSS_GG_ProblemCausers.xml</Link>
+    <ReleaseFiles Update="../../Defs/Utility/MSS_GG_ProblemCausers.xml">
+      <Link>Grey-Goo-Flavour-Pack/1.5/Defs/Utility/MSS_GG_ProblemCausers.xml</Link>
     </ReleaseFiles>
   </ItemGroup>
   <ItemGroup>
-    <ReleaseFiles Include="..\..\Defs\Incidents\GG_World_Incidents.xml">
-      <Link>Grey-Goo-Flavour-Pack\1.5\Defs\Incidents\GG_World_Incidents.xml</Link>
+    <ReleaseFiles Include="../../Defs/Incidents/GG_World_Incidents.xml">
+      <Link>Grey-Goo-Flavour-Pack/1.5/Defs/Incidents/GG_World_Incidents.xml</Link>
     </ReleaseFiles>
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="HarmonyPatches\IncidentWorker_ShamblerSwarmAnimals_Patch.cs" />
-    <Compile Remove="HarmonyPatches\IncidentWorker_ShamblerSwarmSmall_Patch.cs" />
+    <Compile Remove="HarmonyPatches/IncidentWorker_ShamblerSwarmAnimals_Patch.cs" />
+    <Compile Remove="HarmonyPatches/IncidentWorker_ShamblerSwarmSmall_Patch.cs" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="Build" Condition=" '$(Configuration)' == 'Release' ">
     <RemoveDir Condition="Exists('../../../Release')" Directories="../../../Release" />

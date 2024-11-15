@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+    <Operation Class="PatchOperationConditional">
+        <xpath>Defs/Vehicles.VehicleDef[defName="AV_Galleon"]/comps</xpath>
+        <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/Vehicles.VehicleDef[defName="AV_Galleon"]</xpath>
+            <value>
+                <comps/>
+            </value>
+        </nomatch>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/Vehicles.VehicleDef[defName="AV_Galleon"]/comps</xpath>
+        <value>
+            <li Class="CombatAI.Comps.CompProperties_Sighter">
+                <mannable>true</mannable>
+                <powered>false</powered>
+                <radius>16</radius>
+                <radiusNight>4</radiusNight>
+            </li>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationConditional">
+        <xpath>Defs/Vehicles.VehicleDef[defName="AV_Frigate"]/comps</xpath>
+        <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/Vehicles.VehicleDef[defName="AV_Galleon"]</xpath>
+            <value>
+                <comps/>
+            </value>
+        </nomatch>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/Vehicles.VehicleDef[defName="AV_Frigate"]/comps</xpath>
+        <value>
+            <li Class="CombatAI.Comps.CompProperties_Sighter">
+                <mannable>true</mannable>
+                <powered>false</powered>
+                <radius>16</radius>
+                <radiusNight>4</radiusNight>
+            </li>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationConditional">
+        <xpath>Defs/Vehicles.VehicleDef[defName="AV_Brig"]/comps</xpath>
+        <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/Vehicles.VehicleDef[defName="AV_Galleon"]</xpath>
+            <value>
+                <comps/>
+            </value>
+        </nomatch>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/Vehicles.VehicleDef[defName="AV_Brig"]/comps</xpath>
+        <value>
+            <li Class="CombatAI.Comps.CompProperties_Sighter">
+                <mannable>true</mannable>
+                <powered>false</powered>
+                <radius>16</radius>
+                <radiusNight>4</radiusNight>
+            </li>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationConditional">
+        <xpath>Defs/Vehicles.VehicleDef[defName="AV_Balloon"]/comps</xpath>
+        <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/Vehicles.VehicleDef[defName="AV_Galleon"]</xpath>
+            <value>
+                <comps/>
+            </value>
+        </nomatch>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/Vehicles.VehicleDef[defName="AV_Balloon"]/comps</xpath>
+        <value>
+            <li Class="CombatAI.Comps.CompProperties_Sighter">
+                <mannable>true</mannable>
+                <powered>false</powered>
+                <radius>24</radius>
+                <radiusNight>8</radiusNight>
+            </li>
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationConditional">
+        <xpath>Defs/Vehicles.VehicleDef[defName="AV_OxCart"]/comps</xpath>
+        <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/Vehicles.VehicleDef[defName="AV_Galleon"]</xpath>
+            <value>
+                <comps/>
+            </value>
+        </nomatch>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/Vehicles.VehicleDef[defName="AV_OxCart"]/comps</xpath>
+        <value>
+            <li Class="CombatAI.Comps.CompProperties_Sighter">
+                <mannable>true</mannable>
+                <powered>false</powered>
+                <radius>6</radius>
+                <radiusNight>2</radiusNight>
+            </li>
+        </value>
+    </Operation>
+</Patch>

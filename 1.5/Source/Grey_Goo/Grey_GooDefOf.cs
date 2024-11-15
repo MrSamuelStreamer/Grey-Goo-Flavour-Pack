@@ -19,6 +19,7 @@ public static class Grey_GooDefOf
     public static readonly ThingDef MSS_GG_GooWaders;
     public static readonly GameConditionDef MSS_GG_GooBoosted;
     public static readonly ThingDef MSS_GG_Frogge;
+    public static readonly ThingDef MSS_GG_Turret_EMPMiniTurret;
 
     static Grey_GooDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(Grey_GooDefOf));
 }

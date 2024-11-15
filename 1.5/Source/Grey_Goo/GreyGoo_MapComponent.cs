@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Grey_Goo.Buildings;
+using JetBrains.Annotations;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -21,7 +22,16 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
     public FloatRange DamageRange = new FloatRange(0f, 4f);
 
-    public HediffDef InfectionHediff = DefDatabase<HediffDef>.GetNamed("Taggerung_SCP_GeneMutation");
+    private static string[] _possibleInfectionHediffDefs =
+    [
+        "USH_Necroa",
+        "Taggerung_SCP_GeneMutation",
+        "Scaria"
+    ];
+
+    [CanBeNull] public HediffDef InfectionHediff = _possibleInfectionHediffDefs.Select(DefDatabase<HediffDef>.GetNamedSilentFail)
+        .FirstOrDefault(hediff => hediff != null);
+
     public int NextGooRecheckTick = 300;
     public int NextGooUpdateTick = 600;
 
