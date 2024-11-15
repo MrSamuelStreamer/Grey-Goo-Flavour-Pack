@@ -100,4 +100,33 @@
             <shadowSize>0.6</shadowSize>
         </projectile>
     </ThingDef>
+
+    <ThingDef ParentName="BaseBullet">
+        <defName>MSS_GG_Bullet_Improvised_EMPLauncherTurret</defName>
+        <label>Imrpovised EMP launcher shell</label>
+        <graphicData>
+            <texPath>Things/Projectile/Bullet_Small</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <drawSize>(0.7, 0.7)</drawSize>
+        </graphicData>
+        <modExtensions>
+            <li Class="Grey_Goo.ProjectileModExtension">
+                <explosionSizeMultiplier>0.5~2</explosionSizeMultiplier>
+            </li>
+        </modExtensions>
+        <thingClass>Grey_Goo.Projectile_EMP</thingClass>
+        <projectile>
+            <speed>20</speed>
+            <damageDef>EMP</damageDef>
+            <!-- Use default damage from explosion def -->
+            <postExplosionSpawnChance>1</postExplosionSpawnChance>
+            <explosionChanceToStartFire>0</explosionChanceToStartFire>
+            <explosionRadius>3</explosionRadius>
+            <ai_IsIncendiary>true</ai_IsIncendiary>
+            <arcHeightFactor>0.3</arcHeightFactor>
+            <soundExplode>Explosion_EMP</soundExplode>
+            <doExplosionVFX>true</doExplosionVFX>
+            <shadowSize>0.6</shadowSize>
+        </projectile>
+    </ThingDef>
 </Defs>

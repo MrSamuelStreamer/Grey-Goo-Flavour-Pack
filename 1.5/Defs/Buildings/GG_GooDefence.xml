@@ -420,23 +420,22 @@
             <li Class="CompProperties_Flickable" />
             <li Class="CompProperties_Breakdownable" />
             <li Class="CompProperties_Refuelable">
-                <fuelLabel>Shots until barrel change</fuelLabel>
-                <fuelGizmoLabel>Barrel durability</fuelGizmoLabel>
-                <outOfFuelMessage>Needs new barrel</outOfFuelMessage>
+                <fuelLabel>Shots until out of bioferrite</fuelLabel>
+                <fuelGizmoLabel>bioferrite stores</fuelGizmoLabel>
+                <outOfFuelMessage>Needs bioferrite</outOfFuelMessage>
                 <fuelFilter>
                     <thingDefs>
-                        <li>Steel</li>
+                        <li>Bioferrite</li>
                     </thingDefs>
                 </fuelFilter>
-                <fuelCapacity>60</fuelCapacity>       <!-- 30 bursts -->
-                <fuelMultiplier>0.75</fuelMultiplier> <!-- 1.333 steel per burst, 80 per full rearm -->
+                <fuelCapacity>60.0</fuelCapacity>
+                <fuelMultiplier>0.75</fuelMultiplier>
                 <initialFuelPercent>1</initialFuelPercent>
                 <autoRefuelPercent>0.5</autoRefuelPercent>
                 <showFuelGizmo>true</showFuelGizmo>
                 <minimumFueledThreshold>1</minimumFueledThreshold>
                 <factorByDifficulty>true</factorByDifficulty>
                 <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
-                <fuelIconPath>UI/Overlays/Barrel</fuelIconPath>
             </li>
             <li Class="CompProperties_Stunnable">
                 <affectedDamageDefs>
