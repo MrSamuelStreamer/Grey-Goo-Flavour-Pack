@@ -70,13 +70,6 @@
             <li>WaterMovingShallow</li>
         </reduceChanceOfPlacingOnTerrain>
 
-        <affordances>
-            <li>Light</li>
-            <li>GrowSoil</li>
-            <li>Diggable</li>
-            <li>Bridgeable</li>
-        </affordances>
-
         <statBases>
             <Beauty>-100</Beauty>
             <BeautyOutdoors>0</BeautyOutdoors>
@@ -90,6 +83,7 @@
             <li>Heavy</li>
             <li>GrowSoil</li>
             <li>Diggable</li>
+            <li>Bridgeable</li>
         </affordances>
 
         <fertility>0</fertility>
