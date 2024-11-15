@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+    <Operation Class="PatchOperationRemove">
+      <xpath>*/GeneDef[defName = "PerfectImmunity"]/makeImmuneTo</xpath>
+      <value>
+        <li>Flu</li>
+        <li>Malaria</li>
+        <li>SleepingSickness</li>
+        <li>Plague</li>
+        <li>WoundInfection</li>
+        <li>LungRot</li>
+        <li>GutWorms</li>
+        <li>MuscleParasites</li>
+        <li>OrganDecay</li>
+      </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>*/GeneDef[defName = "PerfectImmunity"]</xpath>
+    <value>
+      <makeImmuneTo>
+      </makeImmuneTo>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>*/GeneDef[defName = "PerfectImmunity"]/makeImmuneTo</xpath>
+    <value>
+      <li MayRequire="Ludeon.RimWorld.Anomaly">USH_Necroa</li>
+    </value>
+  </Operation>
+</Patch>
