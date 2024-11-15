@@ -84,7 +84,8 @@
                 <activeSound>Broadshield_Ambience</activeSound>
                 <reactivateEffect>BulletShieldGenerator_Reactivate</reactivateEffect>
                 <gooInfectedHediffs>
-                    <li>Taggerung_SCP_GeneMutation</li>
+                    <li MayRequire="garethp.scariacontaminationpatch">Taggerung_SCP_GeneMutation</li>
+                    <li MayRequire="ushanka.biologicalwarfare">USH_Necroa</li>
                 </gooInfectedHediffs>
                 <gooEnemyXenotypes>
                     <li>MSS_Goo_Drone</li>
@@ -144,10 +145,8 @@
         <killedLeavings />
         <rotatable>false</rotatable>
         <selectable>true</selectable>
-        <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
         <soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
         <repairEffect>ConstructMetal</repairEffect>
-        <rotatable>false</rotatable>
         <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded> <!-- Best affordance needed for stone -->
         <designationCategory>Security</designationCategory>
         <building>
@@ -176,7 +175,8 @@
                 <activeSound>Broadshield_Ambience</activeSound>
                 <reactivateEffect>BulletShieldGenerator_Reactivate</reactivateEffect>
                 <gooInfectedHediffs>
-                    <li>Taggerung_SCP_GeneMutation</li>
+                    <li MayRequire="garethp.scariacontaminationpatch">Taggerung_SCP_GeneMutation</li>
+                    <li MayRequire="ushanka.biologicalwarfare">USH_Necroa</li>
                 </gooInfectedHediffs>
                 <gooEnemyXenotypes>
                     <li>MSS_Goo_Drone</li>
@@ -258,6 +258,7 @@
             <Mass>50</Mass>
             <Flammability>0.5</Flammability>
             <EMPResistance>0.50</EMPResistance>
+            <MeditationFocusStrength>0</MeditationFocusStrength>
         </statBases>
         <costList>
             <Steel>400</Steel>
@@ -290,9 +291,6 @@
             <li>ITab_Entity</li>
         </inspectorTabs>
         <designationCategory>Anomaly</designationCategory>
-        <statBases>
-            <MeditationFocusStrength>0</MeditationFocusStrength>
-        </statBases>
         <building>
             <buildingTags>
                 <li>Anomaly</li>
