@@ -39,4 +39,7 @@
     <MSS_GG_MortarNotOnMap>Grey Goo Mortar is not on a map</MSS_GG_MortarNotOnMap>
 
     <MSS_GG_CompGooShieldEnergy>Shield energy: {0}/{1}</MSS_GG_CompGooShieldEnergy>
+
+    <MSS_GG_AlliedWithScarab>After many discussion and debates between you and the leaders of SCARAB, they now realise you are an asset to them, not a threat. You've shown them that the grey goo they've unleashed has become a far greater existential threat than the fungus infection could ever have been.\n\nIn order to help fight back against the goo, SCARAB are sending you some higher tech equipment to help you take part in the fight!\n\nThey are giving you:\n\n{0}</MSS_GG_AlliedWithScarab>
+    <MSS_GG_AlliedWithScarab_Title>SCARAB Allies Calling!</MSS_GG_AlliedWithScarab_Title>
 </LanguageData>
