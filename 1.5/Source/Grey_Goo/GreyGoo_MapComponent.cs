@@ -391,23 +391,35 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
 
     public void TrySpawnMortar()
     {
-        if (NextMortarSpawnTick < Find.TickManager.TicksGame)
+        if (NextMortarSpawnTick >= Find.TickManager.TicksGame)
         {
-            if (Rand.Chance(Mathf.Max(CurrentGooCoverage, 0.15f)))
-            {
-                IntVec3 cell = AllMapCells.Where(c => c.Value.IsGooed).Select(c => c.Key).RandomElement();
-                foreach (Thing thing in map.thingGrid.ThingsAt(cell))
-                {
-                    thing.Destroy();
-                }
-
-                Thing mortar = ThingMaker.MakeThing(Grey_GooDefOf.MSS_GG_Goo_Mortar);
-                mortar.SetFactionDirect(Find.FactionManager.FirstFactionOfDef(Grey_GooDefOf.GG_GreyGoo));
-                GenSpawn.Spawn(mortar, cell, map);
-            }
-
-            NextMortarSpawnTick = MortarSpawnInterval.RandomInRange + Find.TickManager.TicksGame;
+            return;
         }
+
+        NextMortarSpawnTick = MortarSpawnInterval.RandomInRange + Find.TickManager.TicksGame;
+
+        if (!Rand.Chance(Mathf.Max(CurrentGooCoverage, 0.15f)))
+        {
+            return;
+        }
+
+        List<IntVec3> cells = AllMapCells.Where(c => c.Value.IsGooed).Select(c => c.Key).ToList();
+
+        // Don't spawn mortars until there's at least 20 tiles of goo
+        if (cells.Count <= 20)
+        {
+            return;
+        }
+
+        IntVec3 cell = cells.RandomElement();
+        foreach (Thing thing in map.thingGrid.ThingsAt(cell))
+        {
+            thing.Destroy();
+        }
+
+        Thing mortar = ThingMaker.MakeThing(Grey_GooDefOf.MSS_GG_Goo_Mortar);
+        mortar.SetFactionDirect(Find.FactionManager.FirstFactionOfDef(Grey_GooDefOf.GG_GreyGoo));
+        GenSpawn.Spawn(mortar, cell, map);
     }
 
     public void GooTileAt(IntVec3 cell)
