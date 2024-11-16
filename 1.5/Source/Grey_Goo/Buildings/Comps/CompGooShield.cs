@@ -43,7 +43,6 @@ public class CompGooShield : CompProjectileInterceptor, IMapCellProtector
             GreyGoo_MapComponent comp = parent.Map.GetComponent<GreyGoo_MapComponent>();
             comp?.NotifyCellsProtected(this);
             HaveMap = true;
-            comp?.TriggerGooRecheck();
         }
     }
 
