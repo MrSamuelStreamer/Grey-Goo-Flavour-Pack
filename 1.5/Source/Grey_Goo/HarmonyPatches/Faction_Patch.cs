@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Grey_Goo.Buildings.Comps;
 using HarmonyLib;
 using RimWorld;
 using Verse;
@@ -33,10 +34,19 @@ public static class Faction_Patch
 
         List<Thing> thingsToGive = new();
 
-        thingsToGive.Add(ThingMaker.MakeThing(Grey_GooDefOf.MSS_Goo_Scarab_Database).MakeMinified());
+        if (ThingMaker.MakeThing(Grey_GooDefOf.MSS_Goo_Scarab_Database) is Building ScarabDB)
+        {
+            CompFacilityScarabAlly comp = ScarabDB.GetComp<CompFacilityScarabAlly>();
+            if (comp != null)
+            {
+                comp.AllyCheckActive = true;
+            }
+
+            thingsToGive.Add(ScarabDB.MakeMinified());
+        }
 
         Thing plasteel = ThingMaker.MakeThing(ThingDefOf.Plasteel);
-        plasteel.stackCount = 1000;
+        plasteel.stackCount = 500;
         thingsToGive.Add(plasteel);
 
         Thing steel = ThingMaker.MakeThing(ThingDefOf.Steel);
@@ -54,7 +64,7 @@ public static class Faction_Patch
         if (ModLister.AnomalyInstalled)
         {
             Thing bioferrite = ThingMaker.MakeThing(ThingDefOf.Bioferrite);
-            bioferrite.stackCount = 250;
+            bioferrite.stackCount = 120;
             thingsToGive.Add(bioferrite);
 
             Thing shard = ThingMaker.MakeThing(ThingDefOf.Shard);

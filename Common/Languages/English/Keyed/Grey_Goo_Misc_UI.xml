@@ -40,6 +40,10 @@
 
     <MSS_GG_CompGooShieldEnergy>Shield energy: {0}/{1}</MSS_GG_CompGooShieldEnergy>
 
-    <MSS_GG_AlliedWithScarab>After many discussion and debates between you and the leaders of SCARAB, they now realise you are an asset to them, not a threat. You've shown them that the grey goo they've unleashed has become a far greater existential threat than the fungus infection could ever have been.\n\nIn order to help fight back against the goo, SCARAB are sending you some higher tech equipment to help you take part in the fight!\n\nThey are giving you:\n\n{0}</MSS_GG_AlliedWithScarab>
+    <MSS_GG_AlliedWithScarab>After many discussion and debates between you and the leaders of SCARAB, they now realise you are an asset to them, not a threat. You've shown them that the grey goo they've unleashed has become a far greater existential threat than the fungus infection could ever have been.\n\nIn order to help fight back against the goo, SCARAB are sending you some higher tech equipment to help you take part in the fight!\n\nThey are giving you:\n\n{0}\n\nBe careful! If you betray or otherwise alienate SCARAB, they may cut off your access to the database!</MSS_GG_AlliedWithScarab>
     <MSS_GG_AlliedWithScarab_Title>SCARAB Allies Calling!</MSS_GG_AlliedWithScarab_Title>
+
+    <MSS_GG_ScarabDBAccessGranted>\nSCARAB Connection Status: Active</MSS_GG_ScarabDBAccessGranted>
+    <MSS_GG_ScarabDBAccessDenied>\nSCARAB Connection Status: Denied</MSS_GG_ScarabDBAccessDenied>
+    <MSS_GG_ScarabDBAccessHacked>\nSCARAB Connection Status: Hacked</MSS_GG_ScarabDBAccessHacked>
 </LanguageData>

@@ -1,43 +1,51 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <Defs>
-  <ThingDef ParentName="BuildingBase">
-    <defName>MSS_Goo_Scarab_Database</defName>
-    <label>SCARAB Database</label>
-    <description>Unlocks the microelectronics research project when placed near a research bench, and provides a most research speed boost. Each research bench can only use one SCARAB database.</description>
-    <graphicData>
-      <texPath>Things/Buildings/MSS_GG_ScarabDatabase</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>2.0</drawSize>
-    </graphicData>
-    <uiIconScale>0.85</uiIconScale>
-    <size>(2,2)</size>
-    <rotatable>false</rotatable>
-    <altitudeLayer>Building</altitudeLayer>
-    <passability>PassThroughOnly</passability>
-    <castEdgeShadows>true</castEdgeShadows>
-    <fillPercent>0.5</fillPercent>
-    <minifiedDef>MinifiedThing</minifiedDef>
-    <canOverlapZones>false</canOverlapZones>
-    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
-    <building>
-      <destroySound>BuildingDestroyed_Metal_Medium</destroySound>
-    </building>
-    <comps>
-      <li Class="CompProperties_Power">
-        <compClass>CompPowerTrader</compClass>
-        <shortCircuitInRain>true</shortCircuitInRain>
-        <basePowerConsumption>100</basePowerConsumption>
-      </li>
-      <li Class="CompProperties_Flickable"/>
-      <li Class="CompProperties_Facility">
-        <statOffsets>
-          <ResearchSpeedFactor>0.05</ResearchSpeedFactor>
-        </statOffsets>
-        <maxSimultaneous>1</maxSimultaneous>
-      </li>
-    </comps>
-    <placeWorkers>
-      <li>PlaceWorker_ShowFacilitiesConnections</li>
-    </placeWorkers>
-  </ThingDef>
+    <ThingDef ParentName="BuildingBase">
+        <defName>MSS_Goo_Scarab_Database</defName>
+        <label>SCARAB Database</label>
+        <description>Unlocks the microelectronics research project when placed near a research bench, and provides a most research speed boost. Each research bench can only use one SCARAB database.</description>
+        <graphicData>
+            <texPath>Things/Buildings/MSS_GG_ScarabDatabase</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <drawSize>2.0</drawSize>
+        </graphicData>
+        <statBases>
+            <Mass>10</Mass>
+        </statBases>
+        <uiIconScale>0.85</uiIconScale>
+        <size>(2,2)</size>
+        <rotatable>false</rotatable>
+        <altitudeLayer>Building</altitudeLayer>
+        <passability>PassThroughOnly</passability>
+        <castEdgeShadows>true</castEdgeShadows>
+        <fillPercent>0.5</fillPercent>
+        <minifiedDef>MinifiedThing</minifiedDef>
+        <canOverlapZones>false</canOverlapZones>
+        <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+        <thingCategories Inherit="False">
+            <li>BuildingsProduction</li>
+        </thingCategories>
+        <building>
+            <destroySound>BuildingDestroyed_Metal_Medium</destroySound>
+        </building>
+        <comps>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <shortCircuitInRain>true</shortCircuitInRain>
+                <basePowerConsumption>100</basePowerConsumption>
+            </li>
+            <li Class="CompProperties_Flickable"/>
+            <li Class="CompProperties_Facility">
+                <compClass>Grey_Goo.Buildings.Comps.CompFacilityScarabAlly</compClass>
+                <statOffsets>
+                    <ResearchSpeedFactor>0.05</ResearchSpeedFactor>
+                </statOffsets>
+                <maxSimultaneous>1</maxSimultaneous>
+            </li>
+        </comps>
+        <placeWorkers>
+            <li>PlaceWorker_ShowFacilitiesConnections</li>
+        </placeWorkers>
+    </ThingDef>
 </Defs>
