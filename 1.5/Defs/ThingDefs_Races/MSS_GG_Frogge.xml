@@ -200,7 +200,7 @@
         <ai_IsOffensive>true</ai_IsOffensive>
         <aiCanUse>true</aiCanUse>
         <verbProperties>
-            <verbClass>Grey_Goo.Verbs.Verb_CastAbilityConsumeLeapFrogge</verbClass>
+            <verbClass>Verb_CastAbilityConsumeLeap</verbClass>
             <label>consume leap</label>
             <range>9.9</range>
             <requireLineOfSight>true</requireLineOfSight>

@@ -15,6 +15,11 @@ public static class LordToil_EntitySwarm_Patches
     [HarmonyTranspiler]
     public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator il)
     {
+        if (ModLister.HasActiveModWithName("MSS.FlavourPack"))
+        {
+            return instructions;
+        }
+
         List<CodeInstruction> codes = new(instructions);
         int targetIndex = -1;
 
