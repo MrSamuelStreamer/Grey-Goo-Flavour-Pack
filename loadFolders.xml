@@ -3,7 +3,6 @@
 	<v1.5>
 		<li>1.5</li>
 		<li>Common</li>
-		<li IfModActive="garethp.scariacontaminationpatch">Compatibility/garethp.scariacontaminationpatch</li>
 		<li IfModActive="Ludeon.RimWorld.Royalty">Compatibility/Ludeon.RimWorld.Royalty</li>
 		<li IfModActive="Ludeon.RimWorld.Anomaly">Compatibility/Ludeon.RimWorld.Anomaly</li>
         <li IfModActive="RedMattis.BetterPrerequisites">Compatibility/redmattis.betterprerequisites/1.5</li>
