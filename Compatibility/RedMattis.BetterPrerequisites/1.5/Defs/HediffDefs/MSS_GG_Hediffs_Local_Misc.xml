@@ -5,7 +5,7 @@
     <HediffDef>
         <defName>MSS_GG_MergedShambler</defName>
         <hediffClass>Grey_Goo.BS.Shamblers.Hediff_MergedShade</hediffClass>
-        <label>Merged Shambler</label>
+        <label>MSS_GG_MergedShambler_Label</label>
         <labelNoun>Merged Shambler</labelNoun>
         <description>MSS_GG_MergedShambler_Desc</description>
         <tendable>false</tendable>
