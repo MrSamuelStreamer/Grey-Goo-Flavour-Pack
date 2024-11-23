@@ -40,13 +40,13 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="BetterPrerequisites">
-        <HintPath Condition="Exists('../../../../BigSmall_Framework/1.5/Main/Assemblies/BetterPrerequisites.dll')">../../../../BigSmall_Framework/1.5/Main/Assemblies/BetterPrerequisites.dll</HintPath>
+        <!--<HintPath Condition="Exists('../../../../BigSmall_Framework/1.5/Main/Assemblies/BetterPrerequisites.dll')">../../../../BigSmall_Framework/1.5/Main/Assemblies/BetterPrerequisites.dll</HintPath>-->
         <HintPath Condition="Exists('../../../../2925432336/1.5/Main/Assemblies/BetterPrerequisites.dll')">../../../../2925432336/1.5/Main/Assemblies/BetterPrerequisites.dll</HintPath>
         <HintPath Condition="Exists('../../../../../../../workshop/content/294100/2925432336/1.5/Main/Assemblies/BetterPrerequisites.dll')">../../../../../../../workshop/content/294100/2925432336/1.5/Main/Assemblies/BetterPrerequisites.dll</HintPath>
         <Private>False</Private>
     </Reference>
     <Reference Include="BSXeno.dll">
-        <HintPath Condition="Exists('../../../../BigSmall_Framework/1.5/Main/Assemblies/BSXeno.dll')">../../../../BigSmall_Framework/1.5/Main/Assemblies/BSXeno.dll</HintPath>
+        <!--<HintPath Condition="Exists('../../../../BigSmall_Framework/1.5/Main/Assemblies/BSXeno.dll')">../../../../BigSmall_Framework/1.5/Main/Assemblies/BSXeno.dll</HintPath>-->
         <HintPath Condition="Exists('../../../../2925432336/1.5/Main/Assemblies/BSXeno.dll')">../../../../2925432336/1.5/Main/Assemblies/BSXeno.dll</HintPath>
         <HintPath Condition="Exists('../../../../../../../workshop/content/294100/2925432336/1.5/Main/Assemblies/BSXeno.dll')">../../../../../../../workshop/content/294100/2925432336/1.5/Main/Assemblies/BSXeno.dll</HintPath>
         <Private>False</Private>

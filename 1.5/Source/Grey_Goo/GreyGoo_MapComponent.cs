@@ -23,7 +23,6 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
     ];
 
     private ConcurrentDictionary<IntVec3, CellInfo> _allMapCells;
-    public ConcurrentQueue<IntVec3> CellsToChange = new ConcurrentQueue<IntVec3>();
     public float ChanceToApplyDamage = Grey_GooMod.settings.ChanceForGooToDamagePercent;
     private Task CurrentGooRecheckTask;
     private Task CurrentGooUpdateTask;
@@ -45,6 +44,8 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
     public NetRandom RandLocal = new NetRandom();
 
     public bool ShouldGooRecheck = true;
+    public ConcurrentQueue<IntVec3> TerrainToGoo = new();
+    public ConcurrentQueue<IntVec3> TerrainToUnGoo = new();
     public ConcurrentQueue<Thing> ThingsToDamage = new ConcurrentQueue<Thing>();
     public HashSet<IntVec3> ProtectedCellsSet => ProtectedCells.ToHashSet();
 
@@ -85,6 +86,115 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
     };
 
     public static IntRange MortarSpawnInterval => Grey_GooMod.settings.GooMortarSpawnTickRange;
+
+
+    public override void MapComponentTick()
+    {
+        base.MapComponentTick();
+        if (!Grey_GooMod.settings.EnableGoo)
+        {
+            return;
+        }
+
+        StartGooUpdateIfNeeded();
+        StartGooRecheckIfNeeded();
+        ProcessThingsToDamage();
+        ScheduleMortarSpawnIfNeeded();
+        TrySpawnMortar();
+        ProcessGooOrders();
+        ProcessUngooOrders();
+    }
+
+    public void StartGooUpdateIfNeeded()
+    {
+        if ((CurrentGooUpdateTask is null || CurrentGooUpdateTask.IsCompleted) && Find.TickManager.TicksGame >= NextGooUpdateTick && ThingsToDamage.IsEmpty)
+        {
+            CurrentGooUpdateTask = Task.Run(UpdateGoo);
+        }
+    }
+
+    public void StartGooRecheckIfNeeded()
+    {
+        if (CurrentGooRecheckTask is null || CurrentGooRecheckTask.IsCompleted)
+        {
+            CurrentGooRecheckTask = Task.Run(GooRecheck);
+        }
+    }
+
+    public void ProcessThingsToDamage()
+    {
+        const int minIterations = 1;
+        const int maxIterations = 10;
+
+        for (int i = 0; i < Mathf.Max(minIterations, Mathf.Min(maxIterations, ThingsToDamage.Count / 10)); i++)
+        {
+            if (ThingsToDamage.TryDequeue(out Thing thing) && thing != null && thing is { Destroyed: false })
+            {
+                HandleThingDamage(thing);
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    public void ScheduleMortarSpawnIfNeeded()
+    {
+        if (NextMortarSpawnTick < 0)
+        {
+            NextMortarSpawnTick = MortarSpawnInterval.RandomInRange + Find.TickManager.TicksGame;
+        }
+    }
+
+    public void TrySpawnMortar()
+    {
+        if (NextMortarSpawnTick >= Find.TickManager.TicksGame)
+        {
+            return;
+        }
+
+        NextMortarSpawnTick = MortarSpawnInterval.RandomInRange + Find.TickManager.TicksGame;
+
+        if (!Rand.Chance(Mathf.Max(CurrentGooCoverage, 0.15f)))
+        {
+            return;
+        }
+
+        List<IntVec3> cells = AllMapCells.Where(c => c.Value.IsGooed).Select(c => c.Key).ToList();
+
+        // Don't spawn mortars until there's at least 20 tiles of goo
+        if (cells.Count <= 20)
+        {
+            return;
+        }
+
+        IntVec3 cell = cells.RandomElement();
+        foreach (Thing thing in map.thingGrid.ThingsAt(cell))
+        {
+            thing.Destroy();
+        }
+
+        Thing mortar = ThingMaker.MakeThing(Grey_GooDefOf.MSS_GG_Goo_Mortar);
+        mortar.SetFactionDirect(Find.FactionManager.FirstFactionOfDef(Grey_GooDefOf.GG_GreyGoo));
+        GenSpawn.Spawn(mortar, cell, map);
+    }
+
+    public void ProcessGooOrders()
+    {
+        while (TerrainToGoo.TryDequeue(out IntVec3 cell))
+        {
+            map.terrainGrid.TryGooTerrain(cell);
+        }
+    }
+
+    public void ProcessUngooOrders()
+    {
+        while (TerrainToUnGoo.TryDequeue(out IntVec3 cell))
+        {
+            map.terrainGrid.TryDeactivateGooTerrain(cell);
+        }
+    }
 
     public void UpdateGoo()
     {
@@ -147,7 +257,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
                 float fertility = map.fertilityGrid.FertilityAt(nCell);
 
                 float spreadChance =
-                    Mathf.Min(1f, 0.01f + Mathf.Max(0, (fertility - 0.5f) / 100f) * ChanceToSpreadGoo * WorldMapSiteCoverageMultiplier); // can still spread on infertile terrain
+                    Mathf.Min(1f, 0.001f + Mathf.Max(0f, (fertility - 0.5f) / 100f) * ChanceToSpreadGoo * WorldMapSiteCoverageMultiplier); // can still spread on infertile terrain
 
                 if (GooBoosted)
                 {
@@ -267,7 +377,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
                 // Ensure goo cell in protected tiles are "deactivated"
                 if (newCellInfo.Terrain == Grey_GooDefOf.GG_Goo && ProtectedCellsSet.Contains(cell))
                 {
-                    map.terrainGrid.TryDeactivateGooTerrain(cell);
+                    TerrainToUnGoo.Enqueue(cell);
                     newCellInfo.Terrain = Grey_GooDefOf.GG_Goo_Inactive;
                     newCellInfo.IsGooed = false;
                     newCellInfo.IsActive = false;
@@ -275,7 +385,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
                 // check if a tile is inactive goo, and not in protected tiles, and convert back to active goo
                 else if (newCellInfo.Terrain == Grey_GooDefOf.GG_Goo_Inactive && !ProtectedCellsSet.Contains(cell))
                 {
-                    map.terrainGrid.TryGooTerrain(cell);
+                    TerrainToGoo.Enqueue(cell);
                     newCellInfo.Terrain = Grey_GooDefOf.GG_Goo;
                     newCellInfo.IsGooed = true;
                     newCellInfo.IsActive = true;
@@ -292,51 +402,6 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
     {
         if (thing is not Pawn pawn) return false;
         return pawn.apparel?.WornApparel != null && pawn.apparel.WornApparel.Any(a => a.def == Grey_GooDefOf.MSS_GG_GooWaders);
-    }
-
-    public override void MapComponentTick()
-    {
-        base.MapComponentTick();
-        if (!Grey_GooMod.settings.EnableGoo) return;
-
-        StartGooUpdateIfNeeded();
-        StartGooRecheckIfNeeded();
-        ProcessThingsToDamage();
-        ScheduleMortarSpawnIfNeeded();
-        TrySpawnMortar();
-    }
-
-    public void StartGooUpdateIfNeeded()
-    {
-        if ((CurrentGooUpdateTask is null || CurrentGooUpdateTask.IsCompleted) && Find.TickManager.TicksGame >= NextGooUpdateTick && ThingsToDamage.IsEmpty &&
-            CellsToChange.IsEmpty)
-            CurrentGooUpdateTask = Task.Run(UpdateGoo);
-    }
-
-    public void StartGooRecheckIfNeeded()
-    {
-        if (CurrentGooRecheckTask is null || CurrentGooRecheckTask.IsCompleted)
-        {
-            CurrentGooRecheckTask = Task.Run(GooRecheck);
-        }
-    }
-
-    public void ProcessThingsToDamage()
-    {
-        const int minIterations = 1;
-        const int maxIterations = 10;
-
-        for (int i = 0; i < Mathf.Max(minIterations, Mathf.Min(maxIterations, ThingsToDamage.Count / 10)); i++)
-        {
-            if (ThingsToDamage.TryDequeue(out Thing thing) && thing != null && thing is { Destroyed: false })
-            {
-                HandleThingDamage(thing);
-            }
-            else
-            {
-                break;
-            }
-        }
     }
 
     public void HandleThingDamage(Thing thing)
@@ -381,51 +446,10 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         }
     }
 
-    public void ScheduleMortarSpawnIfNeeded()
-    {
-        if (NextMortarSpawnTick < 0)
-        {
-            NextMortarSpawnTick = MortarSpawnInterval.RandomInRange + Find.TickManager.TicksGame;
-        }
-    }
-
-    public void TrySpawnMortar()
-    {
-        if (NextMortarSpawnTick >= Find.TickManager.TicksGame)
-        {
-            return;
-        }
-
-        NextMortarSpawnTick = MortarSpawnInterval.RandomInRange + Find.TickManager.TicksGame;
-
-        if (!Rand.Chance(Mathf.Max(CurrentGooCoverage, 0.15f)))
-        {
-            return;
-        }
-
-        List<IntVec3> cells = AllMapCells.Where(c => c.Value.IsGooed).Select(c => c.Key).ToList();
-
-        // Don't spawn mortars until there's at least 20 tiles of goo
-        if (cells.Count <= 20)
-        {
-            return;
-        }
-
-        IntVec3 cell = cells.RandomElement();
-        foreach (Thing thing in map.thingGrid.ThingsAt(cell))
-        {
-            thing.Destroy();
-        }
-
-        Thing mortar = ThingMaker.MakeThing(Grey_GooDefOf.MSS_GG_Goo_Mortar);
-        mortar.SetFactionDirect(Find.FactionManager.FirstFactionOfDef(Grey_GooDefOf.GG_GreyGoo));
-        GenSpawn.Spawn(mortar, cell, map);
-    }
-
     public void GooTileAt(IntVec3 cell)
     {
         CellInfo info = AllMapCells[cell];
-        map.terrainGrid.TryGooTerrain(cell);
+        TerrainToGoo.Enqueue(cell);
         CellInfo newCI = new CellInfo { IsGooed = true, IsActive = true, Terrain = Grey_GooDefOf.GG_Goo };
         AllMapCells.TryUpdate(cell, newCI, info);
     }
@@ -438,7 +462,7 @@ public class GreyGoo_MapComponent(Map map) : MapComponent(map)
         {
             CellInfo info = AllMapCells[cell];
             // Ensure goo cell in protected tiles are "deactivated"
-            map.terrainGrid.TryDeactivateGooTerrain(cell);
+            TerrainToUnGoo.Enqueue(cell);
             AllMapCells.TryUpdate(cell, new CellInfo { IsActive = false, IsGooed = false }, info);
         });
     }

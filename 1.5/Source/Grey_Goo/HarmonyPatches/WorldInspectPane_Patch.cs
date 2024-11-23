@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
+﻿using System.Text;
 using HarmonyLib;
-using RimWorld;
 using RimWorld.Planet;
 using UnityEngine;
 using Verse;
@@ -29,7 +24,7 @@ public static class WorldInspectPane_Patch
             {
                 StringBuilder res = new StringBuilder(__result);
                 res.Append("\n");
-                res.Append("MSS_GG_TileInspectString".Translate((100*gooLevelAt).ToString("0.00")));
+                res.Append("MSS_GG_TileInspectString".Translate((100 * gooLevelAt).ToString("0.00")));
 
                 __result = res.ToString();
             }
