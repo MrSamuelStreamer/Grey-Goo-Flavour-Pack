@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
 	<Operation Class="PatchOperationReplace">
-		<xpath>Defs/ThingDef[defName="SimpleResearchBench"]/comps</xpath>
+		<xpath>Defs/ThingDef[defName="HiTechResearchBench"]/comps</xpath>
 		<value>
 			<comps Inherit="False">
 				<li Class="CompProperties_ReportWorkSpeed">
-				  <workSpeedStat>ResearchSpeedFactor</workSpeedStat>
-				  <displayReasons>false</displayReasons>
+					<workSpeedStat>ResearchSpeedFactor</workSpeedStat>
+					<displayReasons>false</displayReasons>
 				</li>
+				<li Class="CompProperties_Power">
+					<compClass>CompPowerTrader</compClass>
+					<basePowerConsumption>250</basePowerConsumption>
+					<shortCircuitInRain>true</shortCircuitInRain>
+				</li>
+				<li Class="CompProperties_Flickable"/>
 				<li Class="CompProperties_AffectedByFacilities">
 					<linkableFacilities>
-					  <li>MSS_Goo_Scarab_Database</li>
+					<li>MultiAnalyzer</li>
+					<li>MSS_Goo_Scarab_Database</li>
 					</linkableFacilities>
 				</li>
 			</comps>
