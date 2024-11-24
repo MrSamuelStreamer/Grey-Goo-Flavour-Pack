@@ -19,4 +19,15 @@
             </li>
         </modExtensions>
     </GeneDef>
+
+    <GeneDef>
+        <defName>MSS_GG_EMP_Weakness</defName>
+        <label>EMP Weakness</label>
+        <labelShortAdj>EMP Weakness</labelShortAdj>
+        <description>Carriers of this gene are have a weakness to EMP pulses.</description>
+        <iconPath>Genes/MSS_GG_EMP_Gene</iconPath>
+        <displayCategory>Violence</displayCategory>
+        <displayOrderInCategory>60</displayOrderInCategory>
+        <geneClass>Grey_Goo.Gene_EMP_Weakness</geneClass>
+    </GeneDef>
 </Defs>

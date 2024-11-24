@@ -35,6 +35,7 @@
             <li>AptitudeTerrible_Social</li>
             <li MayRequire="redmattis.betterprerequisites">BS_FacialAnimDisabled</li>
             <li>MSS_GG_GooSpreader</li>
+            <li>MSS_GG_EMP_Weakness</li>
         </genes>
     </XenotypeDef>
     <!-- <XenotypeDef>
